@@ -16,6 +16,20 @@ class CreateFoodsTable extends Migration
         Schema::create('foods', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('brand')->nullable();
+            $table->integer('serving')->default(0);
+            $table->enum('unit', ['gram', 'milliliter', 'kilogram', 'liter'])->default('gram');
+            $table->decimal('calories', 5, 2)->default(0);
+            $table->decimal('fat', 5, 2)->default(0);
+            $table->decimal('fat_satured', 5, 2)->default(0);
+            $table->decimal('cholesterol', 5, 2)->default(0);
+            $table->decimal('salt', 5, 2)->default(0);
+            $table->decimal('carbohydrates', 5, 2)->default(0);
+            $table->decimal('carbohydrates_fiber', 5, 2)->default(0);
+            $table->decimal('carbohydrates_sugars', 5, 2)->default(0);
+            $table->decimal('protein', 5, 2)->default(0);
+            $table->boolean('public')->default(0);
+
             $table->timestamps();
         });
     }

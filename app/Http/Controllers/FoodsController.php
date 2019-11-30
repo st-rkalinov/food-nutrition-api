@@ -11,6 +11,8 @@ class FoodsController extends Controller
     {
         Food::create([
             'name' => \request('name'),
+            'protein' => \request('protein'),
+            'public' => \request('public')
         ]);
     }
 }

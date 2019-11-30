@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Food;
-use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -16,7 +15,6 @@ class FoodsTest extends TestCase
      */
     public function can_be_added()
     {
-        $this->withoutExceptionHandling();
         $user = $this->login();
 
         $this->post('/api/foods', $this->data(['api_token' => $user->api_token]));
@@ -29,9 +27,20 @@ class FoodsTest extends TestCase
     */
     public function cant_be_added_from_guest()
     {
+        $response = $this->post('/api/foods', $this->data());
 
+        $this->assertCount(0, Food::all());
+        $response->assertRedirect('/login');
     }
 
+    /**
+    * @test
+    */
+    public function guest_should_be_redirected_to_login_page()
+    {
+        $response = $this->get('/api/foods');
+        $response->assertRedirect('/login');
+    }
 
     protected function data(array $additionalData = []) {
         $data = [

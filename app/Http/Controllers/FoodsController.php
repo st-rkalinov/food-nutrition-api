@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Food;
-use Illuminate\Http\Request;
+use App\Http\Requests\FoodStoreRequest;
 
 class FoodsController extends Controller
 {
-    public function store()
+    public function store(FoodStoreRequest $request)
     {
-        Food::create([
-            'name' => \request('name'),
-            'protein' => \request('protein'),
-            'public' => \request('public')
-        ]);
+        Food::create($request->validated());
     }
+
 }

@@ -17,4 +17,10 @@ class FoodsController extends Controller
         Food::create($request->validated());
     }
 
+    public function update(Food $food, FoodStoreRequest $request)
+    {
+        $food->update($request->validated());
+
+        return $food;
+    }
 }

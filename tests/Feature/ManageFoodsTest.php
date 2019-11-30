@@ -15,9 +15,7 @@ class ManageFoodsTest extends TestCase
      */
     public function user_can_add_a_food()
     {
-        $user = $this->login();
-
-        $this->post('/api/foods', $this->data(['api_token' => $user->api_token]));
+        $this->post('/api/foods', $this->data());
 
         $this->assertCount(1, Food::all());
     }
@@ -49,10 +47,9 @@ class ManageFoodsTest extends TestCase
         * @var Food $food
         */
         $food = factory(Food::class)->create();
-        $user = $this->login();
 
         $response = $this->patch($food->path(),
-            $this->data(['name' => 'Changed', 'api_token' => $user->api_token]));
+            $this->data(['name' => 'Changed']));
 
         $this->assertCount(1, Food::all());
         $food = $food->fresh();
@@ -68,8 +65,6 @@ class ManageFoodsTest extends TestCase
      */
     public function user_can_delete_a_food()
     {
-        $this->withoutExceptionHandling();
-
         $food = factory(Food::class)->create();
         $user = $this->login();
 
@@ -105,72 +100,20 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function guest_cant_add_a_food()
-    {
-        $response = $this->post('/api/foods', $this->data());
-
-        $this->assertCount(0, Food::all());
-        $response->assertRedirect('/login');
-    }
-
-    /**
-    * @test
-    */
-    public function guest_cant_retrieve_a_food()
-    {
-        $food = factory(Food::class)->create();
-
-        $response = $this->get('/api/foods/' . $food->id);
-
-        $response->assertRedirect('/login');
-    }
-
-    /**
-    * @test
-    */
-    public function guest_cant_update_a_food()
+    public function guest_cant_manage_a_food()
     {
         /**
         * @var Food $food
         */
         $food = factory(Food::class)->create();
 
-        $response = $this->patch($food->path(), $this->data(['name' => 'Changed']));
+        $this->post('/api/foods', $this->data(['api_token' => '']))->assertRedirect('/login');
+        $this->get('/api/foods')->assertRedirect('/login');
+        $this->get($food->path())->assertRedirect('/login');
+        $this->patch($food->path(), $this->data(['name' => 'Changed', 'api_token' => '']))->assertRedirect('/login');
+        $this->delete($food->path())->assertRedirect('/login');
 
-        $response->assertRedirect('/login');
-    }
-
-    /**
-    * @test
-    */
-    public function guest_cant_delete_a_food()
-    {
-        $food = factory(Food::class)->create();
-
-        $response = $this->delete($food->path());
-
-        $response->assertRedirect('/login');
-    }
-
-    /**
-    * @test
-    */
-    public function guest_cant_fetch_foods()
-    {
-        $foods = factory(Food::class, 2)->create();
-
-        $response = $this->get('/api/foods');
-
-        $response->assertRedirect('/login');
-    }
-
-    /**
-    * @test
-    */
-    public function guest_should_be_redirected_to_login_page()
-    {
-        $response = $this->get('/api/foods');
-        $response->assertRedirect('/login');
+        $this->assertCount(1, Food::all());
     }
 
     protected function data(array $additionalData = []) {
@@ -189,6 +132,7 @@ class ManageFoodsTest extends TestCase
             'carbohydrates_sugars' => 10.4,
             'protein' => 0.3,
             'public' => false,
+            'api_token' => $this->login()->api_token,
         ];
 
         return array_merge($data, $additionalData);

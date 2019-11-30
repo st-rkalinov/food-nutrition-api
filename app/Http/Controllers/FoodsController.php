@@ -7,6 +7,13 @@ use App\Http\Requests\FoodStoreRequest;
 
 class FoodsController extends Controller
 {
+    public function index()
+    {
+        $foods = Food::all();
+
+        return $foods;
+    }
+
     public function show(Food $food)
     {
         return $food;

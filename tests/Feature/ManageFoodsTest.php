@@ -82,6 +82,29 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
+    public function user_can_fetch_foods()
+    {
+        /**
+        * @var Food $food
+        */
+        $foods = factory(Food::class, 2)->create();
+        $user = $this->login();
+
+        //make request
+        $response = $this->get('/api/foods?api_token=' . $user->api_token);
+        //check database count
+        $this->assertCount(2, Food::all());
+
+        //check if proper json is returned
+        $response->assertJson([
+            $this->jsonData($foods[0]),
+            $this->jsonData($foods[1])
+        ]);
+    }
+
+    /**
+    * @test
+    */
     public function guest_cant_add_a_food()
     {
         $response = $this->post('/api/foods', $this->data());
@@ -125,6 +148,18 @@ class ManageFoodsTest extends TestCase
         $food = factory(Food::class)->create();
 
         $response = $this->delete($food->path());
+
+        $response->assertRedirect('/login');
+    }
+
+    /**
+    * @test
+    */
+    public function guest_cant_fetch_foods()
+    {
+        $foods = factory(Food::class, 2)->create();
+
+        $response = $this->get('/api/foods');
 
         $response->assertRedirect('/login');
     }

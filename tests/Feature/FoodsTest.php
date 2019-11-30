@@ -13,7 +13,7 @@ class FoodsTest extends TestCase
     /**
      * @test
      */
-    public function can_be_added()
+    public function user_can_add_a_food()
     {
         $user = $this->login();
 
@@ -25,11 +25,56 @@ class FoodsTest extends TestCase
     /**
     * @test
     */
-    public function cant_be_added_from_guest()
+    public function user_can_retrieve_a_food()
+    {
+        $user = $this->login();
+
+        /**
+        * @var Food $food
+        */
+        $food = factory(Food::class)->create();
+
+        $response = $this->get('/api/foods/' . $food->id . '?api_token=' . $user->api_token );
+
+        $response->assertJson([
+            'name' => $food->name,
+            'brand' => $food->brand,
+            'serving' => $food->serving,
+            'unit' => $food->unit,
+            'calories' => $food->calories,
+            'fat' => $food->fat,
+            'fat_satured' => $food->fat_satured,
+            'cholesterol' => $food->cholesterol,
+            'salt' => $food->salt,
+            'carbohydrates' => $food->carbohydrates,
+            'carbohydrates_fiber' => $food->carbohydrates_fiber,
+            'carbohydrates_sugars' => $food->carbohydrates_sugars,
+            'protein' => $food->protein,
+            'public' => $food->public,
+        ]);
+
+    }
+
+    /**
+    * @test
+    */
+    public function guest_cant_add_a_food()
     {
         $response = $this->post('/api/foods', $this->data());
 
         $this->assertCount(0, Food::all());
+        $response->assertRedirect('/login');
+    }
+
+    /**
+    * @test
+    */
+    public function guest_cant_retrieve_a_food()
+    {
+        $food = factory(Food::class)->create();
+
+        $response = $this->get('/api/foods/' . $food->id);
+
         $response->assertRedirect('/login');
     }
 

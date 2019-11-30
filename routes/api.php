@@ -14,5 +14,5 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->group( function () {
+    Route::post('/foods', 'FoodsController@store');
 });
-Route::post('/foods', 'FoodsController@store');

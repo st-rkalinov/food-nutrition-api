@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Food;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,13 +16,25 @@ class FoodsTest extends TestCase
      */
     public function can_be_added()
     {
-        $this->post('/api/foods', $this->data());
+        $this->withoutExceptionHandling();
+        $user = $this->login();
+
+        $this->post('/api/foods', $this->data(['api_token' => $user->api_token]));
 
         $this->assertCount(1, Food::all());
     }
 
-    protected function data() {
-        return [
+    /**
+    * @test
+    */
+    public function cant_be_added_from_guest()
+    {
+
+    }
+
+
+    protected function data(array $additionalData = []) {
+        $data = [
             'name' => 'Apple',
             'brand' => null,
             'serving' => 100,
@@ -37,5 +50,7 @@ class FoodsTest extends TestCase
             'protein' => 0.3,
             'public' => false,
         ];
+
+        return array_merge($data, $additionalData);
     }
 }

@@ -64,6 +64,22 @@ class ManageFoodsTest extends TestCase
     }
 
     /**
+     * @test
+     */
+    public function user_can_delete_a_food()
+    {
+        $this->withoutExceptionHandling();
+
+        $food = factory(Food::class)->create();
+        $user = $this->login();
+
+        $response = $this->delete($food->path(), ['api_token' => $user->api_token]);
+
+        $this->assertCount(0, Food::all());
+        $response->assertRedirect('/foods');
+    }
+
+    /**
     * @test
     */
     public function guest_cant_add_a_food()
@@ -97,6 +113,18 @@ class ManageFoodsTest extends TestCase
         $food = factory(Food::class)->create();
 
         $response = $this->patch($food->path(), $this->data(['name' => 'Changed']));
+
+        $response->assertRedirect('/login');
+    }
+
+    /**
+    * @test
+    */
+    public function guest_cant_delete_a_food()
+    {
+        $food = factory(Food::class)->create();
+
+        $response = $this->delete($food->path());
 
         $response->assertRedirect('/login');
     }

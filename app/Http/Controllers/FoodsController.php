@@ -23,4 +23,11 @@ class FoodsController extends Controller
 
         return $food;
     }
+
+    public function destroy(Food $food)
+    {
+        $food->delete();
+
+        return redirect('/foods');
+    }
 }

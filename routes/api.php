@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->group( function () {
     Route::get('/foods', 'FoodsController@index');
     Route::get('/foods/{food}', 'FoodsController@show');
+    Route::post('/foods', 'FoodsController@store');
     Route::patch('/foods/{food}', 'FoodsController@update');
     Route::delete('/foods/{food}', 'FoodsController@destroy');
-    Route::post('/foods', 'FoodsController@store');
 });

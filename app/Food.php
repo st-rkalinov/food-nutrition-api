@@ -45,6 +45,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Food whereSalt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Food whereServing($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Food whereUnit($value)
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Food whereUserId($value)
  */
 class Food extends Model
 {

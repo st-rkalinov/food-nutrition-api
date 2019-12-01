@@ -33,6 +33,8 @@ use Illuminate\Notifications\Notifiable;
  * @mixin \Eloquent
  * @property string $api_token
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereApiToken($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Food[] $foods
+ * @property-read int|null $foods_count
  */
 class User extends Authenticatable
 {

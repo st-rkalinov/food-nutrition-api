@@ -5,22 +5,28 @@ namespace Tests\Feature;
 use App\Food;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Setup\FoodFactory;
 use Tests\TestCase;
 
 class ManageFoodsTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+    * @var User user
+    */
     protected $user;
+    /**
+    * @var FoodFactory $foodFactory
+    */
+    protected $foodFactory;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /**
-        * @var User user
-        */
         $this->user = factory(User::class)->create();
+        $this->foodFactory = app(FoodFactory::class);
     }
 
     /**
@@ -43,7 +49,9 @@ class ManageFoodsTest extends TestCase
         /**
         * @var Food $food
         */
-        $food = factory(Food::class)->create(['public' => true, 'user_id' => $mike->id]);
+        $food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => true]);
 
         $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
 
@@ -60,7 +68,9 @@ class ManageFoodsTest extends TestCase
         /**
         * @var Food $food
         */
-        $food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+        $food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false]);
 
         $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
 
@@ -72,8 +82,13 @@ class ManageFoodsTest extends TestCase
     */
     public function user_can_retrieve_a_food_he_owns()
     {
-        $food = factory(Food::class)->create(['public' => false, 'user_id' => $this->user->id]);
-        $food1 = factory(Food::class)->create(['user_id' => $this->user->id]);
+        $food = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create(['public' => false]);
+
+        $food1 = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create();
 
         collect([$food, $food1])->each(function ($food) {
             $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
@@ -89,7 +104,9 @@ class ManageFoodsTest extends TestCase
         /**
         * @var Food $food
         */
-        $food = factory(Food::class)->create(['user_id' => $this->user->id]);
+        $food = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create();
 
         $response = $this->patch($food->path(),
             $this->data(['name' => 'Changed']));
@@ -108,7 +125,9 @@ class ManageFoodsTest extends TestCase
     public function user_cannot_update_a_food_he_doesnt_own()
     {
         $mike = factory(User::class)->create();
-        $mikes_food = factory(Food::class)->create(['user_id' => $mike->id]);
+        $mikes_food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create();
 
         $response = $this->patch($mikes_food->path(), $this->data(['name' => 'Changed']));
 
@@ -125,8 +144,13 @@ class ManageFoodsTest extends TestCase
         $john = $this->user;
         $mike = factory(User::class)->create();
 
-        $johns_food = factory(Food::class)->create(['public' => true, 'user_id' => $john->id]);
-        $mikes_food = factory(Food::class)->create(['public' => true, 'user_id' => $mike->id]);
+        $johns_food = $this->foodFactory
+            ->ownedBy($john)
+            ->create(['public' => true]);
+
+        $mikes_food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => true]);
 
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
 
@@ -150,8 +174,13 @@ class ManageFoodsTest extends TestCase
         $john = $this->user;
         $mike = factory(User::class)->create();
 
-        $johns_food = factory(Food::class)->create(['public' => false, 'user_id' => $john->id]);
-        $mikes_food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+        $johns_food = $this->foodFactory
+            ->ownedBy($john)
+            ->create(['public' => false]);
+
+        $mikes_food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false]);
 
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
 
@@ -172,8 +201,13 @@ class ManageFoodsTest extends TestCase
         $john = $this->user;
         $mike = factory(User::class)->create();
 
-        $mikes_food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
-        $mikes_food2 = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+        $mikes_food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false]);
+
+        $mikes_food2 = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false]);
 
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
 
@@ -187,7 +221,9 @@ class ManageFoodsTest extends TestCase
      */
     public function user_can_delete_a_food_he_owns()
     {
-        $food = factory(Food::class)->create(['user_id' => $this->user->id]);
+        $food = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create();
 
         $response = $this->delete($food->path(), ['api_token' => $this->user->api_token]);
 
@@ -201,8 +237,9 @@ class ManageFoodsTest extends TestCase
     public function user_cannot_delete_a_food_he_doesnt_own()
     {
         $mike = factory(User::class)->create();
-
-        $mikes_food = factory(Food::class)->create(['user_id' => $mike->id]);
+        $mikes_food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create();
 
         $response = $this->delete($mikes_food->path(), $this->data());
 
@@ -218,7 +255,9 @@ class ManageFoodsTest extends TestCase
         /**
         * @var Food $food
         */
-        $food = factory(Food::class)->create(['user_id' => $this->user->id]);
+        $food = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create();
 
         $this->post('/api/foods', $this->data(['api_token' => '']))->assertRedirect('/login');
         $this->get('/api/foods')->assertRedirect('/login');

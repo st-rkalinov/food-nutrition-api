@@ -128,9 +128,25 @@ class ManageFoodsTest extends TestCase
             'public' => 'test'
         ]));
 
+        $this->assertCount(0, Food::all());
+
         $response->assertSessionHasErrors([
             'name', 'serving', 'unit', 'public'
         ]);
+    }
+
+    /**
+    * @test
+    */
+    public function fields_are_required()
+    {
+        collect(['name', 'serving', 'unit', 'calories'])
+            ->each(function ($field) {
+                $response = $this->post('/api/foods', $this->data([$field => '']));
+
+                $this->assertCount(0, Food::all());
+                $response->assertSessionHasErrors([$field]);
+            });
     }
 
     protected function data(array $additionalData = []) {

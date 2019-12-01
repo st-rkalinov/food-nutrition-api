@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -55,5 +56,16 @@ class Food extends Model
     public function path()
     {
         return '/api/foods/' . $this->id;
+    }
+
+    /**
+     * Return foods available for every user
+     *
+     * @param $query
+     * @return Builder
+     */
+    public function scopeAvailableForAll($query)
+    {
+        return $query->where('public', '=', true)->orWhere('user_id', '=', auth()->user()->id);
     }
 }

@@ -12,7 +12,7 @@ class FoodsController extends Controller
     {
         $this->authorize('viewAny', Food::class);
 
-        return Food::all();
+        return Food::availableForAll()->get();
     }
 
     public function show(Food $food)

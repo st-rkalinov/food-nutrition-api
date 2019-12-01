@@ -36,16 +36,49 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function user_can_retrieve_a_food()
+    public function user_can_retrieve_a_public_food()
     {
+        $mike = factory(User::class)->create();
+
         /**
         * @var Food $food
         */
-        $food = factory(Food::class)->create(['user_id' => $this->user->id]);
+        $food = factory(Food::class)->create(['public' => true, 'user_id' => $mike->id]);
 
         $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
 
         $response->assertJson($this->jsonData($food));
+    }
+
+    /**
+    * @test
+    */
+    public function user_cannot_retrieve_a_non_public_food_he_doesnt_own()
+    {
+        $mike = factory(User::class)->create();
+
+        /**
+        * @var Food $food
+        */
+        $food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+
+        $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
+
+        $response->assertStatus(403);
+    }
+
+    /**
+    * @test
+    */
+    public function user_can_retrieve_a_food_he_owns()
+    {
+        $food = factory(Food::class)->create(['public' => false, 'user_id' => $this->user->id]);
+        $food1 = factory(Food::class)->create(['user_id' => $this->user->id]);
+
+        collect([$food, $food1])->each(function ($food) {
+            $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
+            $response->assertJson($this->jsonData($food));
+        });
     }
 
     /**
@@ -72,7 +105,7 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function user_cant_update_a_food_he_doesnt_own()
+    public function user_cannot_update_a_food_he_doesnt_own()
     {
         $mike = factory(User::class)->create();
         $mikes_food = factory(Food::class)->create(['user_id' => $mike->id]);
@@ -87,13 +120,13 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function user_can_fetch_foods()
+    public function user_can_fetch_public_foods()
     {
         $john = $this->user;
         $mike = factory(User::class)->create();
 
-        $johns_food = factory(Food::class)->create(['user_id' => $john->id]);
-        $mikes_food = factory(Food::class)->create(['user_id' => $mike->id]);
+        $johns_food = factory(Food::class)->create(['public' => true, 'user_id' => $john->id]);
+        $mikes_food = factory(Food::class)->create(['public' => true, 'user_id' => $mike->id]);
 
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
 
@@ -104,9 +137,49 @@ class ManageFoodsTest extends TestCase
                     'id' => $johns_food->id,
                 ],
                 [
-                    'id' => $mikes_food->id,
+                    'id' => $mikes_food->id
                 ]
             ]);
+    }
+
+    /**
+    * @test
+    */
+    public function user_can_fetch_non_public_foods_he_owns()
+    {
+        $john = $this->user;
+        $mike = factory(User::class)->create();
+
+        $johns_food = factory(Food::class)->create(['public' => false, 'user_id' => $john->id]);
+        $mikes_food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+
+        $response = $this->get('/api/foods?api_token=' . $john->api_token);
+
+        $this->assertCount(2, Food::all());
+        $response->assertJsonCount(1)
+            ->assertJson([
+                [
+                    'id' => $johns_food->id,
+                ],
+            ]);
+    }
+
+    /**
+    * @test
+    */
+    public function user_cannot_fetch_non_public_foods_he_doesnt_own()
+    {
+        $john = $this->user;
+        $mike = factory(User::class)->create();
+
+        $mikes_food = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+        $mikes_food2 = factory(Food::class)->create(['public' => false, 'user_id' => $mike->id]);
+
+        $response = $this->get('/api/foods?api_token=' . $john->api_token);
+
+        $this->assertCount(2, Food::all());
+        $response->assertJsonCount(0)
+            ->assertJson([]);
     }
 
     /**
@@ -125,7 +198,7 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function user_cant_delete_a_food_he_doesnt_own()
+    public function user_cannot_delete_a_food_he_doesnt_own()
     {
         $mike = factory(User::class)->create();
 
@@ -140,7 +213,7 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
-    public function guest_cant_manage_a_food()
+    public function guest_cannot_manage_a_food()
     {
         /**
         * @var Food $food

@@ -116,6 +116,23 @@ class ManageFoodsTest extends TestCase
         $this->assertCount(1, Food::all());
     }
 
+    /**
+    * @test
+    */
+    public function data_is_invalid()
+    {
+        $response = $this->post('/api/foods', $this->data([
+            'name' => 100,
+            'serving' => 'invalid',
+            'unit' => 'no-unit',
+            'public' => 'test'
+        ]));
+
+        $response->assertSessionHasErrors([
+            'name', 'serving', 'unit', 'public'
+        ]);
+    }
+
     protected function data(array $additionalData = []) {
         $data = [
             'name' => 'Apple',

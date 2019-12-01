@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Food;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -58,6 +59,25 @@ class ManageFoodsTest extends TestCase
 
         $response->assertJson($this->jsonData($food, ['name' => 'Changed']));
         //assert json with new value is returned
+    }
+
+    /**
+    * @test
+    */
+    public function user_cant_fetch_foods_he_doesnt_own()
+    {
+        $john = $this->login();
+        $mike = factory(User::class)->create();
+
+        $johns_food = factory(Food::class)->create(['user_id' => $john->id]);
+        $mikes_food = factory(Food::class)->create(['user_id' => $mike->id]);
+
+        $response = $this->get('/api/foods?api_token=' . $john->api_token);
+
+        $response->assertJsonCount(1)
+            ->assertJson([[
+                'id' => $johns_food->id,
+            ]]);
     }
 
     /**

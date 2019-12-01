@@ -9,7 +9,7 @@ class FoodsController extends Controller
 {
     public function index()
     {
-        $foods = Food::all();
+        $foods = auth()->user()->foods;
 
         return $foods;
     }

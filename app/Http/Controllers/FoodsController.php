@@ -10,16 +10,22 @@ class FoodsController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Food::class);
+
         return Food::all();
     }
 
     public function show(Food $food)
     {
+        $this->authorize('view', $food);
+
         return $food;
     }
 
     public function store(FoodStoreRequest $request)
     {
+        $this->authorize('create', Food::class);
+
         /**
         * @var User $user
         */
@@ -39,6 +45,8 @@ class FoodsController extends Controller
 
     public function destroy(Food $food)
     {
+        $this->authorize('delete', $food);
+
         $food->delete();
 
         return redirect('/foods');

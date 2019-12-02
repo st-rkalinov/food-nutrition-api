@@ -11,17 +11,6 @@ class FoodPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any foods.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function viewAny(User $user)
-    {
-        return true;
-    }
-
-    /**
      * Determine whether the user can view the food.
      *
      * @param  \App\User  $user

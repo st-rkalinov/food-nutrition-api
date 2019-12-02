@@ -337,10 +337,10 @@ class ManageFoodsTest extends TestCase
 
     protected function jsonDataCollection(array $foods)
     {
-        $test['data'] = collect($foods)->map(function($item, $key) {
+        $data['data'] = collect($foods)->map(function($item, $key) {
            return $this->jsonData($item);
         })->toArray();
 
-        return $test;
+        return $data;
     }
 }

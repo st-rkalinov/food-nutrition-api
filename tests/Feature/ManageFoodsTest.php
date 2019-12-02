@@ -107,7 +107,6 @@ class ManageFoodsTest extends TestCase
         $food = $this->foodFactory
             ->ownedBy($this->user)
             ->create();
-
         $response = $this->patch($food->path(),
             $this->data(['name' => 'Changed']));
 
@@ -325,23 +324,11 @@ class ManageFoodsTest extends TestCase
 
     protected function jsonData(Food $food, array $additionalData = [])
     {
-        $data = [
-            'name' => $food->name,
-            'brand' => $food->brand,
-            'serving' => $food->serving,
-            'unit' => $food->unit,
-            'calories' => $food->calories,
-            'fat' => $food->fat,
-            'fat_satured' => $food->fat_satured,
-            'cholesterol' => $food->cholesterol,
-            'salt' => $food->salt,
-            'carbohydrates' => $food->carbohydrates,
-            'carbohydrates_fiber' => $food->carbohydrates_fiber,
-            'carbohydrates_sugars' => $food->carbohydrates_sugars,
-            'protein' => $food->protein,
-            'public' => $food->public,
-        ];
+        $data1 = collect($this->data())->map(function ($item, $key) use ($food) {
+            return $food->$key;
+        })->forget('api_token')->toArray();
 
-        return array_merge($data, $additionalData);
+
+        return array_merge($data1, $additionalData);
     }
 }

@@ -12,3 +12,20 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: Lato, sans-serif;
+}
+.form-wrapper {
+    box-shadow: 2px 2px 18px 1px rgba(0,0,0,0.38);
+}
+
+.form-wrapper > div:first-child {
+    background-image:
+            linear-gradient(90deg, rgba(225,225,225, 0.6) 0%, rgba(214,214,214, 0.6) 46%, rgb(246, 247, 255) 100%),
+            url("../images/person-mixing-cereal-milk-and-strawberry-jam-on-white-704971.jpg");
+    background-position: center, center;
+    background-size: cover;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 100% 100%);
+}
+

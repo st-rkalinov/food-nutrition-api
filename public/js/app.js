@@ -2229,6 +2229,111 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "FoodsCreate"
+});
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap/dist/js/bootstrap.js":
 /*!*****************************************************!*\
   !*** ./node_modules/bootstrap/dist/js/bootstrap.js ***!
@@ -37648,7 +37753,7 @@ var render = function() {
                 {
                   staticClass:
                     "flex items-center pt-5 hover:font-bold hover:text-blue-400",
-                  attrs: { to: "/" }
+                  attrs: { to: "/foods/create" }
                 },
                 [
                   _c(
@@ -37836,7 +37941,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "flex flex-col overflow-y-hidden" },
-        [_c("router-view", { staticClass: "p-12 overflow-y-scroll" })],
+        [_c("router-view", { staticClass: "p-12 overflow-x-hidden" })],
         1
       )
     ])
@@ -37872,7 +37977,7 @@ var staticRenderFns = [
             "div",
             {
               staticClass:
-                "border border-2 rounded-full p-4 font-bold bg-blue-400"
+                "border border-2 rounded-full p-3 font-bold bg-blue-400"
             },
             [_vm._v("\n                    SK\n                ")]
           )
@@ -38285,6 +38390,399 @@ var staticRenderFns = [
               ])
             ])
           ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("form", { staticClass: "-mt-8" }, [
+        _c("div", { staticClass: "border-b border-b-2 pt-8 mt-8 relative" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "name" }
+            },
+            [_vm._v("Name")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "name",
+              id: "name",
+              placeholder: "Food Name",
+              required: ""
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "brand" }
+            },
+            [_vm._v("Brand")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "brand",
+              id: "brand",
+              placeholder: "Brand Name",
+              required: ""
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex justify-between mt-8" }, [
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "serving" }
+                },
+                [_vm._v("Serving")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "serving",
+                  id: "serving",
+                  placeholder: "Serving Size",
+                  required: ""
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "unit" }
+                },
+                [_vm._v("Unit")]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass:
+                    "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1",
+                  attrs: { name: "unit", id: "unit", required: "" }
+                },
+                [
+                  _c("option", { attrs: { value: "gram" } }, [_vm._v("Gram")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "milliliter" } }, [
+                    _vm._v("Milliliter")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "kilogram" } }, [
+                    _vm._v("Kilogram")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "liter" } }, [_vm._v("Liter")])
+                ]
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "calories" }
+            },
+            [_vm._v("Calories")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "calories",
+              id: "calories",
+              placeholder: "Calories",
+              required: ""
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex justify-between mt-8" }, [
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "fat" }
+                },
+                [_vm._v("Fat")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "fat",
+                  id: "fat",
+                  placeholder: "Fat"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "fat_satured" }
+                },
+                [_vm._v("Satured Fat")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "fat_satured",
+                  id: "fat_satured",
+                  placeholder: "Satured Fat"
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "cholesterol" }
+            },
+            [_vm._v("Cholesterol")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "cholesterol",
+              id: "cholesterol",
+              placeholder: "Cholesterol"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "salt" }
+            },
+            [_vm._v("Salt")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "salt",
+              id: "salt",
+              placeholder: "Salt"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex justify-between mt-8" }, [
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "carbohydrates" }
+                },
+                [_vm._v("Carbohydrates")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "carbohydrates",
+                  id: "carbohydrates",
+                  placeholder: "Carbohydrates"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "carbohydrates_fiber" }
+                },
+                [_vm._v("Carbohydrates Fiber")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "carbohydrates_fiber",
+                  id: "carbohydrates_fiber",
+                  placeholder: "Carbohydrates Fiber"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "text-blue-400 font-bold absolute top-0",
+                  attrs: { for: "carbohydrates_sugars" }
+                },
+                [_vm._v("Carbohydrates Sugars")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "py-2 focus:outline-none w-full",
+                attrs: {
+                  type: "text",
+                  name: "carbohydrates_sugars",
+                  id: "carbohydrates_sugars",
+                  placeholder: "Carbohydrates Sugars"
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold absolute top-0",
+              attrs: { for: "protein" }
+            },
+            [_vm._v("Protein")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "py-2 focus:outline-none w-full",
+            attrs: {
+              type: "text",
+              name: "protein",
+              id: "protein",
+              placeholder: "Protein"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "pt-8 mt-16 text-right" }, [
+          _c("input", {
+            attrs: { type: "checkbox", name: "public", id: "public" }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "text-blue-400 font-bold pl-3",
+              attrs: { for: "public" }
+            },
+            [_vm._v("Make the food visible for the other users")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Cancel")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Create")]
+          )
         ])
       ])
     ])
@@ -53539,6 +54037,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/views/FoodsCreate.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/views/FoodsCreate.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& */ "./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&");
+/* harmony import */ var _FoodsCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodsCreate.vue?vue&type=script&lang=js& */ "./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FoodsCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "092d8835",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/views/FoodsCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FoodsCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsCreate_vue_vue_type_template_id_092d8835_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -53552,6 +54119,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue");
+/* harmony import */ var _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/views/FoodsCreate */ "./resources/js/components/views/FoodsCreate.vue");
+
 
 
 
@@ -53560,6 +54129,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: '/',
     component: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    path: '/foods/create',
+    component: _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__["default"]
   }],
   mode: 'history'
 }));

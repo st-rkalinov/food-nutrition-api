@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-gray-100 h-full xl:p-16 lg:p-5 md:p-5 sm:p-0 p-0 flex justify-center items-center">
+    <div class="bg-gray-100 h-full xl:p-10 lg:p-5 md:p-5 sm:p-0 p-0 flex justify-center items-center">
         <div class="lg:w-4/5 md:w-full sm:w-full w-full h-full p-10 relative bg-white form-wrapper z-0 rounded">
             <div class="h-full absolute top-0 bottom-0 -z-1 left-0 right-0"></div>
             <div class="z-10 sm:w-full md:w-1/2 pt-16">

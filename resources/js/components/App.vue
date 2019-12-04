@@ -8,7 +8,7 @@
             <div class="pt-24">
                 <div>
                     <p class="text-gray-600">CREATE</p>
-                    <router-link to="/" class="flex items-center pt-5 hover:font-bold hover:text-blue-400">
+                    <router-link to="/foods/create" class="flex items-center pt-5 hover:font-bold hover:text-blue-400">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
                             <path
                                 d="M23.3 11.9c0 .9-.6 1.4-1.4 1.4h-8.5v8.5c0 .9-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4v-8.5H2c-.9 0-1.4-.6-1.4-1.4 0-.9.6-1.4 1.4-1.4h8.5V1.9c0-.9.6-1.4 1.4-1.4s1.4.6 1.4 1.4v8.5h8.5c.9 0 1.5.6 1.5 1.5z"/>
@@ -73,14 +73,14 @@
 
                 <div class="flex items-center justify-between">
                     <input type="text" class="rounded-full w-4/5 border border-1 py-2 px-5 mr-10 focus:outline-none" name="search" id="" placeholder="Search">
-                    <div class="border border-2 rounded-full p-4 font-bold bg-blue-400">
+                    <div class="border border-2 rounded-full p-3 font-bold bg-blue-400">
                         SK
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col overflow-y-hidden">
-                <router-view class="p-12 overflow-y-scroll"></router-view>
+                <router-view class="p-12 overflow-x-hidden"></router-view>
             </div>
         </div>
     </div>

@@ -30,7 +30,7 @@ class FoodStoreRequest extends FormRequest
             'serving' => 'required|integer',
             'unit' => [
                 'required',
-                Rule::in(['gram', 'milliliters', 'kilogram', 'liter']),
+                Rule::in(['gram', 'milliliter', 'kilogram', 'liter']),
             ],
             'calories' => 'required|integer',
             'fat' => 'numeric',

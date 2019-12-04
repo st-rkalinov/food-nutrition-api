@@ -16,6 +16,13 @@
 body {
     font-family: Lato, sans-serif;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
 .form-wrapper {
     box-shadow: 2px 2px 18px 1px rgba(0,0,0,0.38);
 }

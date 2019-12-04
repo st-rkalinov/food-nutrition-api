@@ -10,6 +10,7 @@
                 <p>Enter your information below</p>
 
                 <form method="POST" action="{{ route('register') }}" class="pt-10">
+                    @csrf
                     <div class="relative pt-5">
                         <label for="name" class="absolute top-0 text-xs text-blue-300 font-bold">Name</label>
 
@@ -22,7 +23,7 @@
                                    required autocomplete="name">
 
                             @error('name')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-sm text-red-400 p-3" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
@@ -38,7 +39,7 @@
                                    name="email" value="{{ old('email') }}"
                                    required autocomplete="email">
                             @error('email')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-sm text-red-400 p-3" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -55,7 +56,7 @@
                                    autocomplete="current-password"
                                    required>
                             @error('password')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-sm text-red-400 p-3" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror

@@ -7,9 +7,10 @@
             <div class="z-10 sm:w-full md:w-1/2 pt-32">
                 <h1 class="text-3xl text-black font-bold pb-4">Welcome back</h1>
 
-                <p>Don't have an account ? <a href="#" class="text-blue-300 font-bold text-sm">Create one here</a></p>
+                <p>Don't have an account ? <a href="{{ route('register') }}" class="text-blue-300 font-bold text-sm">Create one here</a></p>
 
                 <form method="POST" action="{{ route('login') }}" class="pt-10" >
+                    @csrf
                     <div class="relative pt-5">
                         <label for="email" class="absolute top-0 text-xs text-blue-300 font-bold">Email Address</label>
                         <div class="">
@@ -19,7 +20,7 @@
                                    name="email" value="{{ old('email') }}"
                                    required autocomplete="email">
                             @error('email')
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-sm text-red-400 p-3" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -36,7 +37,7 @@
                                    autocomplete="current-password"
                                    required>
                             @error('password')
-                                <span class="invalid-feedback" role="alert">
+                                <span class="text-sm text-red-400 p-3" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
@@ -80,7 +81,7 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-sm text-red-400 p-3" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror

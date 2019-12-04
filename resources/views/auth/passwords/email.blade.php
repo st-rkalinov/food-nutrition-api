@@ -13,6 +13,7 @@
                 @endif
 
                 <form method="POST" action="{{ route('password.email') }}" class="pt-10">
+                    @csrf
                     <div class="relative pt-5">
                         <label for="email"
                                class="absolute top-0 text-xs text-blue-300 font-bold">{{ __('E-Mail Address') }}</label>
@@ -26,7 +27,7 @@
                                    required autocomplete="email" autofocus>
 
                             @error('email')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-sm text-red-400 p-3" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
@@ -79,7 +80,7 @@
                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="text-sm text-red-400 p-3" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror

@@ -2362,6 +2362,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FoodsCreate",
@@ -38522,6 +38592,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.name },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("name")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38529,7 +38602,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "name", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("name")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("name")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
@@ -38560,6 +38643,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.brand },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("brand")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38567,7 +38653,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "brand", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("brand")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("brand")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex justify-between mt-8" }, [
@@ -38602,6 +38698,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.serving },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("serving")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38609,7 +38708,17 @@ var render = function() {
                     _vm.$set(_vm.form.data, "serving", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("serving")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("serving")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -38638,26 +38747,31 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1",
+                    "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full",
                   attrs: { name: "unit", id: "unit" },
                   on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.form.data,
-                        "unit",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form.data,
+                          "unit",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                      function($event) {
+                        return _vm.form.error.clearError("unit")
+                      }
+                    ]
                   }
                 },
                 [
@@ -38673,7 +38787,17 @@ var render = function() {
                   _vm._v(" "),
                   _c("option", { attrs: { value: "liter" } }, [_vm._v("Liter")])
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _vm.form.error.hasError("unit")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("unit")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           )
         ]),
@@ -38706,6 +38830,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.calories },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("calories")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38713,7 +38840,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "calories", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("calories")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("calories")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex justify-between mt-8" }, [
@@ -38748,6 +38885,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.fat },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("fat")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38755,7 +38895,17 @@ var render = function() {
                     _vm.$set(_vm.form.data, "fat", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("fat")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("fat")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -38790,6 +38940,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.fat_satured },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("fat_satured")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38797,7 +38950,17 @@ var render = function() {
                     _vm.$set(_vm.form.data, "fat_satured", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("fat_satured")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("fat_satured")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           )
         ]),
@@ -38830,6 +38993,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.cholesterol },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("cholesterol")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38837,7 +39003,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "cholesterol", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("cholesterol")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("cholesterol")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
@@ -38868,6 +39044,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.salt },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("salt")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -38875,7 +39054,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "salt", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("salt")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("salt")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex justify-between mt-8" }, [
@@ -38910,6 +39099,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.carbohydrates },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("carbohydrates")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38921,7 +39113,17 @@ var render = function() {
                     )
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("carbohydrates")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("carbohydrates")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -38956,6 +39158,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.carbohydrates_fiber },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("carbohydrates_fiber")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -38967,7 +39172,17 @@ var render = function() {
                     )
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("carbohydrates_fiber")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.form.error.getError("carbohydrates_fiber")) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           ),
           _vm._v(" "),
@@ -39002,6 +39217,9 @@ var render = function() {
                 },
                 domProps: { value: _vm.form.data.carbohydrates_sugars },
                 on: {
+                  keydown: function($event) {
+                    return _vm.form.error.clearError("carbohydrates_sugars")
+                  },
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -39013,7 +39231,19 @@ var render = function() {
                     )
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.error.hasError("carbohydrates_sugars")
+                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(
+                          _vm.form.error.getError("carbohydrates_sugars")
+                        ) +
+                        "\n                "
+                    )
+                  ])
+                : _vm._e()
             ]
           )
         ]),
@@ -39046,6 +39276,9 @@ var render = function() {
             },
             domProps: { value: _vm.form.data.protein },
             on: {
+              keydown: function($event) {
+                return _vm.form.error.clearError("protein")
+              },
               input: function($event) {
                 if ($event.target.composing) {
                   return
@@ -39053,7 +39286,17 @@ var render = function() {
                 _vm.$set(_vm.form.data, "protein", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.form.error.hasError("protein")
+            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("protein")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "pt-8 mt-16 text-right" }, [
@@ -39073,28 +39316,33 @@ var render = function() {
                 : _vm.form.data.public
             },
             on: {
-              change: function($event) {
-                var $$a = _vm.form.data.public,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.form.data, "public", $$a.concat([$$v]))
+              change: [
+                function($event) {
+                  var $$a = _vm.form.data.public,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.form.data, "public", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.form.data,
+                          "public",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
                   } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.form.data,
-                        "public",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
+                    _vm.$set(_vm.form.data, "public", $$c)
                   }
-                } else {
-                  _vm.$set(_vm.form.data, "public", $$c)
+                },
+                function($event) {
+                  return _vm.form.error.clearError("public")
                 }
-              }
+              ]
             }
           }),
           _vm._v(" "),
@@ -39109,7 +39357,17 @@ var render = function() {
                 "Make the food visible for the other\n                users"
               )
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm.form.error.hasError("public")
+            ? _c("span", { staticClass: "text-red-600 text-sm block" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.form.error.getError("public")) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _vm._m(0)
@@ -54256,10 +54514,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/classes/Form.js":
-/*!**************************************!*\
-  !*** ./resources/js/classes/Form.js ***!
-  \**************************************/
+/***/ "./resources/js/classes/Error.js":
+/*!***************************************!*\
+  !*** ./resources/js/classes/Error.js ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -54271,6 +54529,65 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var Error =
+/*#__PURE__*/
+function () {
+  function Error(fields) {
+    _classCallCheck(this, Error);
+
+    for (var field in fields) {
+      if (fields.hasOwnProperty(field)) {
+        this[field] = null;
+      }
+    }
+  }
+
+  _createClass(Error, [{
+    key: "hasError",
+    value: function hasError(fieldName) {
+      return !(!this.hasOwnProperty(fieldName) || this[fieldName] === null);
+    }
+  }, {
+    key: "getError",
+    value: function getError(fieldName) {
+      if (this[fieldName]) {
+        return this[fieldName];
+      }
+    }
+  }, {
+    key: "clearError",
+    value: function clearError(fieldName) {
+      if (this[fieldName]) {
+        this[fieldName] = null;
+      }
+    }
+  }]);
+
+  return Error;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Error);
+
+/***/ }),
+
+/***/ "./resources/js/classes/Form.js":
+/*!**************************************!*\
+  !*** ./resources/js/classes/Form.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error */ "./resources/js/classes/Error.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
 var Form =
 /*#__PURE__*/
 function () {
@@ -54279,6 +54596,7 @@ function () {
 
     this.originalData = data;
     this.data = {};
+    this.error = new _Error__WEBPACK_IMPORTED_MODULE_0__["default"](data);
 
     for (var field in data) {
       if (data.hasOwnProperty(field)) {
@@ -54297,7 +54615,11 @@ function () {
 
         _this.reset();
       })["catch"](function (error) {
-        console.log(error.response);
+        var errors = error.response.data.errors;
+
+        for (var errorField in errors) {
+          _this.error[errorField] = errors[errorField][0];
+        }
       });
     }
   }, {

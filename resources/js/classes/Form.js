@@ -1,7 +1,10 @@
+import Error from "./Error";
+
 class Form {
     constructor(data) {
         this.originalData = data;
         this.data = {};
+        this.error = new Error(data);
 
         for (let field in data) {
             if (data.hasOwnProperty(field)) {
@@ -17,7 +20,11 @@ class Form {
                 this.reset();
             })
             .catch(error => {
-                console.log(error.response);
+                let errors = error.response.data.errors;
+
+                for(let errorField in errors) {
+                    this.error[errorField] = errors[errorField][0];
+                }
             })
     }
 

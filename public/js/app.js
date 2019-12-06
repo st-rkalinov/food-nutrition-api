@@ -2238,6 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 //
 //
 //
@@ -2328,8 +2329,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "FoodsCreate"
+  name: "FoodsCreate",
+  data: function data() {
+    return {
+      foodFields: {
+        'name': '',
+        'brand': null,
+        'serving': 0,
+        'unit': 'gram',
+        'calories': 0,
+        'fat': 0,
+        'fat_satured': 0,
+        'cholesterol': 0,
+        'salt': 0,
+        'carbohydrates': 0,
+        'carbohydrates_fiber': 0,
+        'carbohydrates_sugars': 0,
+        'protein': 0,
+        'public': false,
+        'api_token': 'DoXQHTHsO3uOtZ5FwAMhMhDxDPK6t0PU3Dk46zvATC2LTbxACrvAMgYVlz1V'
+      },
+      form: null
+    };
+  },
+  created: function created() {
+    this.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](this.foodFields);
+  },
+  methods: {
+    submit: function submit() {
+      this.form.submit('/api/foods');
+    }
+  }
 });
 
 /***/ }),
@@ -38416,15 +38481,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("form", { staticClass: "-mt-8" }, [
+  return _c("div", [
+    _c(
+      "form",
+      {
+        staticClass: "-mt-8",
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
+      },
+      [
         _c("div", { staticClass: "border-b border-b-2 pt-8 mt-8 relative" }, [
           _c(
             "label",
@@ -38436,13 +38505,29 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.name,
+                expression: "form.data.name"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "name",
               id: "name",
-              placeholder: "Food Name",
-              required: ""
+              placeholder: "Food Name"
+            },
+            domProps: { value: _vm.form.data.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "name", $event.target.value)
+              }
             }
           })
         ]),
@@ -38458,13 +38543,29 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.brand,
+                expression: "form.data.brand"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "brand",
               id: "brand",
-              placeholder: "Brand Name",
-              required: ""
+              placeholder: "Brand Name"
+            },
+            domProps: { value: _vm.form.data.brand },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "brand", $event.target.value)
+              }
             }
           })
         ]),
@@ -38484,13 +38585,29 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.serving,
+                    expression: "form.data.serving"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "serving",
                   id: "serving",
-                  placeholder: "Serving Size",
-                  required: ""
+                  placeholder: "Serving Size"
+                },
+                domProps: { value: _vm.form.data.serving },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form.data, "serving", $event.target.value)
+                  }
                 }
               })
             ]
@@ -38512,9 +38629,36 @@ var staticRenderFns = [
               _c(
                 "select",
                 {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.data.unit,
+                      expression: "form.data.unit"
+                    }
+                  ],
                   staticClass:
                     "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1",
-                  attrs: { name: "unit", id: "unit", required: "" }
+                  attrs: { name: "unit", id: "unit" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.form.data,
+                        "unit",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
                 },
                 [
                   _c("option", { attrs: { value: "gram" } }, [_vm._v("Gram")]),
@@ -38545,13 +38689,29 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.calories,
+                expression: "form.data.calories"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "calories",
               id: "calories",
-              placeholder: "Calories",
-              required: ""
+              placeholder: "Calories"
+            },
+            domProps: { value: _vm.form.data.calories },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "calories", $event.target.value)
+              }
             }
           })
         ]),
@@ -38571,12 +38731,29 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.fat,
+                    expression: "form.data.fat"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "fat",
                   id: "fat",
                   placeholder: "Fat"
+                },
+                domProps: { value: _vm.form.data.fat },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form.data, "fat", $event.target.value)
+                  }
                 }
               })
             ]
@@ -38596,12 +38773,29 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.fat_satured,
+                    expression: "form.data.fat_satured"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "fat_satured",
                   id: "fat_satured",
                   placeholder: "Satured Fat"
+                },
+                domProps: { value: _vm.form.data.fat_satured },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form.data, "fat_satured", $event.target.value)
+                  }
                 }
               })
             ]
@@ -38619,12 +38813,29 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.cholesterol,
+                expression: "form.data.cholesterol"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "cholesterol",
               id: "cholesterol",
               placeholder: "Cholesterol"
+            },
+            domProps: { value: _vm.form.data.cholesterol },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "cholesterol", $event.target.value)
+              }
             }
           })
         ]),
@@ -38640,12 +38851,29 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.salt,
+                expression: "form.data.salt"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "salt",
               id: "salt",
               placeholder: "Salt"
+            },
+            domProps: { value: _vm.form.data.salt },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "salt", $event.target.value)
+              }
             }
           })
         ]),
@@ -38665,12 +38893,33 @@ var staticRenderFns = [
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.carbohydrates,
+                    expression: "form.data.carbohydrates"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "carbohydrates",
                   id: "carbohydrates",
                   placeholder: "Carbohydrates"
+                },
+                domProps: { value: _vm.form.data.carbohydrates },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form.data,
+                      "carbohydrates",
+                      $event.target.value
+                    )
+                  }
                 }
               })
             ]
@@ -38686,16 +38935,37 @@ var staticRenderFns = [
                   staticClass: "text-blue-400 font-bold absolute top-0",
                   attrs: { for: "carbohydrates_fiber" }
                 },
-                [_vm._v("Carbohydrates Fiber")]
+                [_vm._v("Carbohydrates\n                    Fiber")]
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.carbohydrates_fiber,
+                    expression: "form.data.carbohydrates_fiber"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "carbohydrates_fiber",
                   id: "carbohydrates_fiber",
                   placeholder: "Carbohydrates Fiber"
+                },
+                domProps: { value: _vm.form.data.carbohydrates_fiber },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form.data,
+                      "carbohydrates_fiber",
+                      $event.target.value
+                    )
+                  }
                 }
               })
             ]
@@ -38711,16 +38981,37 @@ var staticRenderFns = [
                   staticClass: "text-blue-400 font-bold absolute top-0",
                   attrs: { for: "carbohydrates_sugars" }
                 },
-                [_vm._v("Carbohydrates Sugars")]
+                [_vm._v("Carbohydrates\n                    Sugars")]
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.data.carbohydrates_sugars,
+                    expression: "form.data.carbohydrates_sugars"
+                  }
+                ],
                 staticClass: "py-2 focus:outline-none w-full",
                 attrs: {
                   type: "text",
                   name: "carbohydrates_sugars",
                   id: "carbohydrates_sugars",
                   placeholder: "Carbohydrates Sugars"
+                },
+                domProps: { value: _vm.form.data.carbohydrates_sugars },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(
+                      _vm.form.data,
+                      "carbohydrates_sugars",
+                      $event.target.value
+                    )
+                  }
                 }
               })
             ]
@@ -38738,19 +39029,73 @@ var staticRenderFns = [
           ),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.protein,
+                expression: "form.data.protein"
+              }
+            ],
             staticClass: "py-2 focus:outline-none w-full",
             attrs: {
               type: "text",
               name: "protein",
               id: "protein",
               placeholder: "Protein"
+            },
+            domProps: { value: _vm.form.data.protein },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.form.data, "protein", $event.target.value)
+              }
             }
           })
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "pt-8 mt-16 text-right" }, [
           _c("input", {
-            attrs: { type: "checkbox", name: "public", id: "public" }
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.form.data.public,
+                expression: "form.data.public"
+              }
+            ],
+            attrs: { type: "checkbox", name: "public", id: "public" },
+            domProps: {
+              checked: Array.isArray(_vm.form.data.public)
+                ? _vm._i(_vm.form.data.public, null) > -1
+                : _vm.form.data.public
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.form.data.public,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 &&
+                      _vm.$set(_vm.form.data, "public", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.form.data,
+                        "public",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.form.data, "public", $$c)
+                }
+              }
+            }
           }),
           _vm._v(" "),
           _c(
@@ -38759,32 +39104,44 @@ var staticRenderFns = [
               staticClass: "text-blue-400 font-bold pl-3",
               attrs: { for: "public" }
             },
-            [_vm._v("Make the food visible for the other users")]
+            [
+              _vm._v(
+                "Make the food visible for the other\n                users"
+              )
+            ]
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
-          _c(
-            "a",
-            {
-              staticClass:
-                "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Cancel")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
-              attrs: { type: "submit" }
-            },
-            [_vm._v("Create")]
-          )
-        ])
-      ])
+        _vm._m(0)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+          attrs: { href: "#" }
+        },
+        [_vm._v("Cancel")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
+          attrs: { type: "submit" }
+        },
+        [_vm._v("Create\n            ")]
+      )
     ])
   }
 ]
@@ -53896,6 +54253,68 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/classes/Form.js":
+/*!**************************************!*\
+  !*** ./resources/js/classes/Form.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Form =
+/*#__PURE__*/
+function () {
+  function Form(data) {
+    _classCallCheck(this, Form);
+
+    this.originalData = data;
+    this.data = {};
+
+    for (var field in data) {
+      if (data.hasOwnProperty(field)) {
+        this.data[field] = data[field];
+      }
+    }
+  }
+
+  _createClass(Form, [{
+    key: "submit",
+    value: function submit(path) {
+      var _this = this;
+
+      axios.post(path, this.data).then(function (response) {
+        console.log(response);
+
+        _this.reset();
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      for (var originalField in this.originalData) {
+        if (this.data.hasOwnProperty(originalField) && this.originalData.hasOwnProperty(originalField)) {
+          this.data[originalField] = this.originalData[originalField];
+        }
+      }
+    }
+  }]);
+
+  return Form;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Form);
 
 /***/ }),
 

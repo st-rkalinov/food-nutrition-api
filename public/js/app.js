@@ -37898,7 +37898,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass:
-                      "flex items-center pt-5 hover:font-bold hover:text-blue-400",
+                      "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     attrs: { to: "/foods/create" }
                   },
                   [
@@ -37935,7 +37935,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass:
-                      "flex items-center pt-5 hover:font-bold hover:text-blue-400",
+                      "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     attrs: { to: "/" }
                   },
                   [
@@ -37974,7 +37974,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass:
-                      "flex items-center pt-5 hover:font-bold hover:text-blue-400",
+                      "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     attrs: { to: "/" }
                   },
                   [
@@ -38050,7 +38050,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass:
-                      "flex items-center pt-5 hover:font-bold hover:text-blue-400",
+                      "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     attrs: { to: "/" }
                   },
                   [

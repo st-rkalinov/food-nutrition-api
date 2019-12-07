@@ -13,16 +13,22 @@
                             :errors="form.error"
                             @update:field="form.data.brand = $event"/>
 
-            <div class="flex justify-between flex-wrap">
+            <div class="flex justify-between flex-wrap sm:flex-col lg:flex-row flex-col">
                 <InputTextField name="serving" placeholder="Serving Size" label="Serving"
                                 :default-value="form.originalData.serving"
                                 :dataValue="form.data.serving"
                                 :errors="form.error"
-                                classes="w-1/2"
+                                classes="sm:w-full lg:w-1/2 w-full"
                                 @update:field="form.data.serving = $event"/>
 
-                <div class="border-b border-b-2 relative pt-16 w-1/2">
-                    <label for="unit" class="text-blue-400 font-bold absolute top-1/3">Unit</label>
+                <div class="border-b border-b-2 relative pt-16 sm:w-full lg:w-1/2 w-full">
+                    <label for="unit" class="text-blue-400 font-bold absolute top-1/3">
+                        Unit
+
+                    <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
+                        {{ form.error.getError('unit') }}
+                    </span>
+                    </label>
                     <select name="unit" id="unit" class="focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full"
                             v-model="form.data.unit"
                             @change="form.error.clearError('unit')">
@@ -32,9 +38,6 @@
                         <option value="liter">Liter</option>
                     </select>
 
-                    <span class="text-red-600 text-sm" v-if="form.error.hasError('unit')">
-                        {{ form.error.getError('unit') }}
-                    </span>
                 </div>
             </div>
 
@@ -44,19 +47,19 @@
                             :errors="form.error"
                             @update:field="form.data.calories = $event"/>
 
-            <div class="flex justify-between">
+            <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
                 <InputTextField name="fat" placeholder="Fat" label="Fat"
                                 :default-value="form.originalData.fat"
                                 :dataValue="form.data.fat"
                                 :errors="form.error"
-                                classes="w-1/2"
+                                classes="sm:w-full lg:w-1/2 w-full"
                                 @update:field="form.data.fat = $event"/>
 
                 <InputTextField name="fat_satured" placeholder="Satured Fat" label="Satured Fat"
                                 :default-value="form.originalData.fat_satured"
                                 :dataValue="form.data.fat_satured"
                                 :errors="form.error"
-                                classes="w-1/2"
+                                classes="sm:w-full lg:w-1/2 w-full"
                                 @update:field="form.data.fat_satured = $event"/>
             </div>
 
@@ -72,19 +75,19 @@
                             :errors="form.error"
                             @update:field="form.data.salt = $event"/>
 
-            <div class="flex justify-between">
+            <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
                 <InputTextField name="carbohydrates" placeholder="Carbohydrates" label="Carbohydrates"
                                 :default-value="form.originalData.carbohydrates"
                                 :dataValue="form.data.carbohydrates"
                                 :errors="form.error"
-                                classes="w-1/3"
+                                classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates = $event"/>
 
                 <InputTextField name="carbohydrates_fiber" placeholder="Carbohydrates Fiber" label="Carbohydrates Fiber"
                                 :default-value="form.originalData.carbohydrates_fiber"
                                 :dataValue="form.data.carbohydrates_fiber"
                                 :errors="form.error"
-                                classes="w-1/3"
+                                classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates_fiber = $event"/>
 
                 <InputTextField name="carbohydrates_sugars" placeholder="Carbohydrates Sugars"
@@ -92,7 +95,7 @@
                                 :default-value="form.originalData.carbohydrates_sugars"
                                 :dataValue="form.data.carbohydrates_sugars"
                                 :errors="form.error"
-                                classes="w-1/3"
+                                classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates_sugars = $event"/>
             </div>
 

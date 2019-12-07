@@ -1,5 +1,5 @@
 <template>
-    <div class="flex h-screen">
+    <div class="flex h-screen lg:flex-row sm:flex-col flex-col">
         <nav class="h-screen border border-r-2 p-10 bg-blue-100">
             <router-link to="/">
                 <h1 class="font-bold text-lg text-blue-900 border-b-2 border-transparent hover:border-b-2 hover:border-blue-400">Food Nutrition</h1>
@@ -68,11 +68,11 @@
         </nav>
 
         <div class="flex flex-col flex-1">
-            <div class="flex justify-between flex-wrap items-center p-6 border-b-2">
-                <p class="flex-1">Foods</p>
+            <div class="flex justify-between flex-col items-center p-6 border-b-2">
+                <p class="self-start lg:pt-5 pt-0">Foods</p>
 
-                <div class="flex items-center justify-between">
-                    <input type="text" class="rounded-full w-4/5 border border-1 py-2 px-5 mr-10 focus:outline-none" name="search" id="" placeholder="Search">
+                <div class="flex items-center justify-around pt-8 md:w-1/2 w-full">
+                    <input type="text" class="rounded-full w-8/12 border border-1 py-2 px-5 mr-10 focus:outline-none" name="search" id="" placeholder="Search">
                     <div class="border border-2 rounded-full p-3 font-bold bg-blue-400">
                         SK
                     </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="flex flex-col overflow-y-hidden">
-                <router-view class="p-12 overflow-x-hidden"></router-view>
+                <router-view class="md:p-12 sm:p-3 p-3 overflow-x-hidden"/>
             </div>
         </div>
     </div>

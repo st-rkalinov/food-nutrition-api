@@ -213,7 +213,6 @@
                     'carbohydrates_sugars': 0,
                     'protein': 0,
                     'public': false,
-                    'api_token': 'DoXQHTHsO3uOtZ5FwAMhMhDxDPK6t0PU3Dk46zvATC2LTbxACrvAMgYVlz1V',
                 },
                 form: null,
             }

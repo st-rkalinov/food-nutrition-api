@@ -20,6 +20,11 @@ module.exports = {
               'xl': '1200px',
               // => @media (min-width: 1200px) { ... }
             },
+            inset: {
+                '1/2': '50%',
+                '1/3': '33.33%',
+                '1/4': '25%',
+            }
         }
     },
     variants: {

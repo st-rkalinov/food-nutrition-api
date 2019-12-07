@@ -2251,6 +2251,51 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputTextField.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputTextField.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "InputTextField",
+  props: ['name', 'placeholder', 'defaultValue', 'dataValue', 'errors', 'label', 'classes'],
+  data: function data() {
+    return {
+      value: this.defaultValue
+    };
+  },
+  methods: {
+    updateField: function updateField() {
+      this.$emit('update:field', this.value);
+    }
+  },
+  watch: {
+    dataValue: function dataValue(val) {
+      this.value = val;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js& ***!
@@ -2261,74 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
 //
 //
 //
@@ -2455,8 +2433,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FoodsCreate",
+  components: {
+    InputTextField: _InputTextField__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
       foodFields: {
@@ -38557,6 +38539,84 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "border-b border-b-2 pt-16 relative", class: _vm.classes },
+    [
+      _c(
+        "label",
+        {
+          staticClass: "text-blue-400 font-bold absolute top-1/3",
+          attrs: { for: _vm.name }
+        },
+        [_vm._v(_vm._s(_vm.label))]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.value,
+            expression: "value"
+          }
+        ],
+        staticClass: "py-2 focus:outline-none w-full",
+        attrs: {
+          type: "text",
+          name: _vm.name,
+          id: _vm.name,
+          placeholder: _vm.placeholder
+        },
+        domProps: { value: _vm.value },
+        on: {
+          input: [
+            function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.value = $event.target.value
+            },
+            function($event) {
+              _vm.updateField()
+              _vm.errors.clearError(_vm.name)
+            }
+          ]
+        }
+      }),
+      _vm._v(" "),
+      _vm.errors.hasError(_vm.name)
+        ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+            _vm._v(
+              "\n        " + _vm._s(_vm.errors.getError(_vm.name)) + "\n    "
+            )
+          ])
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& ***!
@@ -38585,740 +38645,307 @@ var render = function() {
         }
       },
       [
-        _c("div", { staticClass: "border-b border-b-2 pt-8 mt-8 relative" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "name" }
-            },
-            [_vm._v("Name")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.name,
-                expression: "form.data.name"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "name",
-              id: "name",
-              placeholder: "Food Name"
-            },
-            domProps: { value: _vm.form.data.name },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("name")
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form.data, "name", $event.target.value)
-              }
+        _c("InputTextField", {
+          attrs: {
+            name: "name",
+            placeholder: "Food Name",
+            label: "Name",
+            defaultValue: _vm.form.originalData.name,
+            dataValue: _vm.form.data.name,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.name = $event
             }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("name")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("name")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "brand" }
-            },
-            [_vm._v("Brand")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.brand,
-                expression: "form.data.brand"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "brand",
-              id: "brand",
-              placeholder: "Brand Name"
-            },
-            domProps: { value: _vm.form.data.brand },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("brand")
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form.data, "brand", $event.target.value)
-              }
+        _c("InputTextField", {
+          attrs: {
+            name: "brand",
+            placeholder: "Brand Name",
+            label: "Brand",
+            "default-value": _vm.form.originalData.brand,
+            dataValue: _vm.form.data.brand,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.brand = $event
             }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("brand")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("brand")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-8" }, [
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "serving" }
-                },
-                [_vm._v("Serving")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
+        _c(
+          "div",
+          { staticClass: "flex justify-between flex-wrap" },
+          [
+            _c("InputTextField", {
+              attrs: {
+                name: "serving",
+                placeholder: "Serving Size",
+                label: "Serving",
+                "default-value": _vm.form.originalData.serving,
+                dataValue: _vm.form.data.serving,
+                errors: _vm.form.error,
+                classes: "w-1/2"
+              },
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.serving = $event
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "border-b border-b-2 relative pt-16 w-1/2" },
+              [
+                _c(
+                  "label",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.serving,
-                    expression: "form.data.serving"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "serving",
-                  id: "serving",
-                  placeholder: "Serving Size"
-                },
-                domProps: { value: _vm.form.data.serving },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("serving")
+                    staticClass: "text-blue-400 font-bold absolute top-1/3",
+                    attrs: { for: "unit" }
                   },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form.data, "serving", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("serving")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("serving")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "unit" }
-                },
-                [_vm._v("Unit")]
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.data.unit,
-                      expression: "form.data.unit"
-                    }
-                  ],
-                  staticClass:
-                    "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full",
-                  attrs: { name: "unit", id: "unit" },
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.form.data,
-                          "unit",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      },
-                      function($event) {
-                        return _vm.form.error.clearError("unit")
+                  [_vm._v("Unit")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.data.unit,
+                        expression: "form.data.unit"
                       }
-                    ]
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "gram" } }, [_vm._v("Gram")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "milliliter" } }, [
-                    _vm._v("Milliliter")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "kilogram" } }, [
-                    _vm._v("Kilogram")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "liter" } }, [_vm._v("Liter")])
-                ]
-              ),
-              _vm._v(" "),
-              _vm.form.error.hasError("unit")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("unit")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          )
-        ]),
+                    ],
+                    staticClass:
+                      "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full",
+                    attrs: { name: "unit", id: "unit" },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form.data,
+                            "unit",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                        function($event) {
+                          return _vm.form.error.clearError("unit")
+                        }
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "gram" } }, [
+                      _vm._v("Gram")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "milliliter" } }, [
+                      _vm._v("Milliliter")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "kilogram" } }, [
+                      _vm._v("Kilogram")
+                    ]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "liter" } }, [
+                      _vm._v("Liter")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.form.error.hasError("unit")
+                  ? _c("span", { staticClass: "text-red-600 text-sm" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.form.error.getError("unit")) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "calories" }
-            },
-            [_vm._v("Calories")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.calories,
-                expression: "form.data.calories"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "calories",
-              id: "calories",
-              placeholder: "Calories"
-            },
-            domProps: { value: _vm.form.data.calories },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("calories")
-              },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.form.data, "calories", $event.target.value)
-              }
+        _c("InputTextField", {
+          attrs: {
+            name: "calories",
+            placeholder: "Calories",
+            label: "Calories",
+            "default-value": _vm.form.originalData.calories,
+            dataValue: _vm.form.data.calories,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.calories = $event
             }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("calories")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("calories")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-8" }, [
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "fat" }
-                },
-                [_vm._v("Fat")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.fat,
-                    expression: "form.data.fat"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "fat",
-                  id: "fat",
-                  placeholder: "Fat"
-                },
-                domProps: { value: _vm.form.data.fat },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("fat")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form.data, "fat", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("fat")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("fat")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/2" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "fat_satured" }
-                },
-                [_vm._v("Satured Fat")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.fat_satured,
-                    expression: "form.data.fat_satured"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "fat_satured",
-                  id: "fat_satured",
-                  placeholder: "Satured Fat"
-                },
-                domProps: { value: _vm.form.data.fat_satured },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("fat_satured")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form.data, "fat_satured", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("fat_satured")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("fat_satured")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "cholesterol" }
-            },
-            [_vm._v("Cholesterol")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.cholesterol,
-                expression: "form.data.cholesterol"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "cholesterol",
-              id: "cholesterol",
-              placeholder: "Cholesterol"
-            },
-            domProps: { value: _vm.form.data.cholesterol },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("cholesterol")
+        _c(
+          "div",
+          { staticClass: "flex justify-between" },
+          [
+            _c("InputTextField", {
+              attrs: {
+                name: "fat",
+                placeholder: "Fat",
+                label: "Fat",
+                "default-value": _vm.form.originalData.fat,
+                dataValue: _vm.form.data.fat,
+                errors: _vm.form.error,
+                classes: "w-1/2"
               },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.fat = $event
                 }
-                _vm.$set(_vm.form.data, "cholesterol", $event.target.value)
               }
-            }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("cholesterol")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("cholesterol")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "salt" }
-            },
-            [_vm._v("Salt")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.salt,
-                expression: "form.data.salt"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "salt",
-              id: "salt",
-              placeholder: "Salt"
-            },
-            domProps: { value: _vm.form.data.salt },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("salt")
+            }),
+            _vm._v(" "),
+            _c("InputTextField", {
+              attrs: {
+                name: "fat_satured",
+                placeholder: "Satured Fat",
+                label: "Satured Fat",
+                "default-value": _vm.form.originalData.fat_satured,
+                dataValue: _vm.form.data.fat_satured,
+                errors: _vm.form.error,
+                classes: "w-1/2"
               },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.fat_satured = $event
                 }
-                _vm.$set(_vm.form.data, "salt", $event.target.value)
               }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("InputTextField", {
+          attrs: {
+            name: "cholesterol",
+            placeholder: "Cholesterol",
+            label: "Cholesterol",
+            "default-value": _vm.form.originalData.cholesterol,
+            dataValue: _vm.form.data.cholesterol,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.cholesterol = $event
             }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("salt")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("salt")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "flex justify-between mt-8" }, [
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "carbohydrates" }
-                },
-                [_vm._v("Carbohydrates")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.carbohydrates,
-                    expression: "form.data.carbohydrates"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "carbohydrates",
-                  id: "carbohydrates",
-                  placeholder: "Carbohydrates"
-                },
-                domProps: { value: _vm.form.data.carbohydrates },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("carbohydrates")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.form.data,
-                      "carbohydrates",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("carbohydrates")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("carbohydrates")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "carbohydrates_fiber" }
-                },
-                [_vm._v("Carbohydrates\n                    Fiber")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.carbohydrates_fiber,
-                    expression: "form.data.carbohydrates_fiber"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "carbohydrates_fiber",
-                  id: "carbohydrates_fiber",
-                  placeholder: "Carbohydrates Fiber"
-                },
-                domProps: { value: _vm.form.data.carbohydrates_fiber },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("carbohydrates_fiber")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.form.data,
-                      "carbohydrates_fiber",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("carbohydrates_fiber")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(_vm.form.error.getError("carbohydrates_fiber")) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "border-b border-b-2 pt-8 relative w-1/3" },
-            [
-              _c(
-                "label",
-                {
-                  staticClass: "text-blue-400 font-bold absolute top-0",
-                  attrs: { for: "carbohydrates_sugars" }
-                },
-                [_vm._v("Carbohydrates\n                    Sugars")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.data.carbohydrates_sugars,
-                    expression: "form.data.carbohydrates_sugars"
-                  }
-                ],
-                staticClass: "py-2 focus:outline-none w-full",
-                attrs: {
-                  type: "text",
-                  name: "carbohydrates_sugars",
-                  id: "carbohydrates_sugars",
-                  placeholder: "Carbohydrates Sugars"
-                },
-                domProps: { value: _vm.form.data.carbohydrates_sugars },
-                on: {
-                  keydown: function($event) {
-                    return _vm.form.error.clearError("carbohydrates_sugars")
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.form.data,
-                      "carbohydrates_sugars",
-                      $event.target.value
-                    )
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.error.hasError("carbohydrates_sugars")
-                ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                    _vm._v(
-                      "\n                    " +
-                        _vm._s(
-                          _vm.form.error.getError("carbohydrates_sugars")
-                        ) +
-                        "\n                "
-                    )
-                  ])
-                : _vm._e()
-            ]
-          )
-        ]),
+        _c("InputTextField", {
+          attrs: {
+            name: "salt",
+            placeholder: "Salt",
+            label: "Salt",
+            "default-value": _vm.form.originalData.salt,
+            dataValue: _vm.form.data.salt,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.salt = $event
+            }
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "border-b border-b-2 pt-8 relative mt-8" }, [
-          _c(
-            "label",
-            {
-              staticClass: "text-blue-400 font-bold absolute top-0",
-              attrs: { for: "protein" }
-            },
-            [_vm._v("Protein")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.form.data.protein,
-                expression: "form.data.protein"
-              }
-            ],
-            staticClass: "py-2 focus:outline-none w-full",
-            attrs: {
-              type: "text",
-              name: "protein",
-              id: "protein",
-              placeholder: "Protein"
-            },
-            domProps: { value: _vm.form.data.protein },
-            on: {
-              keydown: function($event) {
-                return _vm.form.error.clearError("protein")
+        _c(
+          "div",
+          { staticClass: "flex justify-between" },
+          [
+            _c("InputTextField", {
+              attrs: {
+                name: "carbohydrates",
+                placeholder: "Carbohydrates",
+                label: "Carbohydrates",
+                "default-value": _vm.form.originalData.carbohydrates,
+                dataValue: _vm.form.data.carbohydrates,
+                errors: _vm.form.error,
+                classes: "w-1/3"
               },
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.carbohydrates = $event
                 }
-                _vm.$set(_vm.form.data, "protein", $event.target.value)
               }
+            }),
+            _vm._v(" "),
+            _c("InputTextField", {
+              attrs: {
+                name: "carbohydrates_fiber",
+                placeholder: "Carbohydrates Fiber",
+                label: "Carbohydrates Fiber",
+                "default-value": _vm.form.originalData.carbohydrates_fiber,
+                dataValue: _vm.form.data.carbohydrates_fiber,
+                errors: _vm.form.error,
+                classes: "w-1/3"
+              },
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.carbohydrates_fiber = $event
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("InputTextField", {
+              attrs: {
+                name: "carbohydrates_sugars",
+                placeholder: "Carbohydrates Sugars",
+                label: "Carbohydrates Sugars",
+                "default-value": _vm.form.originalData.carbohydrates_sugars,
+                dataValue: _vm.form.data.carbohydrates_sugars,
+                errors: _vm.form.error,
+                classes: "w-1/3"
+              },
+              on: {
+                "update:field": function($event) {
+                  _vm.form.data.carbohydrates_sugars = $event
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("InputTextField", {
+          attrs: {
+            name: "protein",
+            placeholder: "Protein",
+            label: "Protein",
+            "default-value": _vm.form.originalData.protein,
+            dataValue: _vm.form.data.protein,
+            errors: _vm.form.error
+          },
+          on: {
+            "update:field": function($event) {
+              _vm.form.data.protein = $event
             }
-          }),
-          _vm._v(" "),
-          _vm.form.error.hasError("protein")
-            ? _c("span", { staticClass: "text-red-600 text-sm" }, [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(_vm.form.error.getError("protein")) +
-                    "\n            "
-                )
-              ])
-            : _vm._e()
-        ]),
+          }
+        }),
         _vm._v(" "),
         _c("div", { staticClass: "pt-8 mt-16 text-right" }, [
           _c("input", {
@@ -39392,7 +39019,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm._m(0)
-      ]
+      ],
+      1
     )
   ])
 }
@@ -54794,6 +54422,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/InputTextField.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/InputTextField.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InputTextField.vue?vue&type=template&id=1476acce&scoped=true& */ "./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true&");
+/* harmony import */ var _InputTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InputTextField.vue?vue&type=script&lang=js& */ "./resources/js/components/InputTextField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InputTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "1476acce",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/InputTextField.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/InputTextField.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/InputTextField.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./InputTextField.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputTextField.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InputTextField_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./InputTextField.vue?vue&type=template&id=1476acce&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/InputTextField.vue?vue&type=template&id=1476acce&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InputTextField_vue_vue_type_template_id_1476acce_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

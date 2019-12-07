@@ -9,5 +9,5 @@ mix.js('resources/js/app.js', 'public/js')
     	tailwind('./tailwind.config.js')
 	],
   });
-mix.browserSync('127.0.0.1:8000');
+//mix.browserSync('127.0.0.1:8000');
 mix.copy('resources/images/', 'public/images/', false);

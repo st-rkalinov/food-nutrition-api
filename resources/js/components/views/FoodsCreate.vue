@@ -130,6 +130,7 @@
 <script>
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
+    import Alert from "../../classes/Alert";
 
     export default {
         name: "FoodsCreate",
@@ -164,40 +165,26 @@
             submit() {
                 this.form.submit('/api/foods')
                     .then((response) => {
-                        if (response.status === 201) {
-                            swal({
-                                title: 'Success !',
-                                text: 'New food was added successfully',
-                                icon: 'success',
-                                buttons: [true, 'Go to the food page']
-                            }).then((clickedButton) => {
+                        let alert = new Alert('create', response.status);
+                        alert.show()
+                            .then((clickedButton) => {
                                 if (clickedButton) {
                                     this.$router.push('google.com');
                                 }
                             });
-                        }
+
                         this.form.reset();
                     })
                     .catch(error => {
                         let errors = error.response.data.errors;
-                        let swalErrorText = 'There is a problem. Please try again later';
+                        let alert = new Alert('create', error.response.status);
+                        alert.show();
 
                         if(error.response.status === 422) {
-                            swalErrorText = 'There is a problem with the data you entered !';
-
                             for (let errorField in errors) {
                                 this.form.error[errorField] = errors[errorField][0];
                             }
-                        } else if(error.response.status === 401) {
-                            swalErrorText = 'You are unauthorized to add new food !';
                         }
-
-                        swal({
-                            title: 'Error !',
-                            text: swalErrorText,
-                            icon: 'error',
-                            timer: 8000,
-                        })
                     })
             }
         }

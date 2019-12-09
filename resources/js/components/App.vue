@@ -2,13 +2,15 @@
     <div class="flex h-screen lg:flex-row sm:flex-col flex-col">
         <nav class="h-screen border border-r-2 p-10 bg-blue-100">
             <router-link to="/">
-                <h1 class="font-bold text-lg text-blue-900 border-b-2 border-transparent hover:border-b-2 hover:border-blue-400">Food Nutrition</h1>
+                <h1 class="font-bold text-lg text-blue-900 border-b-2 border-transparent hover:border-b-2 hover:border-blue-400">
+                    Food Nutrition</h1>
             </router-link>
 
             <div class="pt-24">
                 <div>
                     <p class="text-gray-600">CREATE</p>
-                    <router-link to="/foods/create" class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
+                    <router-link to="/foods/create"
+                                 class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
                             <path
                                 d="M23.3 11.9c0 .9-.6 1.4-1.4 1.4h-8.5v8.5c0 .9-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4v-8.5H2c-.9 0-1.4-.6-1.4-1.4 0-.9.6-1.4 1.4-1.4h8.5V1.9c0-.9.6-1.4 1.4-1.4s1.4.6 1.4 1.4v8.5h8.5c.9 0 1.5.6 1.5 1.5z"/>
@@ -19,7 +21,8 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">GENERAL</p>
-                    <router-link to="/" class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
+                    <router-link to="/"
+                                 class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 48 48" class="w-6 h-6 fill-current text-blue-600"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <defs>
@@ -30,7 +33,8 @@
                         </svg>
                         <div class="pl-3">Foods</div>
                     </router-link>
-                    <router-link to="/" class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
+                    <router-link to="/"
+                                 class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg version="1.1" id="Layer_1" class="w-6 h-6 fill-current text-blue-600"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
                              y="0px"
@@ -59,8 +63,12 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">SETTINGS</p>
-                    <router-link to="/" class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
-                        <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6"><path d="M21 3h-3.8c-.7 0-1.3-.6-1.3-1.3S16.5.4 17.2.4h5.1c.7 0 1.3.6 1.3 1.3v20.5c0 .7-.6 1.3-1.3 1.3h-5.1c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3H21V3zm-6.9 7.7L8.6 5.2c-.5-.5-.6-1.3-.1-1.8s1.3-.5 1.8 0l7.7 7.7c.8.8.2 2.2-.9 2.2H1.8c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3h12.3zm-1.6 4.8c.5-.5 1.3-.4 1.8.1s.4 1.3-.1 1.8l-3.8 3.2c-.5.5-1.3.4-1.8-.1-.6-.5-.5-1.3 0-1.7l3.9-3.3z"/></svg>
+                    <router-link to="/"
+                                 class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
+                        <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
+                            <path
+                                d="M21 3h-3.8c-.7 0-1.3-.6-1.3-1.3S16.5.4 17.2.4h5.1c.7 0 1.3.6 1.3 1.3v20.5c0 .7-.6 1.3-1.3 1.3h-5.1c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3H21V3zm-6.9 7.7L8.6 5.2c-.5-.5-.6-1.3-.1-1.8s1.3-.5 1.8 0l7.7 7.7c.8.8.2 2.2-.9 2.2H1.8c-.7 0-1.3-.6-1.3-1.3 0-.7.6-1.3 1.3-1.3h12.3zm-1.6 4.8c.5-.5 1.3-.4 1.8.1s.4 1.3-.1 1.8l-3.8 3.2c-.5.5-1.3.4-1.8-.1-.6-.5-.5-1.3 0-1.7l3.9-3.3z"/>
+                        </svg>
                         <div class="pl-3">Logout</div>
                     </router-link>
                 </div>
@@ -72,7 +80,8 @@
                 <p class="self-start lg:pt-5 pt-0">Foods</p>
 
                 <div class="flex items-center justify-around pt-8 md:w-1/2 w-full">
-                    <input type="text" class="rounded-full w-8/12 border border-1 py-2 px-5 mr-10 focus:outline-none" name="search" id="" placeholder="Search">
+                    <input type="text" class="rounded-full w-8/12 border border-1 py-2 px-5 mr-10 focus:outline-none"
+                           name="search" id="" placeholder="Search">
                     <div class="border border-2 rounded-full p-3 font-bold bg-blue-400">
                         SK
                     </div>
@@ -89,15 +98,15 @@
 <script>
     export default {
         name: "App",
-        props: [ 'user' ],
+        props: ['user'],
         created() {
             axios.interceptors.request.use(config => {
-                if(config.method === 'get') {
+                if (config.method === 'get') {
                     config.url = config.url + '?api_token=' + this.user.api_token;
                 } else {
                     config.data = {
                         ...config.data,
-                        api_token: this.user.api_token
+                       api_token: this.user.api_token
                     }
                 }
 

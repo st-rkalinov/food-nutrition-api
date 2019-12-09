@@ -128,8 +128,8 @@
             </form>
         </div>
 
-        <div v-if="notFound">
-            <NotFound/>
+        <div v-if="errorPage">
+            <ErrorPage :text="errorPage"/>
         </div>
     </div>
 </template>
@@ -137,60 +137,46 @@
 <script>
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
-    import NotFound from "../NotFound";
+    import ErrorPage from "../ErrorPage";
+    import Alert from "../../classes/Alert";
 
     export default {
         name: "FoodsEdit",
         components: {
-            InputTextField, NotFound
+            InputTextField, ErrorPage
         },
         data() {
             return {
                 form: null,
                 dataIsLoaded: false,
-                notFound: false,
+                errorPage: false,
             }
         },
         methods: {
             submit() {
                 this.form.submit('/api/foods/' + this.$route.params.id, 'patch')
                     .then((response) => {
-                        if (response.status === 200) {
-                            swal({
-                                title: 'Success !',
-                                text: 'The food was edited successfully',
-                                icon: 'success',
-                                buttons: [true, 'Go to the food page']
-                            }).then((clickedButton) => {
+                        let alert = new Alert('update', response.status);
+                        alert.show()
+                            .then((clickedButton) => {
                                 if (clickedButton) {
                                     this.$router.push('google.com');
                                 }
-                            });
-                        }
+                        });
 
                         this.form.originalData = response.data.data;
                         this.form.reset();
                     })
                     .catch(error => {
                         let errors = error.response.data.errors;
-                        let swalErrorText = 'There is a problem. Please try again later';
+                        let alert = new Alert('update', error.response.status);
+                        alert.show();
 
                         if (error.response.status === 422) {
-                            swalErrorText = 'There is a problem with the data you entered !';
-
                             for (let errorField in errors) {
                                 this.form.error[errorField] = errors[errorField][0];
                             }
-                        } else if (error.response.status === 401) {
-                            swalErrorText = 'You are unauthorized to edit !';
                         }
-
-                        swal({
-                            title: 'Error !',
-                            text: swalErrorText,
-                            icon: 'error',
-                            timer: 8000,
-                        })
                     })
             }
         },
@@ -199,44 +185,12 @@
                 .then(response => {
                     this.form = new Form(response.data.data);
                     this.dataIsLoaded = true;
-
-                    if (response.status === 201) {
-                        swal({
-                            title: 'Success !',
-                            text: 'New food was added successfully',
-                            icon: 'success',
-                            buttons: [true, 'Go to the food page']
-                        }).then((clickedButton) => {
-                            if (clickedButton) {
-                                this.$router.push('google.com');
-                            }
-                        });
-                    }
-                    this.form.reset();
                 })
                 .catch(error => {
                     if (error.response.status === 404) {
-                        this.notFound = true;
-                    } else {
-                        let errors = error.response.data.errors;
-                        let swalErrorText = 'There is a problem. Please try again later';
-
-                        if (error.response.status === 422) {
-                            swalErrorText = 'There is a problem with the data you entered !';
-                        } else if (error.response.status === 401) {
-                            swalErrorText = 'You are unauthorized to add new food !';
-                        }
-
-                        for (let errorField in errors) {
-                            this.form.error[errorField] = errors[errorField][0];
-                        }
-
-                        swal({
-                            title: 'Error !',
-                            text: swalErrorText,
-                            icon: 'error',
-                            timer: 8000,
-                        })
+                        this.errorPage = 'Page Not Found';
+                    } else if(error.response.status === 401 ) {
+                        this.errorPage = 'Unauthorized';
                     }
                 })
         }

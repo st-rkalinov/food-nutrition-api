@@ -25,7 +25,7 @@
                     <label for="unit" class="text-blue-400 font-bold absolute top-1/3">
                         Unit
 
-                    <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
+                        <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
                         {{ form.error.getError('unit') }}
                     </span>
                     </label>
@@ -106,7 +106,8 @@
                             @update:field="form.data.protein = $event"/>
 
             <div class="pt-8 mt-16 text-right">
-                <input type="checkbox" name="public" id="public" v-model="form.data.public" @change="form.error.clearError('public')">
+                <input type="checkbox" name="public" id="public" v-model="form.data.public"
+                       @change="form.error.clearError('public')">
                 <label for="public" class="text-blue-400 font-bold pl-3">Make the food visible for the other
                     users</label>
 
@@ -133,7 +134,7 @@
     export default {
         name: "FoodsCreate",
         components: {
-          InputTextField
+            InputTextField
         },
         data() {
             return {
@@ -161,7 +162,45 @@
         },
         methods: {
             submit() {
-                this.form.submit('/api/foods');
+                this.form.submit('/api/foods')
+                    .then((response) => {
+                        if (response.status === 201) {
+                            swal({
+                                title: 'Success !',
+                                text: 'New food was added successfully',
+                                icon: 'success',
+                                buttons: [true, 'Go to the food page']
+                            }).then((clickedButton) => {
+                                if (clickedButton) {
+                                    this.$router.push('google.com');
+                                } else {
+                                    swal.close();
+                                }
+                            });
+                        }
+                        this.form.reset();
+                    })
+                    .catch(error => {
+                        let errors = error.response.data.errors;
+                        let swalErrorText = 'There is a problem. Please try again later';
+
+                        if(error.response.status === 422) {
+                            swalErrorText = 'There is a problem with the data you entered !';
+                        } else if(error.response.status === 401) {
+                            swalErrorText = 'You are unauthorized to add new food !';
+                        }
+
+                        for (let errorField in errors) {
+                            this.form.error[errorField] = errors[errorField][0];
+                        }
+
+                        swal({
+                            title: 'Error !',
+                            text: swalErrorText,
+                            icon: 'error',
+                            timer: 8000,
+                        })
+                    })
             }
         }
     }

@@ -14,18 +14,8 @@ class Form {
     }
 
     submit(path) {
-        axios.post(path, this.data)
-            .then((response) => {
-                console.log(response);
-                this.reset();
-            })
-            .catch(error => {
-                let errors = error.response.data.errors;
 
-                for(let errorField in errors) {
-                    this.error[errorField] = errors[errorField][0];
-                }
-            })
+        return axios.post(path, this.data);
     }
 
     reset() {

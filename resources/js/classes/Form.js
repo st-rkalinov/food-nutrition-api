@@ -13,9 +13,9 @@ class Form {
         }
     }
 
-    submit(path) {
+    submit(path, method = 'post') {
 
-        return axios.post(path, this.data);
+        return axios[method](path, this.data);
     }
 
     reset() {

@@ -2281,7 +2281,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['name', 'placeholder', 'defaultValue', 'dataValue', 'errors', 'label', 'classes'],
   data: function data() {
     return {
-      value: this.defaultValue
+      value: this.defaultValue ? this.defaultValue : this.dataValue
     };
   },
   methods: {
@@ -2294,6 +2294,41 @@ __webpack_require__.r(__webpack_exports__);
       this.value = val;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NotFound.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "NotFound"
 });
 
 /***/ }),
@@ -2483,8 +2518,6 @@ __webpack_require__.r(__webpack_exports__);
           }).then(function (clickedButton) {
             if (clickedButton) {
               _this.$router.push('google.com');
-            } else {
-              swal.close();
             }
           });
         }
@@ -2496,12 +2529,12 @@ __webpack_require__.r(__webpack_exports__);
 
         if (error.response.status === 422) {
           swalErrorText = 'There is a problem with the data you entered !';
+
+          for (var errorField in errors) {
+            _this.form.error[errorField] = errors[errorField][0];
+          }
         } else if (error.response.status === 401) {
           swalErrorText = 'You are unauthorized to add new food !';
-        }
-
-        for (var errorField in errors) {
-          _this.form.error[errorField] = errors[errorField][0];
         }
 
         swal({
@@ -2512,6 +2545,265 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
+/* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
+/* harmony import */ var _NotFound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../NotFound */ "./resources/js/components/NotFound.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "FoodsEdit",
+  components: {
+    InputTextField: _InputTextField__WEBPACK_IMPORTED_MODULE_1__["default"],
+    NotFound: _NotFound__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      form: null,
+      dataIsLoaded: false,
+      notFound: false
+    };
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      this.form.submit('/api/foods/' + this.$route.params.id, 'patch').then(function (response) {
+        if (response.status === 200) {
+          swal({
+            title: 'Success !',
+            text: 'The food was edited successfully',
+            icon: 'success',
+            buttons: [true, 'Go to the food page']
+          }).then(function (clickedButton) {
+            if (clickedButton) {
+              _this.$router.push('google.com');
+            }
+          });
+        }
+
+        _this.form.originalData = response.data.data;
+
+        _this.form.reset();
+      })["catch"](function (error) {
+        var errors = error.response.data.errors;
+        var swalErrorText = 'There is a problem. Please try again later';
+
+        if (error.response.status === 422) {
+          swalErrorText = 'There is a problem with the data you entered !';
+
+          for (var errorField in errors) {
+            _this.form.error[errorField] = errors[errorField][0];
+          }
+        } else if (error.response.status === 401) {
+          swalErrorText = 'You are unauthorized to edit !';
+        }
+
+        swal({
+          title: 'Error !',
+          text: swalErrorText,
+          icon: 'error',
+          timer: 8000
+        });
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios.get('/api/foods/' + this.$route.params.id).then(function (response) {
+      _this2.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](response.data.data);
+      _this2.dataIsLoaded = true;
+
+      if (response.status === 201) {
+        swal({
+          title: 'Success !',
+          text: 'New food was added successfully',
+          icon: 'success',
+          buttons: [true, 'Go to the food page']
+        }).then(function (clickedButton) {
+          if (clickedButton) {
+            _this2.$router.push('google.com');
+          }
+        });
+      }
+
+      _this2.form.reset();
+    })["catch"](function (error) {
+      if (error.response.status === 404) {
+        _this2.notFound = true;
+      } else {
+        var errors = error.response.data.errors;
+        var swalErrorText = 'There is a problem. Please try again later';
+
+        if (error.response.status === 422) {
+          swalErrorText = 'There is a problem with the data you entered !';
+        } else if (error.response.status === 401) {
+          swalErrorText = 'You are unauthorized to add new food !';
+        }
+
+        for (var errorField in errors) {
+          _this2.form.error[errorField] = errors[errorField][0];
+        }
+
+        swal({
+          title: 'Error !',
+          text: swalErrorText,
+          icon: 'error',
+          timer: 8000
+        });
+      }
+    });
   }
 });
 
@@ -38690,6 +38982,73 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("img", {
+      staticClass: "w-32 h-32 mx-auto my-0",
+      attrs: { src: __webpack_require__(/*! ../../images/sad-face.png */ "./resources/images/sad-face.png"), alt: "Sad face" }
+    }),
+    _vm._v(" "),
+    _c(
+      "h1",
+      { staticClass: "text-4xl text-center font-bold py-10 text-blue-400" },
+      [_vm._v("Page Not Found")]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex justify-around flex-wrap p-10" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "p-3 rounded-full border-2 border-blue-400 text-blue-400 hover:text-white hover:bg-blue-400 hover:font-bold",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.$router.back()
+            }
+          }
+        },
+        [_vm._v("\n            Go to previous page\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "p-3 rounded-full border-2 border-blue-400 text-blue-400 hover:text-white hover:bg-blue-400 hover:font-bold",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.$router.push("/api/foods/")
+            }
+          }
+        },
+        [_vm._v("\n            Go to home page\n        ")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=template&id=092d8835&scoped=true& ***!
@@ -39108,40 +39467,509 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
+          _c(
+            "a",
+            {
+              staticClass:
+                "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.$router.back()
+                }
+              }
+            },
+            [_vm._v("Cancel")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
+              attrs: { type: "submit" }
+            },
+            [_vm._v("Create\n            ")]
+          )
+        ])
       ],
       1
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Cancel")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Create\n            ")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.dataIsLoaded
+      ? _c("div", [
+          _c(
+            "form",
+            {
+              staticClass: "-mt-8",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
+                }
+              }
+            },
+            [
+              _c("InputTextField", {
+                attrs: {
+                  name: "name",
+                  label: "Name",
+                  dataValue: _vm.form.data.name,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.name = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("InputTextField", {
+                attrs: {
+                  name: "brand",
+                  placeholder: "Brand Name",
+                  label: "Brand",
+                  "default-value": _vm.form.originalData.brand,
+                  dataValue: _vm.form.data.brand,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.brand = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex justify-between flex-wrap sm:flex-col lg:flex-row flex-col"
+                },
+                [
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "serving",
+                      placeholder: "Serving Size",
+                      label: "Serving",
+                      "default-value": _vm.form.originalData.serving,
+                      dataValue: _vm.form.data.serving,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/2 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.serving = $event
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "border-b border-b-2 relative pt-16 sm:w-full lg:w-1/2 w-full"
+                    },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "text-blue-400 font-bold absolute top-1/3",
+                          attrs: { for: "unit" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        Unit\n\n                        "
+                          ),
+                          _vm.form.error.hasError("unit")
+                            ? _c(
+                                "span",
+                                { staticClass: "pl-12 text-red-600 text-sm" },
+                                [
+                                  _vm._v(
+                                    "\n                        " +
+                                      _vm._s(_vm.form.error.getError("unit")) +
+                                      "\n                    "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.data.unit,
+                              expression: "form.data.unit"
+                            }
+                          ],
+                          staticClass:
+                            "focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full",
+                          attrs: { name: "unit", id: "unit" },
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form.data,
+                                  "unit",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              function($event) {
+                                return _vm.form.error.clearError("unit")
+                              }
+                            ]
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "gram" } }, [
+                            _vm._v("Gram")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "milliliter" } }, [
+                            _vm._v("Milliliter")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "kilogram" } }, [
+                            _vm._v("Kilogram")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "liter" } }, [
+                            _vm._v("Liter")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("InputTextField", {
+                attrs: {
+                  name: "calories",
+                  placeholder: "Calories",
+                  label: "Calories",
+                  "default-value": _vm.form.originalData.calories,
+                  dataValue: _vm.form.data.calories,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.calories = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex justify-between sm:flex-col lg:flex-row flex-col"
+                },
+                [
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "fat",
+                      placeholder: "Fat",
+                      label: "Fat",
+                      "default-value": _vm.form.originalData.fat,
+                      dataValue: _vm.form.data.fat,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/2 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.fat = $event
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "fat_satured",
+                      placeholder: "Satured Fat",
+                      label: "Satured Fat",
+                      "default-value": _vm.form.originalData.fat_satured,
+                      dataValue: _vm.form.data.fat_satured,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/2 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.fat_satured = $event
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("InputTextField", {
+                attrs: {
+                  name: "cholesterol",
+                  placeholder: "Cholesterol",
+                  label: "Cholesterol",
+                  "default-value": _vm.form.originalData.cholesterol,
+                  dataValue: _vm.form.data.cholesterol,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.cholesterol = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("InputTextField", {
+                attrs: {
+                  name: "salt",
+                  placeholder: "Salt",
+                  label: "Salt",
+                  "default-value": _vm.form.originalData.salt,
+                  dataValue: _vm.form.data.salt,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.salt = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex justify-between sm:flex-col lg:flex-row flex-col"
+                },
+                [
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "carbohydrates",
+                      placeholder: "Carbohydrates",
+                      label: "Carbohydrates",
+                      "default-value": _vm.form.originalData.carbohydrates,
+                      dataValue: _vm.form.data.carbohydrates,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/3 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.carbohydrates = $event
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "carbohydrates_fiber",
+                      placeholder: "Carbohydrates Fiber",
+                      label: "Carbohydrates Fiber",
+                      "default-value":
+                        _vm.form.originalData.carbohydrates_fiber,
+                      dataValue: _vm.form.data.carbohydrates_fiber,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/3 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.carbohydrates_fiber = $event
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("InputTextField", {
+                    attrs: {
+                      name: "carbohydrates_sugars",
+                      placeholder: "Carbohydrates Sugars",
+                      label: "Carbohydrates Sugars",
+                      "default-value":
+                        _vm.form.originalData.carbohydrates_sugars,
+                      dataValue: _vm.form.data.carbohydrates_sugars,
+                      errors: _vm.form.error,
+                      classes: "sm:w-full lg:w-1/3 w-full"
+                    },
+                    on: {
+                      "update:field": function($event) {
+                        _vm.form.data.carbohydrates_sugars = $event
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("InputTextField", {
+                attrs: {
+                  name: "protein",
+                  placeholder: "Protein",
+                  label: "Protein",
+                  "default-value": _vm.form.originalData.protein,
+                  dataValue: _vm.form.data.protein,
+                  errors: _vm.form.error
+                },
+                on: {
+                  "update:field": function($event) {
+                    _vm.form.data.protein = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "pt-8 mt-16 text-right" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.data.public,
+                      expression: "form.data.public"
+                    }
+                  ],
+                  attrs: { type: "checkbox", name: "public", id: "public" },
+                  domProps: {
+                    checked: Array.isArray(_vm.form.data.public)
+                      ? _vm._i(_vm.form.data.public, null) > -1
+                      : _vm.form.data.public
+                  },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$a = _vm.form.data.public,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.form.data,
+                                "public",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.form.data,
+                                "public",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.form.data, "public", $$c)
+                        }
+                      },
+                      function($event) {
+                        return _vm.form.error.clearError("public")
+                      }
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "text-blue-400 font-bold pl-3",
+                    attrs: { for: "public" }
+                  },
+                  [
+                    _vm._v(
+                      "Make the food visible for the other\n                    users"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm.form.error.hasError("public")
+                  ? _c("span", { staticClass: "text-red-600 text-sm block" }, [
+                      _vm._v(
+                        "\n                    " +
+                          _vm._s(_vm.form.error.getError("public")) +
+                          "\n                "
+                      )
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "flex justify-end py-16 px-10" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$router.back()
+                      }
+                    }
+                  },
+                  [_vm._v("Cancel")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("Edit\n                ")]
+                )
+              ])
+            ],
+            1
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.notFound ? _c("div", [_c("NotFound")], 1) : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -54179,6 +55007,17 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/images/sad-face.png":
+/*!***************************************!*\
+  !*** ./resources/images/sad-face.png ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/sad-face.png?f3d20dd31f70a6c65c6d3bc1cc92809b";
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -54352,7 +55191,8 @@ function () {
   _createClass(Form, [{
     key: "submit",
     value: function submit(path) {
-      return axios.post(path, this.data);
+      var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'post';
+      return axios[method](path, this.data);
     }
   }, {
     key: "reset",
@@ -54579,6 +55419,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/NotFound.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/NotFound.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true& */ "./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true&");
+/* harmony import */ var _NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NotFound.vue?vue&type=script&lang=js& */ "./resources/js/components/NotFound.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2ce50e5a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/NotFound.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/NotFound.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/NotFound.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NotFound.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NotFound.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NotFound.vue?vue&type=template&id=2ce50e5a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NotFound_vue_vue_type_template_id_2ce50e5a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/views/FoodsCreate.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/views/FoodsCreate.vue ***!
@@ -54648,6 +55557,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/views/FoodsEdit.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/views/FoodsEdit.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true& */ "./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true&");
+/* harmony import */ var _FoodsEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FoodsEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FoodsEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "47f75afa",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/views/FoodsEdit.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FoodsEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsEdit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsEdit.vue?vue&type=template&id=47f75afa&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FoodsEdit_vue_vue_type_template_id_47f75afa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -54662,6 +55640,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/ExampleComponent */ "./resources/js/components/ExampleComponent.vue");
 /* harmony import */ var _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/views/FoodsCreate */ "./resources/js/components/views/FoodsCreate.vue");
+/* harmony import */ var _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/views/FoodsEdit */ "./resources/js/components/views/FoodsEdit.vue");
+
 
 
 
@@ -54674,6 +55654,9 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     path: '/foods/create',
     component: _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }, {
+    path: '/foods/:id/edit',
+    component: _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__["default"]
   }],
   mode: 'history'
 }));

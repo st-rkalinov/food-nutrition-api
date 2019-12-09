@@ -1,0 +1,248 @@
+<template>
+    <div>
+        <div v-if="dataIsLoaded">
+            <form class="-mt-8" @submit.prevent="submit">
+                <InputTextField name="name" label="Name"
+                                :dataValue="form.data.name"
+                                :errors="form.error"
+                                @update:field="form.data.name = $event"/>
+
+                <InputTextField name="brand" placeholder="Brand Name" label="Brand"
+                                :default-value="form.originalData.brand"
+                                :dataValue="form.data.brand"
+                                :errors="form.error"
+                                @update:field="form.data.brand = $event"/>
+
+                <div class="flex justify-between flex-wrap sm:flex-col lg:flex-row flex-col">
+                    <InputTextField name="serving" placeholder="Serving Size" label="Serving"
+                                    :default-value="form.originalData.serving"
+                                    :dataValue="form.data.serving"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/2 w-full"
+                                    @update:field="form.data.serving = $event"/>
+
+                    <div class="border-b border-b-2 relative pt-16 sm:w-full lg:w-1/2 w-full">
+                        <label for="unit" class="text-blue-400 font-bold absolute top-1/3">
+                            Unit
+
+                            <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
+                            {{ form.error.getError('unit') }}
+                        </span>
+                        </label>
+                        <select name="unit" id="unit"
+                                class="focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full"
+                                v-model="form.data.unit"
+                                @change="form.error.clearError('unit')">
+                            <option value="gram">Gram</option>
+                            <option value="milliliter">Milliliter</option>
+                            <option value="kilogram">Kilogram</option>
+                            <option value="liter">Liter</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <InputTextField name="calories" placeholder="Calories" label="Calories"
+                                :default-value="form.originalData.calories"
+                                :dataValue="form.data.calories"
+                                :errors="form.error"
+                                @update:field="form.data.calories = $event"/>
+
+                <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
+                    <InputTextField name="fat" placeholder="Fat" label="Fat"
+                                    :default-value="form.originalData.fat"
+                                    :dataValue="form.data.fat"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/2 w-full"
+                                    @update:field="form.data.fat = $event"/>
+
+                    <InputTextField name="fat_satured" placeholder="Satured Fat" label="Satured Fat"
+                                    :default-value="form.originalData.fat_satured"
+                                    :dataValue="form.data.fat_satured"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/2 w-full"
+                                    @update:field="form.data.fat_satured = $event"/>
+                </div>
+
+                <InputTextField name="cholesterol" placeholder="Cholesterol" label="Cholesterol"
+                                :default-value="form.originalData.cholesterol"
+                                :dataValue="form.data.cholesterol"
+                                :errors="form.error"
+                                @update:field="form.data.cholesterol = $event"/>
+
+                <InputTextField name="salt" placeholder="Salt" label="Salt"
+                                :default-value="form.originalData.salt"
+                                :dataValue="form.data.salt"
+                                :errors="form.error"
+                                @update:field="form.data.salt = $event"/>
+
+                <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
+                    <InputTextField name="carbohydrates" placeholder="Carbohydrates" label="Carbohydrates"
+                                    :default-value="form.originalData.carbohydrates"
+                                    :dataValue="form.data.carbohydrates"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/3 w-full"
+                                    @update:field="form.data.carbohydrates = $event"/>
+
+                    <InputTextField name="carbohydrates_fiber" placeholder="Carbohydrates Fiber"
+                                    label="Carbohydrates Fiber"
+                                    :default-value="form.originalData.carbohydrates_fiber"
+                                    :dataValue="form.data.carbohydrates_fiber"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/3 w-full"
+                                    @update:field="form.data.carbohydrates_fiber = $event"/>
+
+                    <InputTextField name="carbohydrates_sugars" placeholder="Carbohydrates Sugars"
+                                    label="Carbohydrates Sugars"
+                                    :default-value="form.originalData.carbohydrates_sugars"
+                                    :dataValue="form.data.carbohydrates_sugars"
+                                    :errors="form.error"
+                                    classes="sm:w-full lg:w-1/3 w-full"
+                                    @update:field="form.data.carbohydrates_sugars = $event"/>
+                </div>
+
+                <InputTextField name="protein" placeholder="Protein" label="Protein"
+                                :default-value="form.originalData.protein"
+                                :dataValue="form.data.protein"
+                                :errors="form.error"
+                                @update:field="form.data.protein = $event"/>
+
+                <div class="pt-8 mt-16 text-right">
+                    <input type="checkbox" name="public" id="public" v-model="form.data.public"
+                           @change="form.error.clearError('public')">
+                    <label for="public" class="text-blue-400 font-bold pl-3">Make the food visible for the other
+                        users</label>
+
+                    <span class="text-red-600 text-sm block" v-if="form.error.hasError('public')">
+                        {{ form.error.getError('public') }}
+                    </span>
+                </div>
+
+                <div class="flex justify-end py-16 px-10">
+                    <a href="#"
+                       class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold" @click.prevent="$router.back()">Cancel</a>
+                    <button type="submit"
+                            class="py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold">Edit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div v-if="notFound">
+            <NotFound/>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Form from "../../classes/Form";
+    import InputTextField from "../InputTextField";
+    import NotFound from "../NotFound";
+
+    export default {
+        name: "FoodsEdit",
+        components: {
+            InputTextField, NotFound
+        },
+        data() {
+            return {
+                form: null,
+                dataIsLoaded: false,
+                notFound: false,
+            }
+        },
+        methods: {
+            submit() {
+                this.form.submit('/api/foods/' + this.$route.params.id, 'patch')
+                    .then((response) => {
+                        if (response.status === 200) {
+                            swal({
+                                title: 'Success !',
+                                text: 'The food was edited successfully',
+                                icon: 'success',
+                                buttons: [true, 'Go to the food page']
+                            }).then((clickedButton) => {
+                                if (clickedButton) {
+                                    this.$router.push('google.com');
+                                }
+                            });
+                        }
+
+                        this.form.originalData = response.data.data;
+                        this.form.reset();
+                    })
+                    .catch(error => {
+                        let errors = error.response.data.errors;
+                        let swalErrorText = 'There is a problem. Please try again later';
+
+                        if (error.response.status === 422) {
+                            swalErrorText = 'There is a problem with the data you entered !';
+
+                            for (let errorField in errors) {
+                                this.form.error[errorField] = errors[errorField][0];
+                            }
+                        } else if (error.response.status === 401) {
+                            swalErrorText = 'You are unauthorized to edit !';
+                        }
+
+                        swal({
+                            title: 'Error !',
+                            text: swalErrorText,
+                            icon: 'error',
+                            timer: 8000,
+                        })
+                    })
+            }
+        },
+        mounted() {
+            axios.get('/api/foods/' + this.$route.params.id)
+                .then(response => {
+                    this.form = new Form(response.data.data);
+                    this.dataIsLoaded = true;
+
+                    if (response.status === 201) {
+                        swal({
+                            title: 'Success !',
+                            text: 'New food was added successfully',
+                            icon: 'success',
+                            buttons: [true, 'Go to the food page']
+                        }).then((clickedButton) => {
+                            if (clickedButton) {
+                                this.$router.push('google.com');
+                            }
+                        });
+                    }
+                    this.form.reset();
+                })
+                .catch(error => {
+                    if (error.response.status === 404) {
+                        this.notFound = true;
+                    } else {
+                        let errors = error.response.data.errors;
+                        let swalErrorText = 'There is a problem. Please try again later';
+
+                        if (error.response.status === 422) {
+                            swalErrorText = 'There is a problem with the data you entered !';
+                        } else if (error.response.status === 401) {
+                            swalErrorText = 'You are unauthorized to add new food !';
+                        }
+
+                        for (let errorField in errors) {
+                            this.form.error[errorField] = errors[errorField][0];
+                        }
+
+                        swal({
+                            title: 'Error !',
+                            text: swalErrorText,
+                            icon: 'error',
+                            timer: 8000,
+                        })
+                    }
+                })
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>

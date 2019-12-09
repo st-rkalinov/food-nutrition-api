@@ -118,7 +118,7 @@
 
             <div class="flex justify-end py-16 px-10">
                 <a href="#"
-                   class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold">Cancel</a>
+                   class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold" @click.prevent="$router.back()">Cancel</a>
                 <button type="submit"
                         class="py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold">Create
                 </button>
@@ -173,8 +173,6 @@
                             }).then((clickedButton) => {
                                 if (clickedButton) {
                                     this.$router.push('google.com');
-                                } else {
-                                    swal.close();
                                 }
                             });
                         }
@@ -186,12 +184,12 @@
 
                         if(error.response.status === 422) {
                             swalErrorText = 'There is a problem with the data you entered !';
+
+                            for (let errorField in errors) {
+                                this.form.error[errorField] = errors[errorField][0];
+                            }
                         } else if(error.response.status === 401) {
                             swalErrorText = 'You are unauthorized to add new food !';
-                        }
-
-                        for (let errorField in errors) {
-                            this.form.error[errorField] = errors[errorField][0];
                         }
 
                         swal({

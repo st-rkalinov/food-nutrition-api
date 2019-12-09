@@ -20,7 +20,7 @@
         props: ['name', 'placeholder', 'defaultValue', 'dataValue', 'errors', 'label', 'classes'],
         data() {
             return {
-                value: this.defaultValue
+                value: (this.defaultValue) ? this.defaultValue : this.dataValue,
             }
         },
         methods: {

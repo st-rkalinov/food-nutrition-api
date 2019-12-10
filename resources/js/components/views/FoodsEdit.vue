@@ -160,6 +160,7 @@
                         alert.show()
                             .then((clickedButton) => {
                                 if (clickedButton) {
+                                    //TODO: push to updated food page
                                     this.$router.push('google.com');
                                 }
                         });

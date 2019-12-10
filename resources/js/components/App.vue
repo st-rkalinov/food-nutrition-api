@@ -21,7 +21,7 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">GENERAL</p>
-                    <router-link to="/"
+                    <router-link to="/foods"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 48 48" class="w-6 h-6 fill-current text-blue-600"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

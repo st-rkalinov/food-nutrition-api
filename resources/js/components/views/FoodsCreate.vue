@@ -169,6 +169,8 @@
                         alert.show()
                             .then((clickedButton) => {
                                 if (clickedButton) {
+                                    //TODO: push to created food page
+
                                     this.$router.push('google.com');
                                 }
                             });

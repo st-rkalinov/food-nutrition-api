@@ -6,13 +6,14 @@ use App\Food;
 use App\Http\Requests\FoodStoreRequest;
 use App\Http\Resources\FoodResource;
 use App\User;
+use Illuminate\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Response;
 
 class FoodsController extends Controller
 {
     public function index()
     {
-        $foods = Food::availableForAll()->get();
+        $foods = Food::availableForAll()->paginate(10);
 
         return FoodResource::collection($foods);
     }

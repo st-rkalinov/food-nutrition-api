@@ -2397,6 +2397,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -39168,65 +39172,75 @@ var render = function() {
                     { staticClass: "py-3 flex justify-around items-center" },
                     [
                       _c(
-                        "svg",
-                        {
-                          attrs: {
-                            width: "20px",
-                            height: "29px",
-                            viewBox: "0 0 100 100",
-                            version: "1.1",
-                            xmlns: "http://www.w3.org/2000/svg",
-                            "xmlns:xlink": "http://www.w3.org/1999/xlink"
-                          }
-                        },
+                        "router-link",
+                        { staticClass: "w-1/2", attrs: { to: "/" } },
                         [
                           _c(
-                            "g",
+                            "svg",
                             {
+                              staticClass: "mx-auto",
                               attrs: {
-                                stroke: "none",
-                                "stroke-width": "1",
-                                fill: "none",
-                                "fill-rule": "evenodd",
-                                "stroke-linecap": "round",
-                                "stroke-linejoin": "round"
+                                width: "20px",
+                                height: "29px",
+                                viewBox: "0 0 100 100",
+                                version: "1.1",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                "xmlns:xlink": "http://www.w3.org/1999/xlink"
                               }
                             },
                             [
+                              _c("title", [_vm._v("See")]),
+                              _vm._v(" "),
                               _c(
                                 "g",
                                 {
                                   attrs: {
-                                    transform: "translate(2.000000, 16.000000)",
-                                    stroke: "#2E86DE",
-                                    "stroke-width": "4"
+                                    stroke: "none",
+                                    "stroke-width": "1",
+                                    fill: "none",
+                                    "fill-rule": "evenodd",
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round"
                                   }
                                 },
                                 [
-                                  _c("path", {
-                                    attrs: {
-                                      d:
-                                        "M48,67.2 C81.8971875,67.2 96,33.3512347 96,33.3512347 C96,33.3512347 81.0140625,-3.02379073e-15 48,0 C14.9859375,3.02379073e-15 0,33.3512347 0,33.3512347 C0,33.3512347 14.1028125,67.2 48,67.2 Z",
-                                      id: "Layer-1"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("circle", {
-                                    attrs: {
-                                      id: "Layer-2",
-                                      cx: "48",
-                                      cy: "33.6",
-                                      r: "21.12"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("path", {
-                                    attrs: {
-                                      d:
-                                        "M57.0803498,14.5262074 C53.013568,15.2280273 49.92,18.7727429 49.92,23.04 C49.92,27.8117402 53.7882598,31.68 58.56,31.68 C62.8272571,31.68 66.3719727,28.586432 67.0737926,24.5196502 C68.3856474,27.2703493 69.12,30.349416 69.12,33.6 C69.12,45.2642539 59.6642539,54.72 48,54.72 C36.3357461,54.72 26.88,45.2642539 26.88,33.6 C26.88,21.9357461 36.3357461,12.48 48,12.48 C51.250584,12.48 54.3296507,13.2143526 57.0803498,14.5262074 Z",
-                                      id: "Layer-3"
-                                    }
-                                  })
+                                  _c(
+                                    "g",
+                                    {
+                                      attrs: {
+                                        transform:
+                                          "translate(2.000000, 16.000000)",
+                                        stroke: "#2E86DE",
+                                        "stroke-width": "4"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M48,67.2 C81.8971875,67.2 96,33.3512347 96,33.3512347 C96,33.3512347 81.0140625,-3.02379073e-15 48,0 C14.9859375,3.02379073e-15 0,33.3512347 0,33.3512347 C0,33.3512347 14.1028125,67.2 48,67.2 Z",
+                                          id: "Layer-1"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("circle", {
+                                        attrs: {
+                                          id: "Layer-2",
+                                          cx: "48",
+                                          cy: "33.6",
+                                          r: "21.12"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M57.0803498,14.5262074 C53.013568,15.2280273 49.92,18.7727429 49.92,23.04 C49.92,27.8117402 53.7882598,31.68 58.56,31.68 C62.8272571,31.68 66.3719727,28.586432 67.0737926,24.5196502 C68.3856474,27.2703493 69.12,30.349416 69.12,33.6 C69.12,45.2642539 59.6642539,54.72 48,54.72 C36.3357461,54.72 26.88,45.2642539 26.88,33.6 C26.88,21.9357461 36.3357461,12.48 48,12.48 C51.250584,12.48 54.3296507,13.2143526 57.0803498,14.5262074 Z",
+                                          id: "Layer-3"
+                                        }
+                                      })
+                                    ]
+                                  )
                                 ]
                               )
                             ]
@@ -39237,12 +39251,14 @@ var render = function() {
                       _c(
                         "router-link",
                         {
+                          staticClass: "w-1/2",
                           attrs: { to: "/foods/" + item.data.food_id + "/edit" }
                         },
                         [
                           _c(
                             "svg",
                             {
+                              staticClass: "mx-auto",
                               attrs: {
                                 width: "20px",
                                 height: "20px",
@@ -39253,6 +39269,8 @@ var render = function() {
                               }
                             },
                             [
+                              _c("title", [_vm._v("Edit")]),
+                              _vm._v(" "),
                               _c(
                                 "g",
                                 {

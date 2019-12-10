@@ -69,4 +69,9 @@ class Food extends Model
     {
         return $query->where('public', '=', true)->orWhere('user_id', '=', auth()->user()->id);
     }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

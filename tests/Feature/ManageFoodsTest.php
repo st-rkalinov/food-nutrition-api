@@ -41,7 +41,7 @@ class ManageFoodsTest extends TestCase
 
         $this->assertCount(1, Food::all());
         $response
-            ->assertJson($this->jsonData($food))
+            ->assertJson($this->jsonData($food, ['owner_id' => $this->user->id]))
             ->assertStatus(Response::HTTP_CREATED);
 
     }
@@ -61,7 +61,7 @@ class ManageFoodsTest extends TestCase
             ->create(['public' => true]);
 
         $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
-        $response->assertJson($this->jsonData($food));
+        $response->assertJson($this->jsonData($food, ['owner_id' => $mike->id]));
     }
 
     /**
@@ -98,7 +98,7 @@ class ManageFoodsTest extends TestCase
 
         collect([$food, $food1])->each(function ($food) {
             $response = $this->get($food->path() . '?api_token=' . $this->user->api_token );
-            $response->assertJson($this->jsonData($food));
+            $response->assertJson($this->jsonData($food, ['owner_id' => $this->user->id]));
         });
     }
 
@@ -122,7 +122,7 @@ class ManageFoodsTest extends TestCase
         $this->assertEquals('Changed', $food->name);
 
         $response
-            ->assertJson($this->jsonData($food, ['name' => 'Changed']))
+            ->assertJson($this->jsonData($food, ['name' => 'Changed', 'owner_id' => $this->user->id]))
             ->assertStatus(Response::HTTP_OK);
     }
 
@@ -162,7 +162,13 @@ class ManageFoodsTest extends TestCase
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
         $this->assertCount(2, Food::all());
 
-        $response->assertJson($this->jsonDataCollection([$johns_food, $mikes_food]));
+        $response->assertJson($this->jsonDataCollection(
+            [$johns_food, $mikes_food],
+            [
+                0 => ['owner_id' => $john->id],
+                1 => ['owner_id' => $mike->id],
+            ]
+        ));
     }
 
     /**
@@ -183,7 +189,7 @@ class ManageFoodsTest extends TestCase
 
         $response = $this->get('/api/foods?api_token=' . $john->api_token);
         $this->assertCount(2, Food::all());
-        $response->assertJson($this->jsonDataCollection([$johns_food]));
+        $response->assertJson($this->jsonDataCollection([$johns_food], [0 => ['owner_id' => $john->id]]));
     }
 
     /**
@@ -325,20 +331,23 @@ class ManageFoodsTest extends TestCase
         })->forget('api_token')->toArray();
 
         $data['food_id'] = $food->id;
-        array_merge($data, $additionalData);
+        $data = array_merge($data, $additionalData);
 
         $jsonData['data'] = $data;
         $jsonData['links'] = [
             'self' => $food->path()
         ];
-
         return $jsonData;
     }
 
-    protected function jsonDataCollection(array $foods)
+    protected function jsonDataCollection(array $foods, array $additonalData = [])
     {
-        $data['data'] = collect($foods)->map(function($item, $key) {
-           return $this->jsonData($item);
+        $data['data'] = collect($foods)->map(function($item, $key) use($additonalData){
+            if(!empty($additonalData[$key])) {
+                return $this->jsonData($item, $additonalData[$key]);
+            }
+
+            return $this->jsonData($item);
         })->toArray();
 
         return $data;

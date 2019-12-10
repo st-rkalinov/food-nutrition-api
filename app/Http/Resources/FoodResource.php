@@ -17,6 +17,7 @@ class FoodResource extends JsonResource
         return [
             'data' => [
                 'food_id' => $this->id,
+                'owner_id' => $this->user->id,
                 'name' => $this->name,
                 'brand' => $this->brand,
                 'serving' => $this->serving,

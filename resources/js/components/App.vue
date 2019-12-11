@@ -106,7 +106,7 @@
                 } else {
                     config.data = {
                         ...config.data,
-                       api_token: this.user.api_token
+                        api_token: this.user.api_token
                     }
                 }
 

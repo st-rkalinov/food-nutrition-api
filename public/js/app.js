@@ -2307,6 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes/Paginator */ "./resources/js/classes/Paginator.js");
 /* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes/Alert */ "./resources/js/classes/Alert.js");
+/* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
 //
 //
 //
@@ -2401,16 +2402,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FoodsList",
-  props: ['endpoint'],
+  props: ['endpoint', 'user_id'],
+  components: {
+    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       data: null,
       dataIsLoaded: false,
-      page: null,
+      page: 1,
       paginator: null
     };
   },
@@ -2418,27 +2447,39 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit(page) {
       var _this = this;
 
-      if (this.paginator.getCurrent() === page) {
+      var firstRequest = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      if (!firstRequest && this.paginator.getCurrent() === page) {
         return;
       }
 
-      this.$router.push({
-        path: '/foods',
-        query: {
-          page: page
-        }
-      });
+      if (this.$route.query.page !== page) {
+        this.$router.push({
+          path: '/foods',
+          query: {
+            page: page
+          }
+        });
+      }
+
       axios.get('/api/foods', {
         params: {
           page: page
         }
       }).then(function (response) {
         _this.data = response.data;
-        _this.dataIsLoaded = true;
 
-        _this.paginator.setMeta(response.data.meta);
+        if (_this.data.data.length !== 0) {
+          _this.dataIsLoaded = true;
 
-        _this.paginator.getLinks();
+          if (firstRequest) {
+            _this.paginator = new _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__["default"](_this.data.meta);
+          } else {
+            _this.paginator.setMeta(response.data.meta);
+
+            _this.paginator.getLinks();
+          }
+        }
       })["catch"](function (error) {
         var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('fetch', error.response.status);
         alert.show().then(function (buttonClicked) {
@@ -2450,20 +2491,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    if (this.$route.query.page) {
+      this.page = this.$route.query.page;
+    }
 
-    axios.get('/api/foods').then(function (response) {
-      _this2.data = response.data;
-      _this2.dataIsLoaded = true;
-      _this2.paginator = new _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__["default"](response.data.meta);
-    })["catch"](function (error) {
-      var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('fetch', error.response.status);
-      alert.show().then(function (buttonClicked) {
-        //TODO: redirect to logout component
-        //this.$router.push({ path: '/logout'});
-        console.log('clicked');
-      });
-    });
+    this.submit(this.page, true);
   }
 });
 
@@ -39130,362 +39162,397 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.dataIsLoaded
-    ? _c("div", [
-        _c(
-          "table",
-          {
-            staticClass:
-              "w-full border-collapse overflow-hidden border-blue-400 rounded-lg shadow-2xl"
-          },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._l(_vm.data.data, function(item, key) {
-              return _c(
-                "tr",
-                {
-                  staticClass:
-                    "text-center border-b-2 border-gray-200 hover:font-bold"
-                },
-                [
-                  _c("td", { staticClass: "py-3" }, [_vm._v(_vm._s(key + 1))]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "py-3" }, [
-                    _vm._v(_vm._s(item.data.name))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "py-3" }, [
-                    _vm._v(_vm._s(item.data.calories))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "py-3" }, [
-                    _vm._v(_vm._s(item.data.serving))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "py-3" }, [
-                    _vm._v(_vm._s(item.data.unit))
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { staticClass: "py-3 flex justify-around items-center" },
-                    [
-                      _c(
-                        "router-link",
-                        { staticClass: "w-1/2", attrs: { to: "/" } },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "mx-auto",
-                              attrs: {
-                                width: "20px",
-                                height: "29px",
-                                viewBox: "0 0 100 100",
-                                version: "1.1",
-                                xmlns: "http://www.w3.org/2000/svg",
-                                "xmlns:xlink": "http://www.w3.org/1999/xlink"
-                              }
-                            },
-                            [
-                              _c("title", [_vm._v("See")]),
-                              _vm._v(" "),
-                              _c(
-                                "g",
-                                {
-                                  attrs: {
-                                    stroke: "none",
-                                    "stroke-width": "1",
-                                    fill: "none",
-                                    "fill-rule": "evenodd",
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "g",
-                                    {
-                                      attrs: {
-                                        transform:
-                                          "translate(2.000000, 16.000000)",
-                                        stroke: "#2E86DE",
-                                        "stroke-width": "4"
-                                      }
-                                    },
-                                    [
-                                      _c("path", {
-                                        attrs: {
-                                          d:
-                                            "M48,67.2 C81.8971875,67.2 96,33.3512347 96,33.3512347 C96,33.3512347 81.0140625,-3.02379073e-15 48,0 C14.9859375,3.02379073e-15 0,33.3512347 0,33.3512347 C0,33.3512347 14.1028125,67.2 48,67.2 Z",
-                                          id: "Layer-1"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("circle", {
-                                        attrs: {
-                                          id: "Layer-2",
-                                          cx: "48",
-                                          cy: "33.6",
-                                          r: "21.12"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("path", {
-                                        attrs: {
-                                          d:
-                                            "M57.0803498,14.5262074 C53.013568,15.2280273 49.92,18.7727429 49.92,23.04 C49.92,27.8117402 53.7882598,31.68 58.56,31.68 C62.8272571,31.68 66.3719727,28.586432 67.0737926,24.5196502 C68.3856474,27.2703493 69.12,30.349416 69.12,33.6 C69.12,45.2642539 59.6642539,54.72 48,54.72 C36.3357461,54.72 26.88,45.2642539 26.88,33.6 C26.88,21.9357461 36.3357461,12.48 48,12.48 C51.250584,12.48 54.3296507,13.2143526 57.0803498,14.5262074 Z",
-                                          id: "Layer-3"
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "w-1/2",
-                          attrs: { to: "/foods/" + item.data.food_id + "/edit" }
-                        },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "mx-auto",
-                              attrs: {
-                                width: "20px",
-                                height: "20px",
-                                viewBox: "0 0 100 100",
-                                version: "1.1",
-                                xmlns: "http://www.w3.org/2000/svg",
-                                "xmlns:xlink": "http://www.w3.org/1999/xlink"
-                              }
-                            },
-                            [
-                              _c("title", [_vm._v("Edit")]),
-                              _vm._v(" "),
-                              _c(
-                                "g",
-                                {
-                                  attrs: {
-                                    stroke: "none",
-                                    "stroke-width": "1",
-                                    fill: "none",
-                                    "fill-rule": "evenodd",
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round"
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "g",
-                                    {
-                                      attrs: {
-                                        transform:
-                                          "translate(2.000000, 2.000000)",
-                                        stroke: "#2E86DE",
-                                        "stroke-width": "4"
-                                      }
-                                    },
-                                    [
-                                      _c("path", {
-                                        attrs: {
-                                          d:
-                                            "M56.5106952,10.5464071 C60.8135865,11.5200327 64.8423906,13.2161538 68.4628809,15.5005439 L76.8618891,8.97963811 L87.0203619,19.1381109 L80.4994561,27.5371191 C82.7838462,31.1576094 84.4799673,35.1864135 85.4535929,39.4893048 L96,40.816875 L96,55.183125 L85.4535929,56.5106952 C84.4799673,60.8135865 82.7838462,64.8423906 80.4994561,68.4628809 L87.0203619,76.8618891 L76.8618891,87.0203619 L68.4628809,80.4994561 C64.8423906,82.7838462 60.8135865,84.4799673 56.5106952,85.4535929 L55.183125,96 L40.816875,96 L39.4893048,85.4535929 C35.1864135,84.4799673 31.1576094,82.7838462 27.5371191,80.4994561 L19.1381109,87.0203619 L8.97963811,76.8618891 L15.5005439,68.4628809 C13.2161538,64.8423906 11.5200327,60.8135865 10.5464071,56.5106952 L0,55.183125 L0,40.816875 L10.5464071,39.4893048 C11.5200327,35.1864135 13.2161538,31.1576094 15.5005439,27.5371191 L8.97963811,19.1381109 L19.1381109,8.97963811 L27.5371191,15.5005439 C31.1576094,13.2161538 35.1864135,11.5200327 39.4893048,10.5464071 L40.816875,0 L55.183125,0 L56.5106952,10.5464071 Z",
-                                          id: "Layer-1"
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c("circle", {
-                                        attrs: {
-                                          id: "Layer-2",
-                                          cx: "48",
-                                          cy: "48",
-                                          r: "14.4"
-                                        }
-                                      })
-                                    ]
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              )
-            })
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _vm.paginator.last() > 1
-          ? _c("div", { staticClass: "p-12" }, [
-              _c(
-                "ul",
-                {
-                  staticClass:
-                    "flex justify-center bg-white list-reset rounded font-sans shadow-lg"
-                },
-                [
-                  _c("li", { staticClass: "pr-3" }, [
-                    _vm.paginator.isFirst()
-                      ? _c(
-                          "button",
-                          {
-                            staticClass:
-                              "h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none",
-                            class: {
-                              "cursor-not-allowed": _vm.paginator.isFirst()
-                            }
-                          },
-                          [_vm._v("<\n                ")]
-                        )
-                      : _c(
-                          "button",
-                          {
-                            staticClass:
-                              "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                _vm.submit(_vm.paginator.getCurrent() - 1)
-                              }
-                            }
-                          },
-                          [_vm._v("\n                    <\n                ")]
-                        )
-                  ]),
-                  _vm._v(" "),
-                  _vm.paginator.getCurrent() - _vm.paginator.linksCount >= 1
-                    ? _c("li", [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.submit(1)
-                              }
-                            }
-                          },
-                          [_vm._v("1 ...")]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.paginator.getLinks(), function(page) {
+  return _c("div", [
+    _vm.dataIsLoaded
+      ? _c("div", [
+          _c("div", { staticClass: "h-128" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "w-full border-collapse overflow-hidden border-blue-400 rounded-lg shadow-2xl"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.data.data, function(item, key) {
                     return _c(
-                      "li",
-                      {
-                        class: {
-                          "bg-blue-400": _vm.paginator.isCurrent(page),
-                          "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
-                          "border-r border-grey-light":
-                            _vm.paginator.last() !== page
-                        }
-                      },
+                      "tr",
+                      { staticClass: "text-center  hover:bg-gray-100" },
                       [
+                        _c("td", { staticClass: "py-2" }, [
+                          _vm._v(_vm._s(key + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "py-2 border-l" }, [
+                          _vm._v(_vm._s(item.data.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "py-2 border-l" }, [
+                          _vm._v(_vm._s(item.data.calories))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "py-2 border-l" }, [
+                          _vm._v(_vm._s(item.data.serving))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "py-2 border-l" }, [
+                          _vm._v(_vm._s(item.data.unit))
+                        ]),
+                        _vm._v(" "),
                         _c(
-                          "button",
+                          "td",
                           {
-                            staticClass: "px-4 py-3 h-full focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.submit(page)
-                              }
-                            }
+                            staticClass:
+                              "py-2 flex justify-between items-center border-l"
                           },
-                          [_vm._v(_vm._s(page) + "\n                ")]
+                          [
+                            _c(
+                              "router-link",
+                              { staticClass: "w-2/5", attrs: { to: "/" } },
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "mx-auto",
+                                    attrs: {
+                                      width: "20px",
+                                      height: "29px",
+                                      viewBox: "0 0 100 100",
+                                      version: "1.1",
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      "xmlns:xlink":
+                                        "http://www.w3.org/1999/xlink"
+                                    }
+                                  },
+                                  [
+                                    _c("title", [_vm._v("See")]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "g",
+                                      {
+                                        attrs: {
+                                          stroke: "none",
+                                          "stroke-width": "1",
+                                          fill: "none",
+                                          "fill-rule": "evenodd",
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round"
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "g",
+                                          {
+                                            attrs: {
+                                              transform:
+                                                "translate(2.000000, 16.000000)",
+                                              stroke: "#2E86DE",
+                                              "stroke-width": "4"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M48,67.2 C81.8971875,67.2 96,33.3512347 96,33.3512347 C96,33.3512347 81.0140625,-3.02379073e-15 48,0 C14.9859375,3.02379073e-15 0,33.3512347 0,33.3512347 C0,33.3512347 14.1028125,67.2 48,67.2 Z",
+                                                id: "Layer-1"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("circle", {
+                                              attrs: {
+                                                id: "Layer-2",
+                                                cx: "48",
+                                                cy: "33.6",
+                                                r: "21.12"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("path", {
+                                              attrs: {
+                                                d:
+                                                  "M57.0803498,14.5262074 C53.013568,15.2280273 49.92,18.7727429 49.92,23.04 C49.92,27.8117402 53.7882598,31.68 58.56,31.68 C62.8272571,31.68 66.3719727,28.586432 67.0737926,24.5196502 C68.3856474,27.2703493 69.12,30.349416 69.12,33.6 C69.12,45.2642539 59.6642539,54.72 48,54.72 C36.3357461,54.72 26.88,45.2642539 26.88,33.6 C26.88,21.9357461 36.3357461,12.48 48,12.48 C51.250584,12.48 54.3296507,13.2143526 57.0803498,14.5262074 Z",
+                                                id: "Layer-3"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            item.data.owner_id === _vm.user_id
+                              ? _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "w-2/5",
+                                    attrs: {
+                                      to:
+                                        "/foods/" + item.data.food_id + "/edit"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        staticClass: "mx-auto",
+                                        attrs: {
+                                          width: "20px",
+                                          height: "20px",
+                                          viewBox: "0 0 100 100",
+                                          version: "1.1",
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          "xmlns:xlink":
+                                            "http://www.w3.org/1999/xlink"
+                                        }
+                                      },
+                                      [
+                                        _c("title", [_vm._v("Edit")]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "g",
+                                          {
+                                            attrs: {
+                                              stroke: "none",
+                                              "stroke-width": "1",
+                                              fill: "none",
+                                              "fill-rule": "evenodd",
+                                              "stroke-linecap": "round",
+                                              "stroke-linejoin": "round"
+                                            }
+                                          },
+                                          [
+                                            _c(
+                                              "g",
+                                              {
+                                                attrs: {
+                                                  transform:
+                                                    "translate(2.000000, 2.000000)",
+                                                  stroke: "#2E86DE",
+                                                  "stroke-width": "4"
+                                                }
+                                              },
+                                              [
+                                                _c("path", {
+                                                  attrs: {
+                                                    d:
+                                                      "M56.5106952,10.5464071 C60.8135865,11.5200327 64.8423906,13.2161538 68.4628809,15.5005439 L76.8618891,8.97963811 L87.0203619,19.1381109 L80.4994561,27.5371191 C82.7838462,31.1576094 84.4799673,35.1864135 85.4535929,39.4893048 L96,40.816875 L96,55.183125 L85.4535929,56.5106952 C84.4799673,60.8135865 82.7838462,64.8423906 80.4994561,68.4628809 L87.0203619,76.8618891 L76.8618891,87.0203619 L68.4628809,80.4994561 C64.8423906,82.7838462 60.8135865,84.4799673 56.5106952,85.4535929 L55.183125,96 L40.816875,96 L39.4893048,85.4535929 C35.1864135,84.4799673 31.1576094,82.7838462 27.5371191,80.4994561 L19.1381109,87.0203619 L8.97963811,76.8618891 L15.5005439,68.4628809 C13.2161538,64.8423906 11.5200327,60.8135865 10.5464071,56.5106952 L0,55.183125 L0,40.816875 L10.5464071,39.4893048 C11.5200327,35.1864135 13.2161538,31.1576094 15.5005439,27.5371191 L8.97963811,19.1381109 L19.1381109,8.97963811 L27.5371191,15.5005439 C31.1576094,13.2161538 35.1864135,11.5200327 39.4893048,10.5464071 L40.816875,0 L55.183125,0 L56.5106952,10.5464071 Z",
+                                                    id: "Layer-1"
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c("circle", {
+                                                  attrs: {
+                                                    id: "Layer-2",
+                                                    cx: "48",
+                                                    cy: "48",
+                                                    r: "14.4"
+                                                  }
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              : _vm._e()
+                          ],
+                          1
                         )
                       ]
                     )
                   }),
-                  _vm._v(" "),
-                  _vm.paginator.getCurrent() + _vm.paginator.linksCount - 1 <
-                  _vm.paginator.last()
-                    ? _c("li", [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                _vm.submit(_vm.paginator.last())
+                  0
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _vm.paginator.last() > 1
+            ? _c("div", { staticClass: "p-12" }, [
+                _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "flex justify-center bg-white list-reset rounded font-sans shadow-lg"
+                  },
+                  [
+                    _c("li", { staticClass: "pr-3" }, [
+                      _vm.paginator.isFirst()
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none",
+                              class: {
+                                "cursor-not-allowed": _vm.paginator.isFirst()
                               }
-                            }
-                          },
-                          [_vm._v("... " + _vm._s(_vm.paginator.last()))]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "pl-3" }, [
-                    _vm.paginator.isLast()
-                      ? _c(
-                          "button",
-                          {
-                            staticClass:
-                              "px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none",
-                            class: {
-                              "cursor-not-allowed": _vm.paginator.isLast()
-                            }
-                          },
-                          [_vm._v(" >\n                ")]
-                        )
-                      : _c(
-                          "button",
-                          {
-                            staticClass:
-                              "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                _vm.submit(_vm.paginator.getCurrent() + 1)
+                            },
+                            [_vm._v("<\n                    ")]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass:
+                                "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  _vm.submit(_vm.paginator.getCurrent() - 1)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("\n                    >\n                ")]
-                        )
-                  ])
-                ],
-                2
-              )
-            ])
-          : _vm._e()
-      ])
-    : _vm._e()
+                            },
+                            [
+                              _vm._v(
+                                "\n                        <\n                    "
+                              )
+                            ]
+                          )
+                    ]),
+                    _vm._v(" "),
+                    _vm.paginator.getCurrent() - _vm.paginator.linksCount >= 1
+                      ? _c("li", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.submit(1)
+                                }
+                              }
+                            },
+                            [_vm._v("1 ...\n                    ")]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.paginator.getLinks(), function(page) {
+                      return _c(
+                        "li",
+                        {
+                          staticClass: "border-r border-grey-light",
+                          class: {
+                            "bg-blue-400": _vm.paginator.isCurrent(page),
+                            "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
+                            "border-l border-grey-light": page === 1
+                          }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "px-4 py-3 h-full focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.submit(page)
+                                }
+                              }
+                            },
+                            [_vm._v(_vm._s(page) + "\n                    ")]
+                          )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.paginator.getCurrent() + _vm.paginator.linksCount - 1 <
+                    _vm.paginator.last()
+                      ? _c("li", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.submit(_vm.paginator.last())
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "... " +
+                                  _vm._s(_vm.paginator.last()) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "pl-3" }, [
+                      _vm.paginator.isLast()
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none",
+                              class: {
+                                "cursor-not-allowed": _vm.paginator.isLast()
+                              }
+                            },
+                            [_vm._v(" >\n                    ")]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass:
+                                "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  _vm.submit(_vm.paginator.getCurrent() + 1)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                        >\n                    "
+                              )
+                            ]
+                          )
+                    ])
+                  ],
+                  2
+                )
+              ])
+            : _vm._e()
+        ])
+      : !_vm.dataIsLoaded && _vm.data !== null && _vm.data.data.length === 0
+      ? _c("div", [_c("ErrorPage", { attrs: { text: "No Data Found" } })], 1)
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", { staticClass: "bg-blue-400" }, [
-      _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("#")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "py-5 w-2/6" }, [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "py-5 w-1/6" }, [_vm._v("Calories")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("Serving")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "py-5 w-2/12" }, [_vm._v("Unit")]),
-      _vm._v(" "),
-      _c("th", { staticClass: "py-5 w-auto" }, [_vm._v("Actions")])
+    return _c("thead", [
+      _c("tr", { staticClass: "bg-blue-400" }, [
+        _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "py-5 w-2/6" }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "py-5 w-1/6" }, [_vm._v("Calories")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("Serving")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "py-5 w-2/12" }, [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "py-5 w-auto" }, [_vm._v("Actions")])
+      ])
     ])
   }
 ]
@@ -40520,7 +40587,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("FoodsList", { attrs: { endpoint: "/api/foods" } })
+  return _c("FoodsList", {
+    attrs: { endpoint: "/api/foods", user_id: this.$parent.user.id }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true

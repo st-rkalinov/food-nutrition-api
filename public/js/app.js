@@ -2429,6 +2429,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2441,10 +2444,22 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       data: null,
-      dataIsLoaded: false,
-      page: 1,
+      isLoading: true,
+      defaultPage: 1,
       paginator: null
     };
+  },
+  computed: {
+    hasData: function hasData() {
+      return !this.isLoading && this.data !== null && this.data.data.length !== 0;
+    }
+  },
+  watch: {
+    $route: function $route(to, from) {
+      if (Object.keys(to.query).length === 0) {
+        this.submit(this.defaultPage, true);
+      }
+    }
   },
   methods: {
     submit: function submit(page) {
@@ -2456,6 +2471,10 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      if (page !== parseInt(page) && isNaN(page)) {
+        page = this.defaultPage;
+      }
+
       if (this.$route.query.page !== page) {
         this.$router.push({
           path: '/foods',
@@ -2465,23 +2484,19 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      axios.get('/api/foods', {
+      axios.get(this.endpoint, {
         params: {
           page: page
         }
       }).then(function (response) {
         _this.data = response.data;
 
-        if (_this.data.data.length !== 0) {
-          _this.dataIsLoaded = true;
+        if (firstRequest) {
+          _this.paginator = new _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__["default"](_this.data.meta);
+        } else {
+          _this.paginator.setMeta(response.data.meta);
 
-          if (firstRequest) {
-            _this.paginator = new _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__["default"](_this.data.meta);
-          } else {
-            _this.paginator.setMeta(response.data.meta);
-
-            _this.paginator.getLinks();
-          }
+          _this.paginator.getLinks();
         }
       })["catch"](function (error) {
         var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('fetch', error.response.status);
@@ -2490,6 +2505,8 @@ __webpack_require__.r(__webpack_exports__);
           //this.$router.push({ path: '/logout'});
           console.log('clicked');
         });
+      })["finally"](function () {
+        _this.isLoading = false;
       });
     },
     itemNumber: function itemNumber(key) {
@@ -2498,10 +2515,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (this.$route.query.page) {
-      this.page = this.$route.query.page;
+      this.submit(this.$route.query.page, true);
+    } else {
+      this.submit(this.defaultPage, true);
     }
-
-    this.submit(this.page, true);
   }
 });
 
@@ -2747,9 +2764,7 @@ __webpack_require__.r(__webpack_exports__);
         alert.show();
 
         if (error.response.status === 422) {
-          for (var errorField in errors) {
-            _this.form.error[errorField] = errors[errorField][0];
-          }
+          _this.form.error.setErrors(errors);
         }
       });
     }
@@ -2907,6 +2922,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2920,8 +2937,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: null,
-      dataIsLoaded: false,
-      errorPage: false
+      isLoading: true,
+      hasErrors: false
     };
   },
   methods: {
@@ -2945,9 +2962,7 @@ __webpack_require__.r(__webpack_exports__);
         alert.show();
 
         if (error.response.status === 422) {
-          for (var errorField in errors) {
-            _this.form.error[errorField] = errors[errorField][0];
-          }
+          _this.form.error.setErrors(errors);
         }
       });
     }
@@ -2955,15 +2970,14 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this2 = this;
 
-    axios.get('/api/foods/' + this.$route.params.id).then(function (response) {
+    axios.get('/api/foods/' + this.$route.params.id + '/edit').then(function (response) {
       _this2.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](response.data.data);
-      _this2.dataIsLoaded = true;
     })["catch"](function (error) {
-      if (error.response.status === 404) {
-        _this2.errorPage = 'Page Not Found';
-      } else if (error.response.status === 401) {
-        _this2.errorPage = 'Unauthorized';
-      }
+      var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]('fetch', error.response.status);
+      alert.show();
+      _this2.hasErrors = true;
+    })["finally"](function () {
+      _this2.isLoading = false;
     });
   }
 });
@@ -38698,11 +38712,13 @@ var render = function() {
       attrs: { src: __webpack_require__(/*! ../../images/sad-face.png */ "./resources/images/sad-face.png"), alt: "Sad face" }
     }),
     _vm._v(" "),
-    _c(
-      "h1",
-      { staticClass: "text-4xl text-center font-bold py-10 text-blue-400" },
-      [_vm._v(_vm._s(_vm.text))]
-    ),
+    _vm.text
+      ? _c(
+          "h1",
+          { staticClass: "text-4xl text-center font-bold py-10 text-blue-400" },
+          [_vm._v(_vm._s(_vm.text))]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "flex justify-around flex-wrap p-10" }, [
       _c(
@@ -39169,7 +39185,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.dataIsLoaded
+    _vm.isLoading
+      ? _c(
+          "div",
+          { staticClass: "flex justify-center items-center h-screen" },
+          [
+            _c("img", {
+              staticClass: "block w-50 h-50",
+              attrs: { src: __webpack_require__(/*! ../../images/25.gif */ "./resources/images/25.gif"), alt: "" }
+            })
+          ]
+        )
+      : !_vm.isLoading && _vm.hasData
       ? _c("div", { staticClass: "sm:text-sm lg:text-base text-sm" }, [
           _c("div", { staticClass: "py-3" }, [
             _c("p", { staticClass: "text-gray-400" }, [
@@ -39545,9 +39572,7 @@ var render = function() {
               ])
             : _vm._e()
         ])
-      : !_vm.dataIsLoaded && _vm.data !== null && _vm.data.data.length === 0
-      ? _c("div", [_c("ErrorPage", { attrs: { text: "No Data Found" } })], 1)
-      : _vm._e()
+      : _c("div", [_c("ErrorPage", { attrs: { text: "No Data Found" } })], 1)
   ])
 }
 var staticRenderFns = [
@@ -39772,9 +39797,9 @@ var render = function() {
                           { staticClass: "pl-12 text-red-600 text-sm" },
                           [
                             _vm._v(
-                              "\n                    " +
+                              "\n                        " +
                                 _vm._s(_vm.form.error.getError("unit")) +
-                                "\n                "
+                                "\n                    "
                             )
                           ]
                         )
@@ -40138,7 +40163,18 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.dataIsLoaded
+    _vm.isLoading
+      ? _c(
+          "div",
+          { staticClass: "flex justify-center items-center h-screen" },
+          [
+            _c("img", {
+              staticClass: "block w-50 h-50",
+              attrs: { src: __webpack_require__(/*! ../../../images/25.gif */ "./resources/images/25.gif"), alt: "" }
+            })
+          ]
+        )
+      : !_vm.isLoading && !_vm.hasErrors
       ? _c("div", [
           _c(
             "form",
@@ -40580,11 +40616,7 @@ var render = function() {
             1
           )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.errorPage
-      ? _c("div", [_c("ErrorPage", { attrs: { text: _vm.errorPage } })], 1)
-      : _vm._e()
+      : _c("div", [_c("ErrorPage")], 1)
   ])
 }
 var staticRenderFns = []
@@ -40610,7 +40642,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("FoodsList", {
-    attrs: { endpoint: "/api/foods", user_id: this.$parent.user.id }
+    attrs: { endpoint: "/api/foods/", user_id: this.$parent.user.id }
   })
 }
 var staticRenderFns = []
@@ -55651,6 +55683,17 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/images/25.gif":
+/*!*********************************!*\
+  !*** ./resources/images/25.gif ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/25.gif?8d59b5187c5e36c24d417832eb54e8c9";
+
+/***/ }),
+
 /***/ "./resources/images/sad-face.png":
 /*!***************************************!*\
   !*** ./resources/images/sad-face.png ***!
@@ -55843,7 +55886,7 @@ function () {
         case 422:
           this.data = {
             text: 'There is a problem with the data you entered !',
-            buttons: [true, true],
+            buttons: true,
             icon: 'error',
             title: 'Error'
           };
@@ -55851,12 +55894,20 @@ function () {
 
         case 401:
           this.data = {
-            text: 'You are unauthorized to add new food !',
-            buttons: [true, true],
+            text: 'You are unauthorized !',
+            buttons: true,
             icon: 'error',
             title: 'Error'
           };
           break;
+
+        case 403:
+          this.data = {
+            text: 'Access Forbidden',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
       }
     }
   }, {
@@ -55897,10 +55948,10 @@ function () {
 
     this.status = status;
     this.data = {
-      title: 'Success !',
-      text: 'Foods were fetched successfully !',
-      icon: 'success',
-      buttons: [true, 'Go to the food page']
+      text: 'There is a problem, please try again later.',
+      button: true,
+      icon: 'error',
+      title: 'Error'
     };
   }
 
@@ -55917,9 +55968,9 @@ function () {
           };
           break;
 
-        default:
+        case 403:
           this.data = {
-            text: 'There is a problem, please try again later.',
+            text: 'Access Forbidden',
             button: true,
             icon: 'error',
             title: 'Error'
@@ -55978,7 +56029,7 @@ function () {
         case 422:
           this.data = {
             text: 'There is a problem with the data you entered !',
-            buttons: [true, true],
+            button: true,
             icon: 'error',
             title: 'Error'
           };
@@ -55986,12 +56037,20 @@ function () {
 
         case 401:
           this.data = {
-            text: 'You are unauthorized to edit !',
-            buttons: [true, true],
+            text: 'You are unauthorized !',
+            buttons: true,
             icon: 'error',
             title: 'Error'
           };
           break;
+
+        case 403:
+          this.data = {
+            text: 'You don\'t have the rights to edit that food !',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
       }
     }
   }, {
@@ -56038,6 +56097,15 @@ function () {
   }
 
   _createClass(Error, [{
+    key: "setErrors",
+    value: function setErrors(errorFields) {
+      for (var field in errorFields) {
+        if (errorFields.hasOwnProperty(field)) {
+          this[field] = errorFields[field][0];
+        }
+      }
+    }
+  }, {
     key: "hasError",
     value: function hasError(fieldName) {
       return !(!this.hasOwnProperty(fieldName) || this[fieldName] === null);
@@ -56804,6 +56872,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/views/FoodsCreate */ "./resources/js/components/views/FoodsCreate.vue");
 /* harmony import */ var _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/views/FoodsEdit */ "./resources/js/components/views/FoodsEdit.vue");
 /* harmony import */ var _components_views_FoodsShow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/views/FoodsShow */ "./resources/js/components/views/FoodsShow.vue");
+/* harmony import */ var _components_FoodsList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/FoodsList */ "./resources/js/components/FoodsList.vue");
+
 
 
 

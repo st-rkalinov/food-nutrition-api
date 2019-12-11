@@ -18,6 +18,13 @@ class FoodsController extends Controller
         return FoodResource::collection($foods);
     }
 
+    public function edit(Food $food)
+    {
+        $this->authorize('update', $food);
+
+        return new FoodResource($food);
+    }
+
     public function show(Food $food)
     {
         $this->authorize('view', $food);

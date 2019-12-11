@@ -7,6 +7,14 @@ class Error {
         }
     }
 
+    setErrors(errorFields) {
+        for(let field in errorFields) {
+            if(errorFields.hasOwnProperty(field)) {
+                this[field] = errorFields[field][0];
+            }
+        }
+    }
+
     hasError(fieldName) {
         return !(!this.hasOwnProperty(fieldName) || this[fieldName] === null);
     }

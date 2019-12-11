@@ -2,7 +2,7 @@
     <div>
         <img src="../../images/sad-face.png" alt="Sad face" class="w-32 h-32 mx-auto my-0">
 
-        <h1 class="text-4xl text-center font-bold py-10 text-blue-400">{{ text }}</h1>
+        <h1 v-if="text" class="text-4xl text-center font-bold py-10 text-blue-400">{{ text }}</h1>
 
         <div class="flex justify-around flex-wrap p-10">
             <button @click.prevent="$router.back()"

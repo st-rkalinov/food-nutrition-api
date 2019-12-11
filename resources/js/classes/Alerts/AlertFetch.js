@@ -3,11 +3,11 @@ class AlertFetch {
         this.status = status;
 
         this.data = {
-            title: 'Success !',
-            text: 'Foods were fetched successfully !',
-            icon: 'success',
-            buttons: [true, 'Go to the food page']
-        }
+            text: 'There is a problem, please try again later.',
+            button: true,
+            icon: 'error',
+            title: 'Error',
+        };
     }
 
     makeData() {
@@ -20,14 +20,13 @@ class AlertFetch {
                     title: 'Error',
                 };
                 break;
-            default:
+            case 403:
                 this.data = {
-                    text: 'There is a problem, please try again later.',
+                    text: 'Access Forbidden',
                     button: true,
                     icon: 'error',
                     title: 'Error',
                 };
-
         }
     }
 

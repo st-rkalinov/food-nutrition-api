@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div v-if="dataIsLoaded" class="sm:text-sm lg:text-base text-sm">
+        <div v-if="isLoading" class="flex justify-center items-center h-screen">
+            <img src="../../images/25.gif" alt="" class="block w-50 h-50">
+        </div>
+        <div v-else-if="!isLoading && hasData" class="sm:text-sm lg:text-base text-sm">
             <div class="py-3">
                 <p class="text-gray-400">Results: {{ data.meta.total }}</p>
             </div>
@@ -113,7 +116,7 @@
                 </ul>
             </div>
         </div>
-        <div v-else-if="!dataIsLoaded && data !== null && data.data.length === 0">
+        <div v-else>
             <ErrorPage text="No Data Found"/>
         </div>
     </div>
@@ -131,9 +134,21 @@
         data() {
             return {
                 data: null,
-                dataIsLoaded: false,
-                page: 1,
+                isLoading: true,
+                defaultPage: 1,
                 paginator: null,
+            }
+        },
+        computed: {
+            hasData() {
+                return !this.isLoading && this.data !== null && this.data.data.length !== 0;
+            }
+        },
+        watch: {
+            $route(to, from) {
+                if(Object.keys(to.query).length === 0) {
+                    this.submit(this.defaultPage, true);
+                }
             }
         },
         methods: {
@@ -142,23 +157,23 @@
                     return;
                 }
 
+                if(page !== parseInt(page) && isNaN(page)) {
+                    page = this.defaultPage;
+                }
+
                 if (this.$route.query.page !== page) {
                     this.$router.push({path: '/foods', query: {page: page}});
                 }
 
-                axios.get('/api/foods', {params: {page: page}})
+                axios.get(this.endpoint, {params: {page: page}})
                     .then(response => {
                         this.data = response.data;
 
-                        if (this.data.data.length !== 0) {
-                            this.dataIsLoaded = true;
-
-                            if (firstRequest) {
-                                this.paginator = new Paginator(this.data.meta);
-                            } else {
-                                this.paginator.setMeta(response.data.meta);
-                                this.paginator.getLinks()
-                            }
+                        if (firstRequest) {
+                            this.paginator = new Paginator(this.data.meta);
+                        } else {
+                            this.paginator.setMeta(response.data.meta);
+                            this.paginator.getLinks()
                         }
                     })
                     .catch(error => {
@@ -171,6 +186,9 @@
 
                                 console.log('clicked');
                             });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             itemNumber(key) {
@@ -179,10 +197,10 @@
         },
         mounted() {
             if (this.$route.query.page) {
-                this.page = this.$route.query.page;
+                this.submit(this.$route.query.page, true);
+            } else {
+                this.submit(this.defaultPage, true);
             }
-
-            this.submit(this.page, true);
         }
     }
 </script>

@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div v-if="dataIsLoaded">
+        <div v-if="isLoading" class="flex justify-center items-center h-screen">
+            <img src="../../../images/25.gif" alt="" class="block w-50 h-50">
+        </div>
+        <div v-else-if="!isLoading && !hasErrors">
             <form class="-mt-8" @submit.prevent="submit">
                 <InputTextField name="name" label="Name"
                                 :dataValue="form.data.name"
@@ -127,9 +130,8 @@
                 </div>
             </form>
         </div>
-
-        <div v-if="errorPage">
-            <ErrorPage :text="errorPage"/>
+        <div v-else>
+            <ErrorPage/>
         </div>
     </div>
 </template>
@@ -148,8 +150,8 @@
         data() {
             return {
                 form: null,
-                dataIsLoaded: false,
-                errorPage: false,
+                isLoading: true,
+                hasErrors: false,
             }
         },
         methods: {
@@ -174,25 +176,24 @@
                         alert.show();
 
                         if (error.response.status === 422) {
-                            for (let errorField in errors) {
-                                this.form.error[errorField] = errors[errorField][0];
-                            }
+                            this.form.error.setErrors(errors);
                         }
                     })
             }
         },
         mounted() {
-            axios.get('/api/foods/' + this.$route.params.id)
+            axios.get('/api/foods/' + this.$route.params.id + '/edit')
                 .then(response => {
                     this.form = new Form(response.data.data);
-                    this.dataIsLoaded = true;
                 })
                 .catch(error => {
-                    if (error.response.status === 404) {
-                        this.errorPage = 'Page Not Found';
-                    } else if(error.response.status === 401 ) {
-                        this.errorPage = 'Unauthorized';
-                    }
+                    let alert = new Alert('fetch', error.response.status);
+                    alert.show();
+
+                    this.hasErrors = true;
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 })
         }
     }

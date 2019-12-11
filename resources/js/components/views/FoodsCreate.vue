@@ -26,8 +26,8 @@
                         Unit
 
                         <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
-                        {{ form.error.getError('unit') }}
-                    </span>
+                            {{ form.error.getError('unit') }}
+                        </span>
                     </label>
                     <select name="unit" id="unit" class="focus:outline-none py-3 pr-8 text-gray-500 -ml-1 -mt-1 w-full"
                             v-model="form.data.unit"
@@ -37,7 +37,6 @@
                         <option value="kilogram">Kilogram</option>
                         <option value="liter">Liter</option>
                     </select>
-
                 </div>
             </div>
 
@@ -118,7 +117,8 @@
 
             <div class="flex justify-end py-16 px-10">
                 <a href="#"
-                   class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold" @click.prevent="$router.back()">Cancel</a>
+                   class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold"
+                   @click.prevent="$router.back()">Cancel</a>
                 <button type="submit"
                         class="py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold">Create
                 </button>
@@ -182,10 +182,8 @@
                         let alert = new Alert('create', error.response.status);
                         alert.show();
 
-                        if(error.response.status === 422) {
-                            for (let errorField in errors) {
-                                this.form.error[errorField] = errors[errorField][0];
-                            }
+                        if (error.response.status === 422) {
+                            this.form.error.setErrors(errors);
                         }
                     })
             }

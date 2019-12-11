@@ -4,6 +4,7 @@ import ExampleComponent from "./components/ExampleComponent";
 import FoodsCreate from "./components/views/FoodsCreate";
 import FoodsEdit from "./components/views/FoodsEdit";
 import FoodsShow from "./components/views/FoodsShow";
+import FoodsList from "./components/FoodsList";
 
 Vue.use(VueRouter);
 

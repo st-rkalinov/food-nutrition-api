@@ -1,25 +1,28 @@
 <template>
     <div>
-        <div v-if="dataIsLoaded">
+        <div v-if="dataIsLoaded" class="sm:text-sm lg:text-base text-sm">
+            <div class="py-3">
+                <p class="text-gray-400">Results: {{ data.meta.total }}</p>
+            </div>
             <div class="h-128">
                 <table class="w-full border-collapse overflow-hidden border-blue-400 rounded-lg shadow-2xl">
                     <thead>
                     <tr class="bg-blue-400">
-                        <th class="py-5 w-1/12">#</th>
-                        <th class="py-5 w-2/6">Name</th>
-                        <th class="py-5 w-1/6">Calories</th>
-                        <th class="py-5 w-1/12">Serving</th>
-                        <th class="py-5 w-2/12">Unit</th>
+                        <th class="py-5 w-1/12 hidden sm:table-cell">#</th>
+                        <th class="py-5 w-1/2 sm:w-2/6">Name</th>
+                        <th class="py-5 sm:w-1/6">Calories</th>
+                        <th class="py-5 w-1/12 hidden sm:table-cell">Serving</th>
+                        <th class="py-5 w-2/12 hidden sm:table-cell">Unit</th>
                         <th class="py-5 w-auto">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="(item, key) in data.data" class="text-center  hover:bg-gray-100">
-                        <td class="py-2">{{ (key + 1 )}}</td>
+                        <td class="py-2 hidden sm:table-cell">{{ itemNumber(key) }}</td>
                         <td class="py-2 border-l">{{ item.data.name }}</td>
                         <td class="py-2 border-l">{{ item.data.calories }}</td>
-                        <td class="py-2 border-l">{{ item.data.serving }}</td>
-                        <td class="py-2 border-l">{{ item.data.unit }}</td>
+                        <td class="py-2 border-l hidden sm:table-cell">{{ item.data.serving }}</td>
+                        <td class="py-2 border-l hidden sm:table-cell">{{ item.data.unit }}</td>
                         <td class="py-2 flex justify-between items-center border-l">
                             <router-link to="/" class="w-2/5">
                                 <svg class="mx-auto" width="20px" height="29px" viewBox="0 0 100 100" version="1.1"
@@ -30,11 +33,11 @@
                                         <g transform="translate(2.000000, 16.000000)" stroke="#2E86DE" stroke-width="4">
                                             <path
                                                 d="M48,67.2 C81.8971875,67.2 96,33.3512347 96,33.3512347 C96,33.3512347 81.0140625,-3.02379073e-15 48,0 C14.9859375,3.02379073e-15 0,33.3512347 0,33.3512347 C0,33.3512347 14.1028125,67.2 48,67.2 Z"
-                                                id="Layer-1"></path>
-                                            <circle id="Layer-2" cx="48" cy="33.6" r="21.12"></circle>
+                                                id="Layer-1"/>
+                                            <circle id="Layer-2" cx="48" cy="33.6" r="21.12"/>
                                             <path
                                                 d="M57.0803498,14.5262074 C53.013568,15.2280273 49.92,18.7727429 49.92,23.04 C49.92,27.8117402 53.7882598,31.68 58.56,31.68 C62.8272571,31.68 66.3719727,28.586432 67.0737926,24.5196502 C68.3856474,27.2703493 69.12,30.349416 69.12,33.6 C69.12,45.2642539 59.6642539,54.72 48,54.72 C36.3357461,54.72 26.88,45.2642539 26.88,33.6 C26.88,21.9357461 36.3357461,12.48 48,12.48 C51.250584,12.48 54.3296507,13.2143526 57.0803498,14.5262074 Z"
-                                                id="Layer-3"></path>
+                                                id="Layer-3"/>
                                         </g>
                                     </g>
                                 </svg>
@@ -49,8 +52,8 @@
                                         <g transform="translate(2.000000, 2.000000)" stroke="#2E86DE" stroke-width="4">
                                             <path
                                                 d="M56.5106952,10.5464071 C60.8135865,11.5200327 64.8423906,13.2161538 68.4628809,15.5005439 L76.8618891,8.97963811 L87.0203619,19.1381109 L80.4994561,27.5371191 C82.7838462,31.1576094 84.4799673,35.1864135 85.4535929,39.4893048 L96,40.816875 L96,55.183125 L85.4535929,56.5106952 C84.4799673,60.8135865 82.7838462,64.8423906 80.4994561,68.4628809 L87.0203619,76.8618891 L76.8618891,87.0203619 L68.4628809,80.4994561 C64.8423906,82.7838462 60.8135865,84.4799673 56.5106952,85.4535929 L55.183125,96 L40.816875,96 L39.4893048,85.4535929 C35.1864135,84.4799673 31.1576094,82.7838462 27.5371191,80.4994561 L19.1381109,87.0203619 L8.97963811,76.8618891 L15.5005439,68.4628809 C13.2161538,64.8423906 11.5200327,60.8135865 10.5464071,56.5106952 L0,55.183125 L0,40.816875 L10.5464071,39.4893048 C11.5200327,35.1864135 13.2161538,31.1576094 15.5005439,27.5371191 L8.97963811,19.1381109 L19.1381109,8.97963811 L27.5371191,15.5005439 C31.1576094,13.2161538 35.1864135,11.5200327 39.4893048,10.5464071 L40.816875,0 L55.183125,0 L56.5106952,10.5464071 Z"
-                                                id="Layer-1"></path>
-                                            <circle id="Layer-2" cx="48" cy="48" r="14.4"></circle>
+                                                id="Layer-1"/>
+                                            <circle id="Layer-2" cx="48" cy="48" r="14.4"/>
                                         </g>
                                     </g>
                                 </svg>
@@ -61,7 +64,7 @@
                 </table>
             </div>
 
-            <div class="p-12" v-if="paginator.last() > 1">
+            <div class="p-4 sm:p-12" v-if="paginator.last() > 1">
                 <ul class="flex justify-center bg-white list-reset rounded font-sans shadow-lg">
                     <li class="pr-3">
                         <button v-if="paginator.isFirst()"
@@ -169,6 +172,9 @@
                                 console.log('clicked');
                             });
                     });
+            },
+            itemNumber(key) {
+                return (this.paginator.getCurrent() - 1) * this.paginator.perPage() + key + 1;
             }
         },
         mounted() {

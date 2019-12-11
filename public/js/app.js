@@ -2426,6 +2426,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2488,6 +2491,9 @@ __webpack_require__.r(__webpack_exports__);
           console.log('clicked');
         });
       });
+    },
+    itemNumber: function itemNumber(key) {
+      return (this.paginator.getCurrent() - 1) * this.paginator.perPage() + key + 1;
     }
   },
   mounted: function mounted() {
@@ -39164,7 +39170,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _vm.dataIsLoaded
-      ? _c("div", [
+      ? _c("div", { staticClass: "sm:text-sm lg:text-base text-sm" }, [
+          _c("div", { staticClass: "py-3" }, [
+            _c("p", { staticClass: "text-gray-400" }, [
+              _vm._v("Results: " + _vm._s(_vm.data.meta.total))
+            ])
+          ]),
+          _vm._v(" "),
           _c("div", { staticClass: "h-128" }, [
             _c(
               "table",
@@ -39182,8 +39194,8 @@ var render = function() {
                       "tr",
                       { staticClass: "text-center  hover:bg-gray-100" },
                       [
-                        _c("td", { staticClass: "py-2" }, [
-                          _vm._v(_vm._s(key + 1))
+                        _c("td", { staticClass: "py-2 hidden sm:table-cell" }, [
+                          _vm._v(_vm._s(_vm.itemNumber(key)))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "py-2 border-l" }, [
@@ -39194,13 +39206,17 @@ var render = function() {
                           _vm._v(_vm._s(item.data.calories))
                         ]),
                         _vm._v(" "),
-                        _c("td", { staticClass: "py-2 border-l" }, [
-                          _vm._v(_vm._s(item.data.serving))
-                        ]),
+                        _c(
+                          "td",
+                          { staticClass: "py-2 border-l hidden sm:table-cell" },
+                          [_vm._v(_vm._s(item.data.serving))]
+                        ),
                         _vm._v(" "),
-                        _c("td", { staticClass: "py-2 border-l" }, [
-                          _vm._v(_vm._s(item.data.unit))
-                        ]),
+                        _c(
+                          "td",
+                          { staticClass: "py-2 border-l hidden sm:table-cell" },
+                          [_vm._v(_vm._s(item.data.unit))]
+                        ),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -39377,7 +39393,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _vm.paginator.last() > 1
-            ? _c("div", { staticClass: "p-12" }, [
+            ? _c("div", { staticClass: "p-4 sm:p-12" }, [
                 _c(
                   "ul",
                   {
@@ -39541,15 +39557,21 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", { staticClass: "bg-blue-400" }, [
-        _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("#")]),
+        _c("th", { staticClass: "py-5 w-1/12 hidden sm:table-cell" }, [
+          _vm._v("#")
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "py-5 w-2/6" }, [_vm._v("Name")]),
+        _c("th", { staticClass: "py-5 w-1/2 sm:w-2/6" }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { staticClass: "py-5 w-1/6" }, [_vm._v("Calories")]),
+        _c("th", { staticClass: "py-5 sm:w-1/6" }, [_vm._v("Calories")]),
         _vm._v(" "),
-        _c("th", { staticClass: "py-5 w-1/12" }, [_vm._v("Serving")]),
+        _c("th", { staticClass: "py-5 w-1/12 hidden sm:table-cell" }, [
+          _vm._v("Serving")
+        ]),
         _vm._v(" "),
-        _c("th", { staticClass: "py-5 w-2/12" }, [_vm._v("Unit")]),
+        _c("th", { staticClass: "py-5 w-2/12 hidden sm:table-cell" }, [
+          _vm._v("Unit")
+        ]),
         _vm._v(" "),
         _c("th", { staticClass: "py-5 w-auto" }, [_vm._v("Actions")])
       ])

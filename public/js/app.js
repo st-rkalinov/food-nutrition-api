@@ -40356,8 +40356,7 @@ var render = function() {
           _c(
             "a",
             {
-              staticClass:
-                "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+              staticClass: "btn btn-danger mr-5",
               attrs: { href: "#" },
               on: {
                 click: function($event) {
@@ -40371,11 +40370,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            {
-              staticClass:
-                "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
-              attrs: { type: "submit" }
-            },
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
             [_vm._v("Create\n            ")]
           )
         ])
@@ -40833,8 +40828,7 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass:
-                      "py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold",
+                    staticClass: "btn btn-danger mr-5",
                     attrs: { href: "#" },
                     on: {
                       click: function($event) {
@@ -40849,8 +40843,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass:
-                      "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
+                    staticClass: "btn btn-success",
                     attrs: { href: "#", type: "submit" }
                   },
                   [_vm._v("Edit\n                ")]
@@ -40938,8 +40931,7 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass:
-                              "px-4 py-2 border border-green-400 rounded-lg text-green-400 mr-5 hover:text-white hover:bg-green-400",
+                            staticClass: "btn btn-success mr-5",
                             attrs: {
                               to: "/foods/" + _vm.data.data.food_id + "/edit"
                             }
@@ -40954,8 +40946,7 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            staticClass:
-                              "px-4 py-2 border border-red-400 rounded-lg text-red-400 hover:text-white hover:bg-red-400",
+                            staticClass: "btn btn-danger",
                             attrs: { href: "#" },
                             on: {
                               click: function($event) {
@@ -40997,8 +40988,7 @@ var render = function() {
                 _c(
                   "a",
                   {
-                    staticClass:
-                      "px-4 py-2 text-blue-400 border border-blue-400 rounded-lg hover:text-white hover:bg-blue-400",
+                    staticClass: "btn btn-primary",
                     attrs: { href: "#" },
                     on: {
                       click: function($event) {

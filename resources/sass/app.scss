@@ -36,3 +36,30 @@ input:-webkit-autofill:active  {
     clip-path: polygon(30% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
+.btn {
+    @apply px-4 py-2 border rounded-lg;
+
+    &-primary {
+        @apply text-blue-400 border-blue-400;
+
+        &:hover {
+            @apply text-white bg-blue-400;
+        }
+    }
+
+    &-success {
+        @apply text-green-400 border-green-400;
+
+        &:hover {
+            @apply text-white bg-green-400;
+        }
+    }
+
+    &-danger {
+        @apply text-red-400 border-red-400;
+
+        &:hover {
+            @apply text-white bg-red-400;
+        }
+    }
+}

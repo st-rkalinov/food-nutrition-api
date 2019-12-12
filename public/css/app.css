@@ -11742,6 +11742,45 @@ input:-webkit-autofill:active {
           clip-path: polygon(30% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
+.btn {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 1px;
+  border-radius: 0.5rem;
+}
+
+.btn-primary {
+  color: #63b3ed;
+  border-color: #63b3ed;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #63b3ed;
+}
+
+.btn-success {
+  color: #68d391;
+  border-color: #68d391;
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: #68d391;
+}
+
+.btn-danger {
+  color: #fc8181;
+  border-color: #fc8181;
+}
+
+.btn-danger:hover {
+  color: #fff;
+  background-color: #fc8181;
+}
+
 @media (min-width: 576px){
   .sm\:sr-only{
     position: absolute;

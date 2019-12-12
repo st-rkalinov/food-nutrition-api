@@ -53,6 +53,9 @@ use Illuminate\Database\Eloquent\Model;
 class Food extends Model
 {
     protected $guarded = [];
+    protected $casts = [
+        'public' => 'boolean'
+    ];
 
     public function path()
     {

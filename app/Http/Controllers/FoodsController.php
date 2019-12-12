@@ -14,7 +14,7 @@ class FoodsController extends Controller
     public function index()
     {
         $foods = Food::availableForAll()->paginate(10);
-
+        
         return FoodResource::collection($foods);
     }
 

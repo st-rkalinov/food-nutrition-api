@@ -1,15 +1,87 @@
 <template>
-    <FoodsList endpoint="/api/foods/" :user_id="this.$parent.user.id"/>
+    <div>
+        <div v-if="isLoading" class="flex justify-center items-center h-screen">
+            <img src="../../../images/25.gif" alt="" class="block w-50 h-50">
+        </div>
+
+        <div v-else-if="!isLoading && hasData">
+            <div v-for="(item, key) in this.dataFieldNames"
+                 class="flex justify-start items-center py-3 border-b border-gray-300">
+                <p class="text-xl text-blue-400 font-bold">{{ item }}: </p>
+                <span class="pl-5 text-xl">{{ castFieldData(data.data[key]) }}</span>
+            </div>
+        </div>
+
+        <ErrorPage v-else-if="!hasData" text="No Data Found"/>
+    </div>
 </template>
 
 <script>
-    import FoodsList from "../FoodsList";
+    import ErrorPage from "../ErrorPage";
 
     export default {
         name: "FoodsShow",
-        components: {
-            FoodsList
+        components: {ErrorPage},
+        data() {
+            return {
+                data: null,
+                hasData: true,
+                isLoading: true,
+                dataFieldNames: {
+                    name: 'Name',
+                    brand: 'Brand',
+                    calories: 'Calories',
+                    serving: 'Serving',
+                    unit: 'Unit',
+                    carbohydrates: 'Carbohydrates',
+                    carbohydrates_fiber: 'Fiber',
+                    carbohydrates_sugars: 'Sugars',
+                    cholesterol: 'Cholesterol',
+                    fat: 'Fat',
+                    fat_satured: 'Satured Fat',
+                    protein: 'Protein',
+                    salt: 'Salt',
+                    public: 'Public Food',
+                }
+            }
         },
+        methods: {
+            castFieldData(fieldData) {
+                let casted = fieldData;
+
+                switch (fieldData) {
+                    case false:
+                       casted = 'No';
+                        break;
+                    case true:
+                        casted = 'Yes';
+                        break;
+                }
+
+                return casted;
+            }
+        },
+        mounted() {
+            axios.get('/api/foods/' + this.$route.params.id)
+                .then(response => {
+                    this.data = response.data;
+
+                    if (this.data.data.length === 0) {
+                        this.hasData = false;
+                        return;
+                    }
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log(error.response);
+                    this.hasData = false;
+
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                })
+        }
+
     }
 </script>
 

@@ -27,9 +27,9 @@
                         <td class="py-2 border-l hidden sm:table-cell">{{ item.data.serving }}</td>
                         <td class="py-2 border-l hidden sm:table-cell">{{ item.data.unit }}</td>
                         <td class="py-2 flex justify-between items-center border-l">
-                            <router-link to="/" class="w-2/5">
+                            <router-link :to="'/foods/' + item.data.food_id" class="w-2/5">
                                 <svg class="mx-auto" width="20px" height="29px" viewBox="0 0 100 100" version="1.1"
-                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <title>See</title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
                                        stroke-linecap="round" stroke-linejoin="round">
@@ -48,7 +48,7 @@
                             <router-link :to="'/foods/' + item.data.food_id + '/edit'"
                                          v-if="item.data.owner_id === user_id" class="w-2/5">
                                 <svg class="mx-auto" width="20px" height="20px" viewBox="0 0 100 100" version="1.1"
-                                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                     xmlns="http://www.w3.org/2000/svg">
                                     <title>Edit</title>
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
                                        stroke-linecap="round" stroke-linejoin="round">
@@ -67,56 +67,9 @@
                 </table>
             </div>
 
-            <div class="p-4 sm:p-12" v-if="paginator.last() > 1">
-                <ul class="flex justify-center bg-white list-reset rounded font-sans shadow-lg">
-                    <li class="pr-3">
-                        <button v-if="paginator.isFirst()"
-                                class="h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none"
-                                :class="{'cursor-not-allowed': paginator.isFirst()}"><
-                        </button>
-                        <button v-else
-                                class="font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none"
-                                @click="submit(paginator.getCurrent() - 1)">
-                            <
-                        </button>
-                    </li>
-                    <li v-if="(paginator.getCurrent() - paginator.linksCount) >= 1">
-                        <button
-                            class="h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none"
-                            @click.prevent="submit(1)">1 ...
-                        </button>
-                    </li>
-                    <li v-for="page in paginator.getLinks()"
-                        class="border-r border-grey-light"
-                        :class="{'bg-blue-400': paginator.isCurrent(page),
-                        'hover:bg-blue-100': !paginator.isCurrent(page),
-                        'border-l border-grey-light': page === 1}">
-                        <button
-                            class="px-4 py-3 h-full focus:outline-none"
-                            @click.prevent="submit(page)">{{ page }}
-                        </button>
-                    </li>
-                    <li v-if="(paginator.getCurrent() + paginator.linksCount - 1) < paginator.last()">
-                        <button
-                            class="h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none"
-                            @click.prevent="submit(paginator.last())">... {{ paginator.last() }}
-                        </button>
-                    </li>
-                    <li class="pl-3">
-                        <button v-if="paginator.isLast()"
-                                class="px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none"
-                                :class="{'cursor-not-allowed': paginator.isLast()}"> >
-                        </button>
-                        <button v-else
-                                class="font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none"
-                                @click="submit(paginator.getCurrent() + 1)">
-                            >
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            <Pagination :paginator="this.paginator" @change:page="submit($event)"/>
         </div>
-        <div v-else>
+        <div v-else-if="!hasData">
             <ErrorPage text="No Data Found"/>
         </div>
     </div>
@@ -126,27 +79,24 @@
     import Paginator from "../classes/Paginator";
     import Alert from "../classes/Alert";
     import ErrorPage from "./ErrorPage";
+    import Pagination from "./Pagination";
 
     export default {
         name: "FoodsList",
         props: ['endpoint', 'user_id'],
-        components: {ErrorPage},
+        components: {ErrorPage, Pagination},
         data() {
             return {
                 data: null,
                 isLoading: true,
+                hasData: true,
                 defaultPage: 1,
                 paginator: null,
             }
         },
-        computed: {
-            hasData() {
-                return !this.isLoading && this.data !== null && this.data.data.length !== 0;
-            }
-        },
         watch: {
             $route(to, from) {
-                if(Object.keys(to.query).length === 0) {
+                if (Object.keys(to.query).length === 0) {
                     this.submit(this.defaultPage, true);
                 }
             }
@@ -157,7 +107,7 @@
                     return;
                 }
 
-                if(page !== parseInt(page) && isNaN(page)) {
+                if (page !== parseInt(page) && isNaN(page)) {
                     page = this.defaultPage;
                 }
 
@@ -169,23 +119,25 @@
                     .then(response => {
                         this.data = response.data;
 
+                        if(this.data.data.length === 0) {
+                            this.hasData = false;
+                            return;
+                        }
                         if (firstRequest) {
                             this.paginator = new Paginator(this.data.meta);
-                        } else {
-                            this.paginator.setMeta(response.data.meta);
-                            this.paginator.getLinks()
+                            return;
                         }
+
+                        this.paginator.setMeta(response.data.meta);
+                        this.paginator.getLinks()
                     })
                     .catch(error => {
                         let alert = new Alert('fetch', error.response.status);
 
                         alert.show()
-                            .then((buttonClicked) => {
-                                //TODO: redirect to logout component
-                                //this.$router.push({ path: '/logout'});
-
-                                console.log('clicked');
-                            });
+                            .then(() => {
+                                error.response.status === 401 ? this.$router.push('/logout') : this.$router.push('/foods');
+                            })
                     })
                     .finally(() => {
                         this.isLoading = false;

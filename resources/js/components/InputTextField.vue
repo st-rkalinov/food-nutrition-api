@@ -9,8 +9,6 @@
                class="py-2 focus:outline-none w-full"
                @input="updateField(); errors.clearError(name)"
                v-model="value">
-
-
     </div>
 </template>
 

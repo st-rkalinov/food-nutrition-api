@@ -180,7 +180,11 @@
                     .catch(error => {
                         let errors = error.response.data.errors;
                         let alert = new Alert('create', error.response.status);
-                        alert.show();
+
+                        alert.show()
+                            .then(() => {
+                                error.response.status === 401 ? this.$router.push('/logout') : this.$router.push('/foods');
+                            });
 
                         if (error.response.status === 422) {
                             this.form.error.setErrors(errors);

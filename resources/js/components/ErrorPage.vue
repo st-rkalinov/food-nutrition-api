@@ -14,7 +14,6 @@
                 Go to home page
             </button>
         </div>
-
     </div>
 </template>
 

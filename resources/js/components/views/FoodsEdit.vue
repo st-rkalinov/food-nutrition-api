@@ -123,15 +123,13 @@
 
                 <div class="flex justify-end py-16 px-10">
                     <a href="#"
-                       class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold" @click.prevent="$router.back()">Cancel</a>
+                       class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold"
+                       @click.prevent="$router.back()">Cancel</a>
                     <button type="submit"
                             class="py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold">Edit
                     </button>
                 </div>
             </form>
-        </div>
-        <div v-else>
-            <ErrorPage/>
         </div>
     </div>
 </template>
@@ -165,7 +163,7 @@
                                     //TODO: push to updated food page
                                     this.$router.push('google.com');
                                 }
-                        });
+                            });
 
                         this.form.originalData = response.data.data;
                         this.form.reset();
@@ -187,10 +185,15 @@
                     this.form = new Form(response.data.data);
                 })
                 .catch(error => {
+                    console.log(error.response);
                     let alert = new Alert('fetch', error.response.status);
-                    alert.show();
-
-                    this.hasErrors = true;
+                    alert.show()
+                        .then(() => {
+                            error.response.status === 401 ? this.$router.push('/logout') : this.$router.back();
+                        })
+                        .then(() => {
+                            this.hasErrors = true;
+                        });
                 })
                 .finally(() => {
                     this.isLoading = false;

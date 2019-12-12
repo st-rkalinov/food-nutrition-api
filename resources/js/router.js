@@ -3,8 +3,9 @@ import Vue from 'vue';
 import ExampleComponent from "./components/ExampleComponent";
 import FoodsCreate from "./components/views/FoodsCreate";
 import FoodsEdit from "./components/views/FoodsEdit";
+import FoodsIndex from "./components/views/FoodsIndex";
+import Logout from "./components/Actions/Logout";
 import FoodsShow from "./components/views/FoodsShow";
-import FoodsList from "./components/FoodsList";
 
 Vue.use(VueRouter);
 
@@ -20,8 +21,14 @@ export default new VueRouter({
             path: '/foods/:id/edit', component: FoodsEdit,
         },
         {
-            path: '/foods', component: FoodsShow,
+            path: '/foods', component: FoodsIndex,
         },
+        {
+            path: '/foods/:id', component: FoodsShow,
+        },
+        {
+            path: '/logout', component: Logout,
+        }
     ],
     mode: 'history'
 })

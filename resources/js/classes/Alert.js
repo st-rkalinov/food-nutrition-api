@@ -2,6 +2,7 @@ import swal from 'sweetalert';
 import AlertCreate from "./Alerts/AlertCreate";
 import AlertUpdate from "./Alerts/AlertUpdate";
 import AlertFetch from "./Alerts/AlertFetch";
+import AlertDelete from "./Alerts/AlertDelete";
 
 class Alert {
     constructor(action, status) {
@@ -18,6 +19,8 @@ class Alert {
             case 'fetch':
                 this.alert = new AlertFetch(status);
                 break;
+            case 'delete':
+                this.alert = new AlertDelete(status);
         }
     }
 

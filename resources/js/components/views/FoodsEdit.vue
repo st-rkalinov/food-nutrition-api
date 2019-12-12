@@ -125,7 +125,7 @@
                     <a href="#"
                        class="py-2 px-4 text-red-400 border border-red-400 rounded-lg mr-5 hover:font-bold"
                        @click.prevent="$router.back()">Cancel</a>
-                    <button type="submit"
+                    <button href="#" type="submit"
                             class="py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold">Edit
                     </button>
                 </div>
@@ -160,8 +160,7 @@
                         alert.show()
                             .then((clickedButton) => {
                                 if (clickedButton) {
-                                    //TODO: push to updated food page
-                                    this.$router.push('google.com');
+                                    this.$router.push('/foods/' + response.data.data.food_id);
                                 }
                             });
 

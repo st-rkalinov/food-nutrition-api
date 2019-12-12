@@ -2814,8 +2814,7 @@ __webpack_require__.r(__webpack_exports__);
         var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_2__["default"]('create', response.status);
         alert.show().then(function (clickedButton) {
           if (clickedButton) {
-            //TODO: push to created food page
-            _this.$router.push('google.com');
+            _this.$router.push('/foods/' + response.data.data.food_id);
           }
         });
 
@@ -3011,8 +3010,7 @@ __webpack_require__.r(__webpack_exports__);
         var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]('update', response.status);
         alert.show().then(function (clickedButton) {
           if (clickedButton) {
-            //TODO: push to updated food page
-            _this.$router.push('google.com');
+            _this.$router.push('/foods/' + response.data.data.food_id);
           }
         });
         _this.form.originalData = response.data.data;
@@ -3084,6 +3082,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
+/* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3103,10 +3114,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FoodsShow",
   components: {
-    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_0__["default"]
+    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Alert: _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -3132,6 +3145,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    del: function del() {
+      var _this = this;
+
+      axios["delete"](this.data.links.self).then(function (response) {
+        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('delete', response.status);
+        alert.show().then(function () {
+          _this.$router.push('/foods');
+        });
+      })["catch"](function (error) {
+        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('delete', error.response.status);
+        alert.show().then(function () {
+          error.response.status === 401 ? _this.$router.push('/logout') : _this.$router.push('/foods');
+        });
+      });
+    },
     castFieldData: function castFieldData(fieldData) {
       var casted = fieldData;
 
@@ -3149,22 +3177,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get('/api/foods/' + this.$route.params.id).then(function (response) {
-      _this.data = response.data;
+      _this2.data = response.data;
 
-      if (_this.data.data.length === 0) {
-        _this.hasData = false;
+      if (_this2.data.data.length === 0) {
+        _this2.hasData = false;
         return;
       }
 
       console.log(response);
     })["catch"](function (error) {
       console.log(error.response);
-      _this.hasData = false;
+      _this2.hasData = false;
     })["finally"](function () {
-      _this.isLoading = false;
+      _this2.isLoading = false;
     });
   }
 });
@@ -40823,7 +40851,7 @@ var render = function() {
                   {
                     staticClass:
                       "py-2 px-4 text-green-400 border border-green-400 rounded-lg hover:font-bold",
-                    attrs: { type: "submit" }
+                    attrs: { href: "#", type: "submit" }
                   },
                   [_vm._v("Edit\n                ")]
                 )
@@ -40900,25 +40928,90 @@ var render = function() {
         : !_vm.isLoading && _vm.hasData
         ? _c(
             "div",
-            _vm._l(this.dataFieldNames, function(item, key) {
-              return _c(
-                "div",
-                {
-                  staticClass:
-                    "flex justify-start items-center py-3 border-b border-gray-300"
-                },
-                [
-                  _c("p", { staticClass: "text-xl text-blue-400 font-bold" }, [
-                    _vm._v(_vm._s(item) + ": ")
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "pl-5 text-xl" }, [
-                    _vm._v(_vm._s(_vm.castFieldData(_vm.data.data[key])))
-                  ])
-                ]
-              )
-            }),
-            0
+            [
+              _c("div", { staticClass: "pb-10" }, [
+                this.$parent.user.id === _vm.data.data.owner_id
+                  ? _c(
+                      "div",
+                      { staticClass: "flex flex-end pt-4 justify-end" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass:
+                              "px-4 py-2 border border-green-400 rounded-lg text-green-400 mr-5 hover:text-white hover:bg-green-400",
+                            attrs: {
+                              to: "/foods/" + _vm.data.data.food_id + "/edit"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                    Edit\n                "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "px-4 py-2 border border-red-400 rounded-lg text-red-400 hover:text-white hover:bg-red-400",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.del()
+                              }
+                            }
+                          },
+                          [_vm._v("Delete")]
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _vm._l(this.dataFieldNames, function(item, key) {
+                return _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex justify-start items-center py-3 border-b border-gray-300"
+                  },
+                  [
+                    _c(
+                      "p",
+                      { staticClass: "text-xl text-blue-400 font-bold" },
+                      [_vm._v(_vm._s(item) + ": ")]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "pl-5 text-xl" }, [
+                      _vm._v(_vm._s(_vm.castFieldData(_vm.data.data[key])))
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "p-5 text-right" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "px-4 py-2 text-blue-400 border border-blue-400 rounded-lg hover:text-white hover:bg-blue-400",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.$router.back()
+                      }
+                    }
+                  },
+                  [_vm._v("Go Back")]
+                )
+              ])
+            ],
+            2
           )
         : !_vm.hasData
         ? _c("ErrorPage", { attrs: { text: "No Data Found" } })
@@ -56080,11 +56173,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alerts/AlertCreate */ "./resources/js/classes/Alerts/AlertCreate.js");
 /* harmony import */ var _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alerts/AlertUpdate */ "./resources/js/classes/Alerts/AlertUpdate.js");
 /* harmony import */ var _Alerts_AlertFetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alerts/AlertFetch */ "./resources/js/classes/Alerts/AlertFetch.js");
+/* harmony import */ var _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Alerts/AlertDelete */ "./resources/js/classes/Alerts/AlertDelete.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -56112,6 +56207,9 @@ function () {
       case 'fetch':
         this.alert = new _Alerts_AlertFetch__WEBPACK_IMPORTED_MODULE_3__["default"](status);
         break;
+
+      case 'delete':
+        this.alert = new _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__["default"](status);
     }
   }
 
@@ -56204,6 +56302,73 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (AlertCreate);
+
+/***/ }),
+
+/***/ "./resources/js/classes/Alerts/AlertDelete.js":
+/*!****************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertDelete.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AlertDelete =
+/*#__PURE__*/
+function () {
+  function AlertDelete(status) {
+    _classCallCheck(this, AlertDelete);
+
+    this.status = status;
+    this.data = {
+      title: 'Success !',
+      text: 'The food was deleted successfully',
+      icon: 'success',
+      button: true
+    };
+  }
+
+  _createClass(AlertDelete, [{
+    key: "makeData",
+    value: function makeData() {
+      switch (this.status) {
+        case 401:
+          this.data = {
+            text: 'You are unauthorized !',
+            buttons: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 403:
+          this.data = {
+            text: 'You don\'t have the rights to delete that food !',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+      }
+    }
+  }, {
+    key: "getData",
+    value: function getData() {
+      this.makeData();
+      return this.data;
+    }
+  }]);
+
+  return AlertDelete;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (AlertDelete);
 
 /***/ }),
 

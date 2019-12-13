@@ -36,6 +36,11 @@ input:-webkit-autofill:active  {
     clip-path: polygon(30% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
+a.active {
+    font-weight: bold;
+    color: #63b3ed;
+}
+
 .btn {
     @apply px-4 py-2 border rounded-lg;
 

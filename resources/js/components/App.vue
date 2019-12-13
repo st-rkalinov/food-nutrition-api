@@ -10,6 +10,7 @@
                 <div>
                     <p class="text-gray-600">CREATE</p>
                     <router-link to="/foods/create"
+                                 :class="{ 'active': isActive('/foods/create') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
                             <path
@@ -22,6 +23,7 @@
                 <div class="pt-12">
                     <p class="text-gray-600">GENERAL</p>
                     <router-link to="/foods"
+                                  :class="{ 'active': isActive('/foods') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 48 48" class="w-6 h-6 fill-current text-blue-600"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -33,7 +35,8 @@
                         </svg>
                         <div class="pl-3">Foods</div>
                     </router-link>
-                    <router-link to="/"
+                    <router-link to="/my-foods"
+                                  :class="{ 'active': isActive('/my-foods') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg version="1.1" id="Layer_1" class="w-6 h-6 fill-current text-blue-600"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -99,6 +102,11 @@
     export default {
         name: "App",
         props: ['user'],
+        methods: {
+            isActive(path) {
+                return path === this.$route.path;
+            }
+        },
         created() {
             axios.interceptors.request.use(config => {
                 if (config.method === 'get') {

@@ -6,6 +6,7 @@ import FoodsEdit from "./components/views/FoodsEdit";
 import FoodsIndex from "./components/views/FoodsIndex";
 import Logout from "./components/Actions/Logout";
 import FoodsShow from "./components/views/FoodsShow";
+import UserFoodsIndex from "./components/views/UserFoodsIndex";
 
 Vue.use(VueRouter);
 
@@ -22,6 +23,9 @@ export default new VueRouter({
         },
         {
             path: '/foods', component: FoodsIndex,
+        },
+        {
+            path: '/my-foods', component: UserFoodsIndex,
         },
         {
             path: '/foods/:id', component: FoodsShow,

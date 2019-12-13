@@ -20,4 +20,6 @@ Route::middleware('auth:api')->group( function () {
     Route::post('/foods', 'FoodsController@store');
     Route::patch('/foods/{food}', 'FoodsController@update');
     Route::delete('/foods/{food}', 'FoodsController@destroy');
+
+    Route::get('/my-foods', 'UserFoodsController');
 });

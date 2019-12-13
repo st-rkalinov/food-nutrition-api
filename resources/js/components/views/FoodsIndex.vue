@@ -1,5 +1,5 @@
 <template>
-    <FoodsList endpoint="/api/foods/" :user_id="this.$parent.user.id"/>
+    <FoodsList endpoint="/foods" :user_id="this.$parent.user.id"/>
 </template>
 
 <script>

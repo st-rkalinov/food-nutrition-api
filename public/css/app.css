@@ -11742,6 +11742,11 @@ input:-webkit-autofill:active {
           clip-path: polygon(30% 0, 100% 0, 100% 100%, 100% 100%);
 }
 
+a.active {
+  font-weight: bold;
+  color: #63b3ed;
+}
+
 .btn {
   padding-left: 1rem;
   padding-right: 1rem;

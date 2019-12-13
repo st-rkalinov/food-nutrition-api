@@ -96,6 +96,11 @@
                 responseHandler: new ResponseHandlerStrategy(this.$router, 'index'),
             }
         },
+        computed: {
+            endpointForAxios() {
+                return '/api' + this.endpoint;
+            }
+        },
         watch: {
             $route(to, from) {
                 if (Object.keys(to.query).length === 0) {
@@ -114,9 +119,9 @@
                 }
 
                 if (this.$route.query.page !== page) {
-                    this.$router.push({path: '/foods', query: {page: page}});
+                    this.$router.push({path: this.endpoint, query: {page: page}});
                 }
-                axios.get(this.endpoint, {params: {page: page}})
+                axios.get(this.endpointForAxios, {params: {page: page}})
                     .then(response => {
                         this.isLoading = false;
                         this.data = response.data;

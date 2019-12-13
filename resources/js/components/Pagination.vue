@@ -1,7 +1,7 @@
 <template>
-    <div class="p-4 sm:p-12" v-if="paginator.last() > 1">
-        <ul class="flex justify-center bg-white list-reset rounded shadow-lg">
-            <li class="pl-10">
+    <div class="sm:py-12 sm:px-12 md:px-20 lg:px-24 xl:p-32 py-12 px-0" v-if="paginator.last() > 1">
+        <ul class="flex sm:justify-center justify-between bg-white list-reset rounded shadow-lg">
+            <li>
                 <button v-if="paginator.isFirst()"
                         class="h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none"
                         :class="{'cursor-not-allowed': paginator.isFirst()}"><
@@ -12,7 +12,7 @@
                     <
                 </button>
             </li>
-            <li class="w-1/2">
+            <li class="sm:w-1/2 w-3/4">
                 <ul class="flex justify-center h-full">
                     <li v-if="showMostFirstPage" class="h-full">
                         <button
@@ -38,7 +38,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="pr-10">
+            <li>
                 <button v-if="paginator.isLast()"
                         class="px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none"
                         :class="{'cursor-not-allowed': paginator.isLast()}"> >

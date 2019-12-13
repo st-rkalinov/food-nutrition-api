@@ -39819,150 +39819,157 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.paginator.last() > 1
-    ? _c("div", { staticClass: "p-4 sm:p-12" }, [
-        _c(
-          "ul",
-          {
-            staticClass:
-              "flex justify-center bg-white list-reset rounded shadow-lg"
-          },
-          [
-            _c("li", { staticClass: "pl-10" }, [
-              _vm.paginator.isFirst()
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none",
-                      class: { "cursor-not-allowed": _vm.paginator.isFirst() }
-                    },
-                    [_vm._v("<\n            ")]
-                  )
-                : _c(
-                    "button",
-                    {
-                      staticClass:
-                        "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          _vm.changePage(_vm.paginator.getCurrent() - 1)
-                        }
-                      }
-                    },
-                    [_vm._v("\n                <\n            ")]
-                  )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "w-1/2" }, [
-              _c(
-                "ul",
-                { staticClass: "flex justify-center h-full" },
-                [
-                  _vm.showMostFirstPage
-                    ? _c("li", { staticClass: "h-full" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.changePage(1)
-                              }
-                            }
-                          },
-                          [_vm._v("1 ...\n                    ")]
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.paginator.getLinks(), function(page) {
-                    return _c(
-                      "li",
+    ? _c(
+        "div",
+        {
+          staticClass: "sm:py-12 sm:px-12 md:px-20 lg:px-24 xl:p-32 py-12 px-0"
+        },
+        [
+          _c(
+            "ul",
+            {
+              staticClass:
+                "flex sm:justify-center justify-between bg-white list-reset rounded shadow-lg"
+            },
+            [
+              _c("li", [
+                _vm.paginator.isFirst()
+                  ? _c(
+                      "button",
                       {
-                        staticClass: "border-r border-grey-light h-full",
-                        class: {
-                          "bg-blue-400": _vm.paginator.isCurrent(page),
-                          "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
-                          "border-l border-grey-light": page === 1
+                        staticClass:
+                          "h-full rounded-full border-2 border-gray-200 px-4 py-3 focus:outline-none",
+                        class: { "cursor-not-allowed": _vm.paginator.isFirst() }
+                      },
+                      [_vm._v("<\n            ")]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass:
+                          "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            _vm.changePage(_vm.paginator.getCurrent() - 1)
+                          }
                         }
                       },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "px-4 py-3 h-full focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.changePage(page)
-                              }
-                            }
-                          },
-                          [_vm._v(_vm._s(page) + "\n                    ")]
-                        )
-                      ]
+                      [_vm._v("\n                <\n            ")]
                     )
-                  }),
-                  _vm._v(" "),
-                  _vm.showMostLastPage
-                    ? _c("li", { staticClass: "h-full" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                _vm.changePage(_vm.paginator.last())
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "sm:w-1/2 w-3/4" }, [
+                _c(
+                  "ul",
+                  { staticClass: "flex justify-center h-full" },
+                  [
+                    _vm.showMostFirstPage
+                      ? _c("li", { staticClass: "h-full" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.changePage(1)
+                                }
                               }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "... " +
-                                _vm._s(_vm.paginator.last()) +
-                                "\n                    "
-                            )
-                          ]
-                        )
-                      ])
-                    : _vm._e()
-                ],
-                2
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "pr-10" }, [
-              _vm.paginator.isLast()
-                ? _c(
-                    "button",
-                    {
-                      staticClass:
-                        "px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none",
-                      class: { "cursor-not-allowed": _vm.paginator.isLast() }
-                    },
-                    [_vm._v(" >\n            ")]
-                  )
-                : _c(
-                    "button",
-                    {
-                      staticClass:
-                        "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          _vm.changePage(_vm.paginator.getCurrent() + 1)
+                            },
+                            [_vm._v("1 ...\n                    ")]
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.paginator.getLinks(), function(page) {
+                      return _c(
+                        "li",
+                        {
+                          staticClass: "border-r border-grey-light h-full",
+                          class: {
+                            "bg-blue-400": _vm.paginator.isCurrent(page),
+                            "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
+                            "border-l border-grey-light": page === 1
+                          }
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "px-4 py-3 h-full focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.changePage(page)
+                                }
+                              }
+                            },
+                            [_vm._v(_vm._s(page) + "\n                    ")]
+                          )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.showMostLastPage
+                      ? _c("li", { staticClass: "h-full" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  _vm.changePage(_vm.paginator.last())
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "... " +
+                                  _vm._s(_vm.paginator.last()) +
+                                  "\n                    "
+                              )
+                            ]
+                          )
+                        ])
+                      : _vm._e()
+                  ],
+                  2
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _vm.paginator.isLast()
+                  ? _c(
+                      "button",
+                      {
+                        staticClass:
+                          "px-4 py-3 h-full rounded-full border-2 border-gray-200 focus:outline-none",
+                        class: { "cursor-not-allowed": _vm.paginator.isLast() }
+                      },
+                      [_vm._v(" >\n            ")]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass:
+                          "font-bold h-full hover:bg-blue-100 px-4 py-3 rounded-full border-2 border-gray-200 focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            _vm.changePage(_vm.paginator.getCurrent() + 1)
+                          }
                         }
-                      }
-                    },
-                    [_vm._v("\n                >\n            ")]
-                  )
-            ])
-          ]
-        )
-      ])
+                      },
+                      [_vm._v("\n                >\n            ")]
+                    )
+              ])
+            ]
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []

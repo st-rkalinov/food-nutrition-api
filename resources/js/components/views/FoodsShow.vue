@@ -4,7 +4,7 @@
             <img src="../../../images/25.gif" alt="" class="block w-50 h-50">
         </div>
 
-        <div v-else-if="!isLoading && hasData">
+        <div v-else-if="!isLoading && !hasErrors">
             <div class="pb-10">
                 <div v-if="this.$parent.user.id === data.data.owner_id" class="flex flex-end pt-4 justify-end">
                     <router-link :to="'/foods/' + data.data.food_id + '/edit'" class="btn btn-success mr-5">
@@ -23,23 +23,22 @@
                 <a href="#" @click.prevent="$router.back()" class="btn btn-primary">Go Back</a>
             </div>
         </div>
-
-        <ErrorPage v-else-if="!hasData" text="No Data Found"/>
     </div>
 </template>
 
 <script>
     import ErrorPage from "../ErrorPage";
-    import Alert from "../../classes/Alert";
+    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
 
     export default {
         name: "FoodsShow",
-        components: {ErrorPage, Alert},
+        components: {ErrorPage},
         data() {
             return {
                 data: null,
-                hasData: true,
                 isLoading: true,
+                hasErrors: false,
+                responseHandler: null,
                 dataFieldNames: {
                     name: 'Name',
                     brand: 'Brand',
@@ -60,20 +59,14 @@
         },
         methods: {
             del() {
+                this.responseHandler = new ResponseHandlerStrategy(this.$router, 'delete');
+
                 axios.delete(this.data.links.self)
                 .then(response => {
-                    let alert = new Alert('delete', response.status);
-                    alert.show()
-                    .then(() => {
-                        this.$router.push('/foods');
-                    })
+                    this.responseHandler.handle(response.status);
                 })
                 .catch(error => {
-                    let alert = new Alert('delete', error.response.status);
-                    alert.show()
-                    .then(() => {
-                        error.response.status === 401 ? this.$router.push('/logout') : this.$router.push('/foods');
-                    })
+                    this.responseHandler.handle(error.response.status);
                 })
             },
             castFieldData(fieldData) {
@@ -92,24 +85,21 @@
             }
         },
         mounted() {
+
             axios.get('/api/foods/' + this.$route.params.id)
                 .then(response => {
                     this.data = response.data;
-
-                    if (this.data.data.length === 0) {
-                        this.hasData = false;
-                        return;
-                    }
-                    console.log(response);
+                    this.isLoading = false;
                 })
                 .catch(error => {
-                    console.log(error.response);
-                    this.hasData = false;
+                    this.hasErrors = true;
+                    this.responseHandler = new ResponseHandlerStrategy(this.$router, 'show');
 
+                    this.responseHandler.handle(error.response.status)
                 })
                 .finally(() => {
                     this.isLoading = false;
-                })
+                });
         }
 
     }

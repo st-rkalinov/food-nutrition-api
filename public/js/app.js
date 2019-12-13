@@ -1845,7 +1845,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Logout",
   created: function created() {
-    axios.post('/logout', {})["finally"](function (err) {
+    axios.post('/logout')["finally"](function (err) {
       window.location = '/login';
     });
   }
@@ -2332,6 +2332,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes/Alert */ "./resources/js/classes/Alert.js");
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
 //
 //
 //
@@ -2409,6 +2410,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2426,7 +2428,8 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: true,
       hasData: true,
       defaultPage: 1,
-      paginator: null
+      paginator: null,
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__["default"](this.$router, 'index')
     };
   },
   watch: {
@@ -2464,12 +2467,15 @@ __webpack_require__.r(__webpack_exports__);
           page: page
         }
       }).then(function (response) {
+        _this.isLoading = false;
         _this.data = response.data;
 
         if (_this.data.data.length === 0) {
           _this.hasData = false;
           return;
         }
+
+        _this.hasData = true;
 
         if (firstRequest) {
           _this.paginator = new _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__["default"](_this.data.meta);
@@ -2480,12 +2486,10 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.paginator.getLinks();
       })["catch"](function (error) {
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('fetch', error.response.status);
-        alert.show().then(function () {
-          error.response.status === 401 ? _this.$router.push('/logout') : _this.$router.push('/foods');
+        _this.responseHandler.handle(error.response.status).then(function () {
+          _this.isLoading = true;
+          _this.hasData = false;
         });
-      })["finally"](function () {
-        _this.isLoading = false;
       });
     },
     itemNumber: function itemNumber(key) {
@@ -2608,6 +2612,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Pagination",
   props: {
@@ -2645,6 +2653,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
 /* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
 //
 //
 //
@@ -2774,6 +2783,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2800,7 +2810,8 @@ __webpack_require__.r(__webpack_exports__);
         'protein': 0,
         'public': false
       },
-      form: null
+      form: null,
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'create')
     };
   },
   created: function created() {
@@ -2811,20 +2822,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.form.submit('/api/foods').then(function (response) {
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_2__["default"]('create', response.status);
-        alert.show().then(function (clickedButton) {
-          if (clickedButton) {
-            _this.$router.push('/foods/' + response.data.data.food_id);
-          }
-        });
+        _this.responseHandler.handle(response.status, response.data.data.food_id);
 
         _this.form.reset();
       })["catch"](function (error) {
         var errors = error.response.data.errors;
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_2__["default"]('create', error.response.status);
-        alert.show().then(function () {
-          error.response.status === 401 ? _this.$router.push('/logout') : _this.$router.push('/foods');
-        });
+
+        _this.responseHandler.handle(error.response.status);
 
         if (error.response.status === 422) {
           _this.form.error.setErrors(errors);
@@ -2849,6 +2853,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
 /* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
 //
 //
 //
@@ -2985,6 +2990,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 
@@ -2999,7 +3005,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: null,
       isLoading: true,
-      hasErrors: false
+      hasErrors: false,
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__["default"](this.$router, 'update')
     };
   },
   methods: {
@@ -3007,19 +3014,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.form.submit('/api/foods/' + this.$route.params.id, 'patch').then(function (response) {
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]('update', response.status);
-        alert.show().then(function (clickedButton) {
-          if (clickedButton) {
-            _this.$router.push('/foods/' + response.data.data.food_id);
-          }
-        });
+        _this.responseHandler.handle(response.status, response.data.data.food_id);
+
         _this.form.originalData = response.data.data;
 
         _this.form.reset();
       })["catch"](function (error) {
         var errors = error.response.data.errors;
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]('update', error.response.status);
-        alert.show();
+
+        _this.responseHandler.handle(error.response.status);
 
         if (error.response.status === 422) {
           _this.form.error.setErrors(errors);
@@ -3033,13 +3036,9 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/foods/' + this.$route.params.id + '/edit').then(function (response) {
       _this2.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](response.data.data);
     })["catch"](function (error) {
-      console.log(error.response);
-      var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_3__["default"]('fetch', error.response.status);
-      alert.show().then(function () {
-        error.response.status === 401 ? _this2.$router.push('/logout') : _this2.$router.back();
-      }).then(function () {
-        _this2.hasErrors = true;
-      });
+      _this2.hasErrors = true;
+
+      _this2.responseHandler.handle(error.response.status);
     })["finally"](function () {
       _this2.isLoading = false;
     });
@@ -3082,9 +3081,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
-/* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
-//
-//
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
 //
 //
 //
@@ -3118,14 +3115,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FoodsShow",
   components: {
-    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Alert: _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
       data: null,
-      hasData: true,
       isLoading: true,
+      hasErrors: false,
+      responseHandler: null,
       dataFieldNames: {
         name: 'Name',
         brand: 'Brand',
@@ -3148,16 +3145,11 @@ __webpack_require__.r(__webpack_exports__);
     del: function del() {
       var _this = this;
 
+      this.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](this.$router, 'delete');
       axios["delete"](this.data.links.self).then(function (response) {
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('delete', response.status);
-        alert.show().then(function () {
-          _this.$router.push('/foods');
-        });
+        _this.responseHandler.handle(response.status);
       })["catch"](function (error) {
-        var alert = new _classes_Alert__WEBPACK_IMPORTED_MODULE_1__["default"]('delete', error.response.status);
-        alert.show().then(function () {
-          error.response.status === 401 ? _this.$router.push('/logout') : _this.$router.push('/foods');
-        });
+        _this.responseHandler.handle(error.response.status);
       });
     },
     castFieldData: function castFieldData(fieldData) {
@@ -3181,16 +3173,12 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/api/foods/' + this.$route.params.id).then(function (response) {
       _this2.data = response.data;
-
-      if (_this2.data.data.length === 0) {
-        _this2.hasData = false;
-        return;
-      }
-
-      console.log(response);
+      _this2.isLoading = false;
     })["catch"](function (error) {
-      console.log(error.response);
-      _this2.hasData = false;
+      _this2.hasErrors = true;
+      _this2.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](_this2.$router, 'show');
+
+      _this2.responseHandler.handle(error.response.status);
     })["finally"](function () {
       _this2.isLoading = false;
     });
@@ -38809,7 +38797,7 @@ var render = function() {
                   {
                     staticClass:
                       "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
-                    attrs: { to: "/" }
+                    attrs: { to: "/logout" }
                   },
                   [
                     _c(
@@ -39796,10 +39784,10 @@ var render = function() {
           "ul",
           {
             staticClass:
-              "flex justify-center bg-white list-reset rounded font-sans shadow-lg"
+              "flex justify-center bg-white list-reset rounded shadow-lg"
           },
           [
-            _c("li", { staticClass: "pr-3" }, [
+            _c("li", { staticClass: "pl-10" }, [
               _vm.paginator.isFirst()
                 ? _c(
                     "button",
@@ -39825,78 +39813,89 @@ var render = function() {
                   )
             ]),
             _vm._v(" "),
-            _vm.showMostFirstPage
-              ? _c("li", [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(1)
-                        }
-                      }
-                    },
-                    [_vm._v("1 ...\n            ")]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm._l(_vm.paginator.getLinks(), function(page) {
-              return _c(
-                "li",
-                {
-                  staticClass: "border-r border-grey-light",
-                  class: {
-                    "bg-blue-400": _vm.paginator.isCurrent(page),
-                    "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
-                    "border-l border-grey-light": page === 1
-                  }
-                },
+            _c("li", { staticClass: "w-1/2" }, [
+              _c(
+                "ul",
+                { staticClass: "flex justify-center h-full" },
                 [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "px-4 py-3 h-full focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          return _vm.changePage(page)
+                  _vm.showMostFirstPage
+                    ? _c("li", { staticClass: "h-full" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.changePage(1)
+                              }
+                            }
+                          },
+                          [_vm._v("1 ...\n                    ")]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._l(_vm.paginator.getLinks(), function(page) {
+                    return _c(
+                      "li",
+                      {
+                        staticClass: "border-r border-grey-light h-full",
+                        class: {
+                          "bg-blue-400": _vm.paginator.isCurrent(page),
+                          "hover:bg-blue-100": !_vm.paginator.isCurrent(page),
+                          "border-l border-grey-light": page === 1
                         }
-                      }
-                    },
-                    [_vm._v(_vm._s(page) + "\n            ")]
-                  )
-                ]
+                      },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "px-4 py-3 h-full focus:outline-none",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.changePage(page)
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(page) + "\n                    ")]
+                        )
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _vm.showMostLastPage
+                    ? _c("li", { staticClass: "h-full" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                _vm.changePage(_vm.paginator.last())
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "... " +
+                                _vm._s(_vm.paginator.last()) +
+                                "\n                    "
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e()
+                ],
+                2
               )
-            }),
+            ]),
             _vm._v(" "),
-            _vm.showMostLastPage
-              ? _c("li", [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "h-full hover:text-gray-800 text-gray-400 px-4 py-3 focus:outline-none",
-                      on: {
-                        click: function($event) {
-                          $event.preventDefault()
-                          _vm.changePage(_vm.paginator.last())
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "... " + _vm._s(_vm.paginator.last()) + "\n            "
-                      )
-                    ]
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c("li", { staticClass: "pl-3" }, [
+            _c("li", { staticClass: "pr-10" }, [
               _vm.paginator.isLast()
                 ? _c(
                     "button",
@@ -39921,8 +39920,7 @@ var render = function() {
                     [_vm._v("\n                >\n            ")]
                   )
             ])
-          ],
-          2
+          ]
         )
       ])
     : _vm._e()
@@ -40842,10 +40840,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "button",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { href: "#", type: "submit" }
-                  },
+                  { staticClass: "btn btn-success", attrs: { type: "submit" } },
                   [_vm._v("Edit\n                ")]
                 )
               ])
@@ -40904,111 +40899,99 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _vm.isLoading
-        ? _c(
-            "div",
-            { staticClass: "flex justify-center items-center h-screen" },
-            [
-              _c("img", {
-                staticClass: "block w-50 h-50",
-                attrs: { src: __webpack_require__(/*! ../../../images/25.gif */ "./resources/images/25.gif"), alt: "" }
-              })
-            ]
-          )
-        : !_vm.isLoading && _vm.hasData
-        ? _c(
-            "div",
-            [
-              _c("div", { staticClass: "pb-10" }, [
-                this.$parent.user.id === _vm.data.data.owner_id
-                  ? _c(
-                      "div",
-                      { staticClass: "flex flex-end pt-4 justify-end" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-success mr-5",
-                            attrs: {
-                              to: "/foods/" + _vm.data.data.food_id + "/edit"
+  return _c("div", [
+    _vm.isLoading
+      ? _c(
+          "div",
+          { staticClass: "flex justify-center items-center h-screen" },
+          [
+            _c("img", {
+              staticClass: "block w-50 h-50",
+              attrs: { src: __webpack_require__(/*! ../../../images/25.gif */ "./resources/images/25.gif"), alt: "" }
+            })
+          ]
+        )
+      : !_vm.isLoading && !_vm.hasErrors
+      ? _c(
+          "div",
+          [
+            _c("div", { staticClass: "pb-10" }, [
+              this.$parent.user.id === _vm.data.data.owner_id
+                ? _c(
+                    "div",
+                    { staticClass: "flex flex-end pt-4 justify-end" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-success mr-5",
+                          attrs: {
+                            to: "/foods/" + _vm.data.data.food_id + "/edit"
+                          }
+                        },
+                        [_vm._v("\n                    Edit\n                ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-danger",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.del()
                             }
-                          },
-                          [
-                            _vm._v(
-                              "\n                    Edit\n                "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-danger",
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.del()
-                              }
-                            }
-                          },
-                          [_vm._v("Delete")]
-                        )
-                      ],
-                      1
-                    )
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm._l(this.dataFieldNames, function(item, key) {
-                return _c(
-                  "div",
-                  {
-                    staticClass:
-                      "flex justify-start items-center py-3 border-b border-gray-300"
-                  },
-                  [
-                    _c(
-                      "p",
-                      { staticClass: "text-xl text-blue-400 font-bold" },
-                      [_vm._v(_vm._s(item) + ": ")]
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "pl-5 text-xl" }, [
-                      _vm._v(_vm._s(_vm.castFieldData(_vm.data.data[key])))
-                    ])
-                  ]
-                )
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "p-5 text-right" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-primary",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.$router.back()
-                      }
+                          }
+                        },
+                        [_vm._v("Delete")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _vm._l(this.dataFieldNames, function(item, key) {
+              return _c(
+                "div",
+                {
+                  staticClass:
+                    "flex justify-start items-center py-3 border-b border-gray-300"
+                },
+                [
+                  _c("p", { staticClass: "text-xl text-blue-400 font-bold" }, [
+                    _vm._v(_vm._s(item) + ": ")
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "pl-5 text-xl" }, [
+                    _vm._v(_vm._s(_vm.castFieldData(_vm.data.data[key])))
+                  ])
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "p-5 text-right" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.$router.back()
                     }
-                  },
-                  [_vm._v("Go Back")]
-                )
-              ])
-            ],
-            2
-          )
-        : !_vm.hasData
-        ? _c("ErrorPage", { attrs: { text: "No Data Found" } })
-        : _vm._e()
-    ],
-    1
-  )
+                  }
+                },
+                [_vm._v("Go Back")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56162,8 +56145,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alerts/AlertCreate */ "./resources/js/classes/Alerts/AlertCreate.js");
 /* harmony import */ var _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alerts/AlertUpdate */ "./resources/js/classes/Alerts/AlertUpdate.js");
-/* harmony import */ var _Alerts_AlertFetch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alerts/AlertFetch */ "./resources/js/classes/Alerts/AlertFetch.js");
+/* harmony import */ var _Alerts_AlertIndex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alerts/AlertIndex */ "./resources/js/classes/Alerts/AlertIndex.js");
 /* harmony import */ var _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Alerts/AlertDelete */ "./resources/js/classes/Alerts/AlertDelete.js");
+/* harmony import */ var _Alerts_AlertShow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Alerts/AlertShow */ "./resources/js/classes/Alerts/AlertShow.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -56176,39 +56160,54 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
 var Alert =
 /*#__PURE__*/
 function () {
-  function Alert(action, status) {
+  function Alert(action) {
     _classCallCheck(this, Alert);
 
     this.swal = sweetalert__WEBPACK_IMPORTED_MODULE_0___default.a;
     this.alert = null;
-
-    switch (action) {
-      case 'create':
-        this.alert = new _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__["default"](status);
-        break;
-
-      case 'update':
-        this.alert = new _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__["default"](status);
-        break;
-
-      case 'fetch':
-        this.alert = new _Alerts_AlertFetch__WEBPACK_IMPORTED_MODULE_3__["default"](status);
-        break;
-
-      case 'delete':
-        this.alert = new _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__["default"](status);
-    }
+    this.action = action;
+    this.swalData = {
+      text: 'There is a problem in our system please try again later !',
+      button: true,
+      icon: 'error',
+      title: 'Error'
+    };
   }
 
   _createClass(Alert, [{
-    key: "show",
-    value: function show() {
-      if (this.alert) {
-        return this.swal(this.alert.getData());
+    key: "chooseAlertHandler",
+    value: function chooseAlertHandler(status) {
+      switch (this.action) {
+        case 'create':
+          this.alert = new _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__["default"](status);
+          break;
+
+        case 'update':
+          this.alert = new _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__["default"](status);
+          break;
+
+        case 'index':
+          this.alert = new _Alerts_AlertIndex__WEBPACK_IMPORTED_MODULE_3__["default"](status);
+          break;
+
+        case 'delete':
+          this.alert = new _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__["default"](status);
+          break;
+
+        case 'show':
+          this.alert = new _Alerts_AlertShow__WEBPACK_IMPORTED_MODULE_5__["default"](status);
       }
+    }
+  }, {
+    key: "show",
+    value: function show(status) {
+      this.chooseAlertHandler(status);
+      this.swalData = this.alert.getData() ? this.alert.getData() : this.swalData;
+      return this.swal(this.swalData);
     }
   }]);
 
@@ -56241,18 +56240,22 @@ function () {
     _classCallCheck(this, AlertCreate);
 
     this.status = status;
-    this.data = {
-      title: 'Success !',
-      text: 'New food was added successfully',
-      icon: 'success',
-      buttons: [true, 'Go to the food page']
-    };
+    this.data = null;
   }
 
   _createClass(AlertCreate, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
+        case 201:
+          this.data = {
+            text: 'The food was added successfully',
+            buttons: [true, 'Go to the food page'],
+            icon: 'success',
+            title: 'Success'
+          };
+          break;
+
         case 422:
           this.data = {
             text: 'There is a problem with the data you entered !',
@@ -56274,6 +56277,15 @@ function () {
         case 403:
           this.data = {
             text: 'Access Forbidden',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 404:
+          this.data = {
+            text: 'Page not found',
             button: true,
             icon: 'error',
             title: 'Error'
@@ -56317,18 +56329,22 @@ function () {
     _classCallCheck(this, AlertDelete);
 
     this.status = status;
-    this.data = {
-      title: 'Success !',
-      text: 'The food was deleted successfully',
-      icon: 'success',
-      button: true
-    };
+    this.data = null;
   }
 
   _createClass(AlertDelete, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
+        case 204:
+          this.data = {
+            text: 'The food was deleted successfully',
+            button: true,
+            icon: 'success',
+            title: 'Success'
+          };
+          break;
+
         case 401:
           this.data = {
             text: 'You are unauthorized !',
@@ -56341,6 +56357,15 @@ function () {
         case 403:
           this.data = {
             text: 'You don\'t have the rights to delete that food !',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 404:
+          this.data = {
+            text: 'Page not found',
             button: true,
             icon: 'error',
             title: 'Error'
@@ -56362,9 +56387,9 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertFetch.js":
+/***/ "./resources/js/classes/Alerts/AlertIndex.js":
 /*!***************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertFetch.js ***!
+  !*** ./resources/js/classes/Alerts/AlertIndex.js ***!
   \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -56377,22 +56402,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertFetch =
+var AlertIndex =
 /*#__PURE__*/
 function () {
-  function AlertFetch(status) {
-    _classCallCheck(this, AlertFetch);
+  function AlertIndex(status) {
+    _classCallCheck(this, AlertIndex);
 
     this.status = status;
-    this.data = {
-      text: 'There is a problem, please try again later.',
-      button: true,
-      icon: 'error',
-      title: 'Error'
-    };
+    this.data = null;
   }
 
-  _createClass(AlertFetch, [{
+  _createClass(AlertIndex, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56412,6 +56432,15 @@ function () {
             icon: 'error',
             title: 'Error'
           };
+          break;
+
+        case 404:
+          this.data = {
+            text: 'Page not found',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
       }
     }
   }, {
@@ -56422,10 +56451,81 @@ function () {
     }
   }]);
 
-  return AlertFetch;
+  return AlertIndex;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertFetch);
+/* harmony default export */ __webpack_exports__["default"] = (AlertIndex);
+
+/***/ }),
+
+/***/ "./resources/js/classes/Alerts/AlertShow.js":
+/*!**************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertShow.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AlertShow =
+/*#__PURE__*/
+function () {
+  function AlertShow(status) {
+    _classCallCheck(this, AlertShow);
+
+    this.status = status;
+    this.data = null;
+  }
+
+  _createClass(AlertShow, [{
+    key: "makeData",
+    value: function makeData() {
+      switch (this.status) {
+        case 401:
+          this.data = {
+            text: 'You are unauthorized !',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 403:
+          this.data = {
+            text: 'Access Forbidden',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 404:
+          this.data = {
+            text: 'Page not found',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+      }
+    }
+  }, {
+    key: "getData",
+    value: function getData() {
+      this.makeData();
+      return this.data;
+    }
+  }]);
+
+  return AlertShow;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (AlertShow);
 
 /***/ }),
 
@@ -56451,18 +56551,22 @@ function () {
     _classCallCheck(this, AlertUpdate);
 
     this.status = status;
-    this.data = {
-      title: 'Success !',
-      text: 'The food was edited successfully',
-      icon: 'success',
-      buttons: [true, 'Go to the food page']
-    };
+    this.data = null;
   }
 
   _createClass(AlertUpdate, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
+        case 200:
+          this.data = {
+            text: 'The food was edited successfully',
+            buttons: [true, 'Go to the food page'],
+            icon: 'success',
+            title: 'Success'
+          };
+          break;
+
         case 422:
           this.data = {
             text: 'There is a problem with the data you entered !',
@@ -56484,6 +56588,15 @@ function () {
         case 403:
           this.data = {
             text: 'You don\'t have the rights to edit that food !',
+            button: true,
+            icon: 'error',
+            title: 'Error'
+          };
+          break;
+
+        case 404:
+          this.data = {
+            text: 'Page not found',
             button: true,
             icon: 'error',
             title: 'Error'
@@ -56738,6 +56851,391 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Paginator);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlerStrategy.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlerStrategy.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ResponseHandlers_ResponseCreateHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ResponseHandlers/ResponseCreateHandler */ "./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js");
+/* harmony import */ var _ResponseHandlers_ResponseUpdateHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ResponseHandlers/ResponseUpdateHandler */ "./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js");
+/* harmony import */ var _ResponseHandlers_ResponseIndexHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ResponseHandlers/ResponseIndexHandler */ "./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js");
+/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alert */ "./resources/js/classes/Alert.js");
+/* harmony import */ var _ResponseHandlers_ResponseDeleteHandler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResponseHandlers/ResponseDeleteHandler */ "./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js");
+/* harmony import */ var _ResponseHandlers_ResponseShowHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ResponseHandlers/ResponseShowHandler */ "./resources/js/classes/ResponseHandlers/ResponseShowHandler.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+
+
+
+var ResponseHandlerStrategy =
+/*#__PURE__*/
+function () {
+  function ResponseHandlerStrategy(router, action) {
+    _classCallCheck(this, ResponseHandlerStrategy);
+
+    this.router = router;
+    this.action = action;
+    this.handler = null;
+    this.alert = new _Alert__WEBPACK_IMPORTED_MODULE_3__["default"](action);
+  }
+
+  _createClass(ResponseHandlerStrategy, [{
+    key: "chooseHandler",
+    value: function chooseHandler(status, additionalEndpointData) {
+      switch (this.action) {
+        case 'create':
+          this.handler = new _ResponseHandlers_ResponseCreateHandler__WEBPACK_IMPORTED_MODULE_0__["default"](status, additionalEndpointData);
+          break;
+
+        case 'update':
+          this.handler = new _ResponseHandlers_ResponseUpdateHandler__WEBPACK_IMPORTED_MODULE_1__["default"](status, additionalEndpointData);
+          break;
+
+        case 'index':
+          this.handler = new _ResponseHandlers_ResponseIndexHandler__WEBPACK_IMPORTED_MODULE_2__["default"](status, additionalEndpointData);
+          break;
+
+        case 'delete':
+          this.handler = new _ResponseHandlers_ResponseDeleteHandler__WEBPACK_IMPORTED_MODULE_4__["default"](status, additionalEndpointData);
+          break;
+
+        case 'show':
+          this.handler = new _ResponseHandlers_ResponseShowHandler__WEBPACK_IMPORTED_MODULE_5__["default"](status, additionalEndpointData);
+      }
+    }
+  }, {
+    key: "handle",
+    value: function handle(status) {
+      var _this = this;
+
+      var additionalEndpointData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      return this.alert.show(status).then(function (clickedButton) {
+        if (clickedButton) {
+          _this.chooseHandler(status, additionalEndpointData);
+
+          var endpoint = _this.handler.getEndpoint();
+
+          if (endpoint == false) {
+            return;
+          }
+
+          _this.router.push(endpoint);
+        }
+      });
+    }
+  }]);
+
+  return ResponseHandlerStrategy;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseHandlerStrategy);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResponseCreateHandler =
+/*#__PURE__*/
+function () {
+  function ResponseCreateHandler(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseCreateHandler);
+
+    this.status = status;
+    this.additonalEndpointData = additionalEndpointData;
+    this.endpoint = false;
+  }
+
+  _createClass(ResponseCreateHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint() {
+      switch (this.status) {
+        case 201:
+        case 403:
+          this.endpoint = '/foods/';
+          break;
+
+        case 422:
+          this.endpoint = false;
+          break;
+
+        case 401:
+          this.endpoint = '/logout';
+          break;
+      }
+    }
+  }, {
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      this.chooseEndpoint();
+      return this.additonalEndpointData === '' ? this.endpoint : this.endpoint + this.additonalEndpointData;
+    }
+  }]);
+
+  return ResponseCreateHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseCreateHandler);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResponseDeleteHandler =
+/*#__PURE__*/
+function () {
+  function ResponseDeleteHandler(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseDeleteHandler);
+
+    this.status = status;
+    this.additonalEndpointData = additionalEndpointData;
+    this.endpoint = false;
+  }
+
+  _createClass(ResponseDeleteHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint() {
+      switch (this.status) {
+        case 204:
+        case 403:
+        case 404:
+          this.endpoint = '/foods';
+          break;
+
+        case 401:
+          this.endpoint = '/logout';
+          break;
+      }
+    }
+  }, {
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      this.chooseEndpoint();
+      return this.additonalEndpointData === '' ? this.endpoint : this.endpoint + this.additonalEndpointData;
+    }
+  }]);
+
+  return ResponseDeleteHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseDeleteHandler);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResponseIndexHandler =
+/*#__PURE__*/
+function () {
+  function ResponseIndexHandler(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseIndexHandler);
+
+    this.status = status;
+    this.additonalEndpointData = additionalEndpointData;
+    this.endpoint = false;
+  }
+
+  _createClass(ResponseIndexHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint() {
+      switch (this.status) {
+        case 403:
+        case 404:
+          this.endpoint = '/';
+          break;
+
+        case 422:
+          this.endpoint = false;
+          break;
+
+        case 401:
+          this.endpoint = '/logout';
+          break;
+      }
+    }
+  }, {
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      this.chooseEndpoint();
+      return this.additonalEndpointData === '' ? this.endpoint : this.endpoint + this.additonalEndpointData;
+    }
+  }]);
+
+  return ResponseIndexHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseIndexHandler);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlers/ResponseShowHandler.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlers/ResponseShowHandler.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResponseShowHandler =
+/*#__PURE__*/
+function () {
+  function ResponseShowHandler(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseShowHandler);
+
+    this.status = status;
+    this.additonalEndpointData = additionalEndpointData;
+    this.endpoint = false;
+  }
+
+  _createClass(ResponseShowHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint() {
+      switch (this.status) {
+        case 401:
+          this.endpoint = '/logout';
+          break;
+
+        case 403:
+        case 404:
+          this.endpoint = '/foods';
+          break;
+      }
+    }
+  }, {
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      this.chooseEndpoint();
+      return this.additonalEndpointData === '' ? this.endpoint : this.endpoint + this.additonalEndpointData;
+    }
+  }]);
+
+  return ResponseShowHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseShowHandler);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ResponseUpdateHandler =
+/*#__PURE__*/
+function () {
+  function ResponseUpdateHandler(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseUpdateHandler);
+
+    this.status = status;
+    this.additonalEndpointData = additionalEndpointData;
+    this.endpoint = false;
+  }
+
+  _createClass(ResponseUpdateHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint() {
+      switch (this.status) {
+        case 200:
+          this.endpoint = '/foods/';
+          break;
+
+        case 403:
+        case 404:
+          this.endpoint = '/foods';
+          break;
+
+        case 422:
+          this.endpoint = false;
+          break;
+
+        case 401:
+          this.endpoint = '/logout';
+          break;
+      }
+    }
+  }, {
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      this.chooseEndpoint();
+      return this.additonalEndpointData === '' ? this.endpoint : this.endpoint + this.additonalEndpointData;
+    }
+  }]);
+
+  return ResponseUpdateHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseUpdateHandler);
 
 /***/ }),
 

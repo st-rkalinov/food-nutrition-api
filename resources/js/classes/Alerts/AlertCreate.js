@@ -1,17 +1,19 @@
 class AlertCreate {
     constructor(status) {
         this.status = status;
-
-        this.data = {
-            title: 'Success !',
-            text: 'New food was added successfully',
-            icon: 'success',
-            buttons: [true, 'Go to the food page']
-        }
+        this.data = null
     }
 
     makeData() {
         switch (this.status) {
+            case 201:
+                this.data = {
+                    text: 'The food was added successfully',
+                    buttons: [true, 'Go to the food page'],
+                    icon: 'success',
+                    title: 'Success',
+                };
+                break;
             case 422:
                 this.data = {
                     text: 'There is a problem with the data you entered !',
@@ -31,6 +33,14 @@ class AlertCreate {
             case 403:
                 this.data = {
                     text: 'Access Forbidden',
+                    button: true,
+                    icon: 'error',
+                    title: 'Error',
+                };
+                break;
+            case 404:
+                this.data = {
+                    text: 'Page not found',
                     button: true,
                     icon: 'error',
                     title: 'Error',

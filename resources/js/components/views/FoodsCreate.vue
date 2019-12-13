@@ -131,6 +131,7 @@
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
     import Alert from "../../classes/Alert";
+    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
 
     export default {
         name: "FoodsCreate",
@@ -156,6 +157,7 @@
                     'public': false,
                 },
                 form: null,
+                responseHandler: new ResponseHandlerStrategy(this.$router, 'create'),
             }
         },
         created() {
@@ -165,24 +167,12 @@
             submit() {
                 this.form.submit('/api/foods')
                     .then((response) => {
-                        let alert = new Alert('create', response.status);
-                        alert.show()
-                            .then((clickedButton) => {
-                                if (clickedButton) {
-                                    this.$router.push('/foods/' + response.data.data.food_id);
-                                }
-                            });
-
+                        this.responseHandler.handle(response.status, response.data.data.food_id);
                         this.form.reset();
                     })
                     .catch(error => {
                         let errors = error.response.data.errors;
-                        let alert = new Alert('create', error.response.status);
-
-                        alert.show()
-                            .then(() => {
-                                error.response.status === 401 ? this.$router.push('/logout') : this.$router.push('/foods');
-                            });
+                        this.responseHandler.handle(error.response.status);
 
                         if (error.response.status === 422) {
                             this.form.error.setErrors(errors);

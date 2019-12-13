@@ -80,6 +80,7 @@
     import Alert from "../classes/Alert";
     import ErrorPage from "./ErrorPage";
     import Pagination from "./Pagination";
+    import ResponseHandlerStrategy from "../classes/ResponseHandlerStrategy";
 
     export default {
         name: "FoodsList",
@@ -92,6 +93,7 @@
                 hasData: true,
                 defaultPage: 1,
                 paginator: null,
+                responseHandler: new ResponseHandlerStrategy(this.$router, 'index'),
             }
         },
         watch: {
@@ -114,15 +116,18 @@
                 if (this.$route.query.page !== page) {
                     this.$router.push({path: '/foods', query: {page: page}});
                 }
-
                 axios.get(this.endpoint, {params: {page: page}})
                     .then(response => {
+                        this.isLoading = false;
                         this.data = response.data;
 
                         if(this.data.data.length === 0) {
                             this.hasData = false;
                             return;
                         }
+
+                        this.hasData = true;
+
                         if (firstRequest) {
                             this.paginator = new Paginator(this.data.meta);
                             return;
@@ -132,15 +137,12 @@
                         this.paginator.getLinks()
                     })
                     .catch(error => {
-                        let alert = new Alert('fetch', error.response.status);
 
-                        alert.show()
+                        this.responseHandler.handle(error.response.status)
                             .then(() => {
-                                error.response.status === 401 ? this.$router.push('/logout') : this.$router.push('/foods');
-                            })
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
+                                this.isLoading = true;
+                                this.hasData = false;
+                            });
                     });
             },
             itemNumber(key) {

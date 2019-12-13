@@ -63,7 +63,7 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">SETTINGS</p>
-                    <router-link to="/"
+                    <router-link to="/logout"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
                             <path
@@ -102,7 +102,7 @@
         created() {
             axios.interceptors.request.use(config => {
                 if (config.method === 'get') {
-                    config.url = config.url + '?api_token=' + this.user.api_token;
+                     config.url = config.url + '?api_token=' + this.user.api_token;
                 } else {
                     config.data = {
                         ...config.data,

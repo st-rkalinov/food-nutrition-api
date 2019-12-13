@@ -1,13 +1,7 @@
-class AlertFetch {
+class AlertShow {
     constructor(status) {
         this.status = status;
-
-        this.data = {
-            text: 'There is a problem, please try again later.',
-            button: true,
-            icon: 'error',
-            title: 'Error',
-        };
+        this.data = null;
     }
 
     makeData() {
@@ -27,6 +21,14 @@ class AlertFetch {
                     icon: 'error',
                     title: 'Error',
                 };
+                break;
+            case 404:
+                this.data = {
+                    text: 'Page not found',
+                    button: true,
+                    icon: 'error',
+                    title: 'Error',
+                };
         }
     }
 
@@ -37,4 +39,4 @@ class AlertFetch {
     }
 }
 
-export default AlertFetch;
+export default AlertShow

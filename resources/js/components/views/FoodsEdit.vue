@@ -125,7 +125,7 @@
                     <a href="#"
                        class="btn btn-danger mr-5"
                        @click.prevent="$router.back()">Cancel</a>
-                    <button href="#" type="submit"
+                    <button type="submit"
                             class="btn btn-success">Edit
                     </button>
                 </div>
@@ -139,6 +139,7 @@
     import InputTextField from "../InputTextField";
     import ErrorPage from "../ErrorPage";
     import Alert from "../../classes/Alert";
+    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
 
     export default {
         name: "FoodsEdit",
@@ -150,27 +151,21 @@
                 form: null,
                 isLoading: true,
                 hasErrors: false,
+                responseHandler: new ResponseHandlerStrategy(this.$router, 'update'),
             }
         },
         methods: {
             submit() {
                 this.form.submit('/api/foods/' + this.$route.params.id, 'patch')
                     .then((response) => {
-                        let alert = new Alert('update', response.status);
-                        alert.show()
-                            .then((clickedButton) => {
-                                if (clickedButton) {
-                                    this.$router.push('/foods/' + response.data.data.food_id);
-                                }
-                            });
+                        this.responseHandler.handle(response.status, response.data.data.food_id);
 
                         this.form.originalData = response.data.data;
                         this.form.reset();
                     })
                     .catch(error => {
                         let errors = error.response.data.errors;
-                        let alert = new Alert('update', error.response.status);
-                        alert.show();
+                        this.responseHandler.handle(error.response.status);
 
                         if (error.response.status === 422) {
                             this.form.error.setErrors(errors);
@@ -184,15 +179,8 @@
                     this.form = new Form(response.data.data);
                 })
                 .catch(error => {
-                    console.log(error.response);
-                    let alert = new Alert('fetch', error.response.status);
-                    alert.show()
-                        .then(() => {
-                            error.response.status === 401 ? this.$router.push('/logout') : this.$router.back();
-                        })
-                        .then(() => {
-                            this.hasErrors = true;
-                        });
+                    this.hasErrors = true;
+                    this.responseHandler.handle(error.response.status);
                 })
                 .finally(() => {
                     this.isLoading = false;

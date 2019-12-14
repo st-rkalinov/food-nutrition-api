@@ -83,8 +83,7 @@
                 <p class="self-start lg:pt-5 pt-0">Foods</p>
 
                 <div class="flex items-center justify-around pt-8 md:w-1/2 w-full">
-                    <input type="text" class="rounded-full w-8/12 border border-1 py-2 px-5 mr-10 focus:outline-none"
-                           name="search" id="" placeholder="Search">
+                    <SearchBar/>
                     <div class="border border-2 rounded-full p-3 font-bold bg-blue-400">
                         SK
                     </div>
@@ -92,16 +91,19 @@
             </div>
 
             <div class="flex flex-col overflow-y-hidden">
-                <router-view class="md:p-12 sm:p-3 p-3 overflow-x-hidden"/>
+                <router-view class="md:p-12 sm:p-3 p-3 overflow-x-hidden" />
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import SearchBar from "./SearchBar";
+
     export default {
         name: "App",
         props: ['user'],
+        components: { SearchBar },
         methods: {
             isActive(path) {
                 return path === this.$route.path;

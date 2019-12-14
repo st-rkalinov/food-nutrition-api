@@ -57,6 +57,12 @@
                 }
             }
         },
+        beforeRouteUpdate (to, from, next) {
+            if(to.params.id !== from.params.id) {
+                this.getFood(to.params.id);
+                next();
+            }
+        },
         methods: {
             del() {
                 this.responseHandler = new ResponseHandlerStrategy(this.$router, 'delete');
@@ -68,6 +74,22 @@
                 .catch(error => {
                     this.responseHandler.handle(error.response.status);
                 })
+            },
+            getFood(id = this.$route.params.id) {
+                axios.get('/api/foods/' + id)
+                .then(response => {
+                    this.data = response.data;
+                    this.isLoading = false;
+                })
+                .catch(error => {
+                    this.hasErrors = true;
+                    this.responseHandler = new ResponseHandlerStrategy(this.$router, 'show');
+
+                    this.responseHandler.handle(error.response.status)
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
             },
             castFieldData(fieldData) {
                 let casted = fieldData;
@@ -85,21 +107,7 @@
             }
         },
         mounted() {
-
-            axios.get('/api/foods/' + this.$route.params.id)
-                .then(response => {
-                    this.data = response.data;
-                    this.isLoading = false;
-                })
-                .catch(error => {
-                    this.hasErrors = true;
-                    this.responseHandler = new ResponseHandlerStrategy(this.$router, 'show');
-
-                    this.responseHandler.handle(error.response.status)
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
+            this.getFood();
         }
 
     }

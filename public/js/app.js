@@ -1862,6 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchBar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchBar */ "./resources/js/components/SearchBar.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1967,10 +1968,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   props: ['user'],
+  components: {
+    SearchBar: _SearchBar__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   methods: {
     isActive: function isActive(path) {
       return path === this.$route.path;
@@ -2654,6 +2658,86 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchBar.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SearchBar.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "SearchBar",
+  data: function data() {
+    return {
+      searchTerm: '',
+      minLength: 2,
+      data: null,
+      hasData: false,
+      showResults: false
+    };
+  },
+  watch: {
+    '$route.fullPath': function $routeFullPath() {
+      this.clearData();
+    }
+  },
+  computed: {
+    hasMinCharLen: function hasMinCharLen() {
+      return this.searchTerm.length > this.minLength;
+    }
+  },
+  methods: {
+    search: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
+      var _this = this;
+
+      if (!this.hasMinCharLen) {
+        return;
+      }
+
+      axios.post('/api/search', {
+        searchTerm: this.searchTerm
+      }).then(function (response) {
+        _this.data = response.data;
+        _this.hasData = _this.data.data.length !== 0;
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    }, 300),
+    clearData: function clearData() {
+      this.searchTerm = '';
+      this.hasData = false;
+      this.data = null;
+      this.showResults = false;
+    },
+    hideResults: function hideResults(e) {
+      if (e.relatedTarget === null || e.relatedTarget.nodeName !== 'A') {
+        this.showResults = false;
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/views/FoodsCreate.vue?vue&type=script&lang=js& ***!
@@ -3154,6 +3238,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
+    if (to.params.id !== from.params.id) {
+      this.getFood(to.params.id);
+      next();
+    }
+  },
   methods: {
     del: function del() {
       var _this = this;
@@ -3163,6 +3253,22 @@ __webpack_require__.r(__webpack_exports__);
         _this.responseHandler.handle(response.status);
       })["catch"](function (error) {
         _this.responseHandler.handle(error.response.status);
+      });
+    },
+    getFood: function getFood() {
+      var _this2 = this;
+
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.$route.params.id;
+      axios.get('/api/foods/' + id).then(function (response) {
+        _this2.data = response.data;
+        _this2.isLoading = false;
+      })["catch"](function (error) {
+        _this2.hasErrors = true;
+        _this2.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](_this2.$router, 'show');
+
+        _this2.responseHandler.handle(error.response.status);
+      })["finally"](function () {
+        _this2.isLoading = false;
       });
     },
     castFieldData: function castFieldData(fieldData) {
@@ -3182,19 +3288,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
-
-    axios.get('/api/foods/' + this.$route.params.id).then(function (response) {
-      _this2.data = response.data;
-      _this2.isLoading = false;
-    })["catch"](function (error) {
-      _this2.hasErrors = true;
-      _this2.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](_this2.$router, 'show');
-
-      _this2.responseHandler.handle(error.response.status);
-    })["finally"](function () {
-      _this2.isLoading = false;
-    });
+    this.getFood();
   }
 });
 
@@ -38868,7 +38962,39 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "flex flex-col flex-1" }, [
-        _vm._m(0),
+        _c(
+          "div",
+          {
+            staticClass:
+              "flex justify-between flex-col items-center p-6 border-b-2"
+          },
+          [
+            _c("p", { staticClass: "self-start lg:pt-5 pt-0" }, [
+              _vm._v("Foods")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex items-center justify-around pt-8 md:w-1/2 w-full"
+              },
+              [
+                _c("SearchBar"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "border border-2 rounded-full p-3 font-bold bg-blue-400"
+                  },
+                  [_vm._v("\n                    SK\n                ")]
+                )
+              ],
+              1
+            )
+          ]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -38884,50 +39010,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "flex justify-between flex-col items-center p-6 border-b-2"
-      },
-      [
-        _c("p", { staticClass: "self-start lg:pt-5 pt-0" }, [_vm._v("Foods")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "flex items-center justify-around pt-8 md:w-1/2 w-full"
-          },
-          [
-            _c("input", {
-              staticClass:
-                "rounded-full w-8/12 border border-1 py-2 px-5 mr-10 focus:outline-none",
-              attrs: {
-                type: "text",
-                name: "search",
-                id: "",
-                placeholder: "Search"
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "border border-2 rounded-full p-3 font-bold bg-blue-400"
-              },
-              [_vm._v("\n                    SK\n                ")]
-            )
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39971,6 +40054,100 @@ var render = function() {
         ]
       )
     : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "w-8/12 mr-10 relative" }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.searchTerm,
+          expression: "searchTerm"
+        }
+      ],
+      staticClass:
+        "w-full rounded-full border border-1 py-2 px-5 focus:outline-none",
+      attrs: {
+        type: "text",
+        name: "searchTerm",
+        id: "",
+        placeholder: "Search"
+      },
+      domProps: { value: _vm.searchTerm },
+      on: {
+        input: [
+          function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.searchTerm = $event.target.value
+          },
+          _vm.search
+        ],
+        focusin: function($event) {
+          _vm.showResults = true
+        },
+        blur: function($event) {
+          return _vm.hideResults($event)
+        }
+      }
+    }),
+    _vm._v(" "),
+    _vm.hasData
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "w-full absolute border-3 border rounded-lg bg-gray-100 z-50",
+            class: { hidden: !_vm.showResults }
+          },
+          [
+            _c(
+              "ul",
+              _vm._l(_vm.data.data, function(item, index) {
+                return _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "block p-3 hover:bg-gray-400 rounded-lg",
+                        attrs: { to: "/foods/" + item.data.food_id }
+                      },
+                      [_vm._v(_vm._s(item.data.name))]
+                    )
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57790,6 +57967,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SearchBar.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/SearchBar.vue ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true& */ "./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true&");
+/* harmony import */ var _SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchBar.vue?vue&type=script&lang=js& */ "./resources/js/components/SearchBar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "6849e9f0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/SearchBar.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/SearchBar.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/SearchBar.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SearchBar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchBar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/SearchBar.vue?vue&type=template&id=6849e9f0&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchBar_vue_vue_type_template_id_6849e9f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

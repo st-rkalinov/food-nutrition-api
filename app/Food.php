@@ -60,6 +60,11 @@ class Food extends Model
         'public' => 'boolean'
     ];
 
+    public function toSearchableArray()
+    {
+        return $this->only('name', 'id');
+    }
+
     public function path()
     {
         return '/api/foods/' . $this->id;

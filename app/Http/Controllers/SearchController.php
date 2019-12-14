@@ -14,7 +14,9 @@ class SearchController extends Controller
             'searchTerm' => 'required',
         ]);
 
-        $foods = Food::search($data['searchTerm'])->get();
+        $foods = Food::search($data['searchTerm'])->query(function ($query) {
+            return $query->availableForAll();
+        })->get();
 
         return FoodResource::collection($foods);
     }

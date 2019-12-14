@@ -16,7 +16,7 @@
 
                         <div>
                             <input id="name" type="text"
-                                   class="focus:outline-none border-b-2 border-transparent focus:border-b-2 hover:shadow-xl p-3 w-full rounded @error('name') is-invalid @enderror"
+                                   class="focus:outline-none border-b-2 bg-gray-200 hover:shadow-xl p-3 w-full rounded @error('name') is-invalid @enderror"
                                    name="name"
                                    placeholder="Your Name"
                                    value="{{ old('name') }}"
@@ -34,7 +34,7 @@
                         <label for="email" class="absolute top-0 text-xs text-blue-300 font-bold">Email Address</label>
                         <div class="">
                             <input id="email" type="email"
-                                   class="focus:outline-none border-b-2 border-transparent focus:border-b-2 hover:shadow-xl p-3 w-full rounded @error('email') is-invalid @enderror"
+                                   class="focus:outline-none border-b-2 bg-gray-200 hover:shadow-xl p-3 w-full rounded @error('email') is-invalid @enderror"
                                    placeholder="example@email.com"
                                    name="email" value="{{ old('email') }}"
                                    required autocomplete="email">
@@ -50,7 +50,7 @@
                         <label for="password" class="absolute top-0 text-xs text-blue-300 font-bold">Password</label>
                         <div>
                             <input id="password" type="password"
-                                   class="focus:outline-none border-b-2 border-transparent focus:border-b-2 hover:shadow-2xl p-3 w-full rounded @error('password') is-invalid @enderror"
+                                   class="focus:outline-none border-b-2 bg-gray-200 hover:shadow-2xl p-3 w-full rounded @error('password') is-invalid @enderror"
                                    placeholder="************"
                                    name="password"
                                    autocomplete="current-password"
@@ -69,7 +69,7 @@
 
                         <div class="col-md-6">
                             <input id="password-confirm" type="password"
-                                   class="focus:outline-none border-b-2 border-transparent focus:border-b-2 hover:shadow-2xl p-3 w-full rounded"
+                                   class="focus:outline-none border-b-2 bg-gray-200 hover:shadow-2xl p-3 w-full rounded"
                                    placeholder="************"
                                    name="password_confirmation"
                                    required autocomplete="new-password">

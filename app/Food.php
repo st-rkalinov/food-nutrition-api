@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * App\Food
@@ -52,6 +53,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Food extends Model
 {
+    use Searchable;
+
     protected $guarded = [];
     protected $casts = [
         'public' => 'boolean'

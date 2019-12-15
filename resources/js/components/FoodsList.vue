@@ -77,7 +77,6 @@
 
 <script>
     import Paginator from "../classes/Paginator";
-    import Alert from "../classes/Alert";
     import ErrorPage from "./ErrorPage";
     import Pagination from "./Pagination";
     import ResponseHandlerStrategy from "../classes/ResponseHandlerStrategy";

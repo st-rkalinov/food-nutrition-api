@@ -2341,10 +2341,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes/Paginator */ "./resources/js/classes/Paginator.js");
-/* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../classes/Alert */ "./resources/js/classes/Alert.js");
-/* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
-/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
+/* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
 //
 //
 //
@@ -2422,7 +2421,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
@@ -2431,8 +2429,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "FoodsList",
   props: ['endpoint', 'user_id'],
   components: {
-    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_3__["default"]
+    ErrorPage: _ErrorPage__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Pagination: _Pagination__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2441,7 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
       hasData: true,
       defaultPage: 1,
       paginator: null,
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__["default"](this.$router, 'index')
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'index')
     };
   },
   computed: {
@@ -2748,8 +2746,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
-/* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
 //
 //
 //
@@ -2879,6 +2877,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2890,28 +2911,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      foodFields: {
-        'name': '',
-        'brand': null,
-        'serving': 0,
-        'unit': 'gram',
-        'calories': 0,
-        'fat': 0,
-        'fat_satured': 0,
-        'cholesterol': 0,
-        'salt': 0,
-        'carbohydrates': 0,
-        'carbohydrates_fiber': 0,
-        'carbohydrates_sugars': 0,
-        'protein': 0,
-        'public': false
-      },
+      foodData: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__["foodResourceData"],
+      foodDataDefValues: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__["defValues"],
       form: null,
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'create')
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_2__["default"](this.$router, 'create')
     };
   },
   created: function created() {
-    this.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](this.foodFields);
+    this.form = new _classes_Form__WEBPACK_IMPORTED_MODULE_0__["default"](this.foodDataDefValues);
   },
   methods: {
     submit: function submit() {
@@ -2922,12 +2929,12 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.form.reset();
       })["catch"](function (error) {
-        var errors = error.response.data.errors;
+        var response = error.response;
 
-        _this.responseHandler.handle(error.response.status);
+        _this.responseHandler.handle(response.status);
 
         if (error.response.status === 422) {
-          _this.form.error.setErrors(errors);
+          _this.form.error.setErrors(response.data.errors);
         }
       });
     }
@@ -2948,8 +2955,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
-/* harmony import */ var _classes_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/Alert */ "./resources/js/classes/Alert.js");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3102,7 +3131,8 @@ __webpack_require__.r(__webpack_exports__);
       form: null,
       isLoading: true,
       hasErrors: false,
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_4__["default"](this.$router, 'update')
+      foodData: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_4__["foodResourceData"],
+      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'update')
     };
   },
   methods: {
@@ -3178,6 +3208,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
 /* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
 //
 //
 //
@@ -3206,6 +3237,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3219,22 +3251,7 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: true,
       hasErrors: false,
       responseHandler: null,
-      dataFieldNames: {
-        name: 'Name',
-        brand: 'Brand',
-        calories: 'Calories',
-        serving: 'Serving',
-        unit: 'Unit',
-        carbohydrates: 'Carbohydrates',
-        carbohydrates_fiber: 'Fiber',
-        carbohydrates_sugars: 'Sugars',
-        cholesterol: 'Cholesterol',
-        fat: 'Fat',
-        fat_satured: 'Satured Fat',
-        protein: 'Protein',
-        salt: 'Salt',
-        "public": 'Public Food'
-      }
+      dataFieldsNames: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_2__["labels"]
     };
   },
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
@@ -40196,9 +40213,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "name",
-            placeholder: "Food Name",
-            label: "Name",
-            defaultValue: _vm.form.originalData.name,
+            placeholder: _vm.foodData.name.placeholder,
+            label: _vm.foodData.name.label,
+            defaultValue: _vm.foodData.name.defValue,
             dataValue: _vm.form.data.name,
             errors: _vm.form.error
           },
@@ -40212,9 +40229,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "brand",
-            placeholder: "Brand Name",
-            label: "Brand",
-            "default-value": _vm.form.originalData.brand,
+            placeholder: _vm.foodData.brand.placeholder,
+            label: _vm.foodData.brand.label,
+            "default-value": _vm.foodData.brand.defValue,
             dataValue: _vm.form.data.brand,
             errors: _vm.form.error
           },
@@ -40235,9 +40252,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "serving",
-                placeholder: "Serving Size",
-                label: "Serving",
-                "default-value": _vm.form.originalData.serving,
+                placeholder: _vm.foodData.serving.placeholder,
+                label: _vm.foodData.serving.label,
+                "default-value": _vm.foodData.serving.defValue,
                 dataValue: _vm.form.data.serving,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/2 w-full"
@@ -40264,7 +40281,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                    Unit\n\n                    "
+                      "\n                    " +
+                        _vm._s(_vm.foodData.unit.label) +
+                        "\n\n                    "
                     ),
                     _vm.form.error.hasError("unit")
                       ? _c(
@@ -40348,9 +40367,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "calories",
-            placeholder: "Calories",
-            label: "Calories",
-            "default-value": _vm.form.originalData.calories,
+            placeholder: _vm.foodData.calories.placeholder,
+            label: _vm.foodData.calories.label,
+            "default-value": _vm.foodData.calories.defValue,
             dataValue: _vm.form.data.calories,
             errors: _vm.form.error
           },
@@ -40370,9 +40389,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "fat",
-                placeholder: "Fat",
-                label: "Fat",
-                "default-value": _vm.form.originalData.fat,
+                placeholder: _vm.foodData.fat.placeholder,
+                label: _vm.foodData.fat.label,
+                "default-value": _vm.foodData.fat.defValue,
                 dataValue: _vm.form.data.fat,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/2 w-full"
@@ -40387,9 +40406,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "fat_satured",
-                placeholder: "Satured Fat",
-                label: "Satured Fat",
-                "default-value": _vm.form.originalData.fat_satured,
+                placeholder: _vm.foodData.fat_satured.placeholder,
+                label: _vm.foodData.fat_satured.label,
+                "default-value": _vm.foodData.fat_satured.defValue,
                 dataValue: _vm.form.data.fat_satured,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/2 w-full"
@@ -40407,9 +40426,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "cholesterol",
-            placeholder: "Cholesterol",
-            label: "Cholesterol",
-            "default-value": _vm.form.originalData.cholesterol,
+            placeholder: _vm.foodData.cholesterol.placeholder,
+            label: _vm.foodData.cholesterol.label,
+            "default-value": _vm.foodData.cholesterol.defValue,
             dataValue: _vm.form.data.cholesterol,
             errors: _vm.form.error
           },
@@ -40423,9 +40442,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "salt",
-            placeholder: "Salt",
-            label: "Salt",
-            "default-value": _vm.form.originalData.salt,
+            placeholder: _vm.foodData.salt.placeholder,
+            label: _vm.foodData.salt.label,
+            "default-value": _vm.foodData.salt.defValue,
             dataValue: _vm.form.data.salt,
             errors: _vm.form.error
           },
@@ -40445,9 +40464,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "carbohydrates",
-                placeholder: "Carbohydrates",
-                label: "Carbohydrates",
-                "default-value": _vm.form.originalData.carbohydrates,
+                placeholder: _vm.foodData.carbohydrates.placeholder,
+                label: _vm.foodData.carbohydrates.label,
+                "default-value": _vm.foodData.carbohydrates.defValue,
                 dataValue: _vm.form.data.carbohydrates,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/3 w-full"
@@ -40462,9 +40481,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "carbohydrates_fiber",
-                placeholder: "Carbohydrates Fiber",
-                label: "Carbohydrates Fiber",
-                "default-value": _vm.form.originalData.carbohydrates_fiber,
+                placeholder: _vm.foodData.carbohydrates_fiber.placeholder,
+                label: _vm.foodData.carbohydrates_fiber.label,
+                "default-value": _vm.foodData.carbohydrates_fiber.defValue,
                 dataValue: _vm.form.data.carbohydrates_fiber,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/3 w-full"
@@ -40479,9 +40498,9 @@ var render = function() {
             _c("InputTextField", {
               attrs: {
                 name: "carbohydrates_sugars",
-                placeholder: "Carbohydrates Sugars",
-                label: "Carbohydrates Sugars",
-                "default-value": _vm.form.originalData.carbohydrates_sugars,
+                placeholder: _vm.foodData.carbohydrates_sugars.placeholder,
+                label: _vm.foodData.carbohydrates_sugars.label,
+                "default-value": _vm.foodData.carbohydrates_sugars.defValue,
                 dataValue: _vm.form.data.carbohydrates_sugars,
                 errors: _vm.form.error,
                 classes: "sm:w-full lg:w-1/3 w-full"
@@ -40499,9 +40518,9 @@ var render = function() {
         _c("InputTextField", {
           attrs: {
             name: "protein",
-            placeholder: "Protein",
-            label: "Protein",
-            "default-value": _vm.form.originalData.protein,
+            placeholder: _vm.foodData.protein.placeholder,
+            label: _vm.foodData.protein.label,
+            "default-value": _vm.foodData.protein.defValue,
             dataValue: _vm.form.data.protein,
             errors: _vm.form.error
           },
@@ -40565,11 +40584,7 @@ var render = function() {
               staticClass: "text-blue-400 font-bold pl-3",
               attrs: { for: "public" }
             },
-            [
-              _vm._v(
-                "Make the food visible for the other\n                users"
-              )
-            ]
+            [_vm._v(_vm._s(_vm.foodData.public.label))]
           ),
           _vm._v(" "),
           _vm.form.error.hasError("public")
@@ -40661,7 +40676,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "name",
-                  label: "Name",
+                  placeholder: _vm.foodData.name.placeholder,
+                  label: _vm.foodData.name.label,
+                  defaultValue: _vm.foodData.name.defValue,
                   dataValue: _vm.form.data.name,
                   errors: _vm.form.error
                 },
@@ -40675,9 +40692,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "brand",
-                  placeholder: "Brand Name",
-                  label: "Brand",
-                  "default-value": _vm.form.originalData.brand,
+                  placeholder: _vm.foodData.brand.placeholder,
+                  label: _vm.foodData.brand.label,
+                  "default-value": _vm.foodData.brand.defValue,
                   dataValue: _vm.form.data.brand,
                   errors: _vm.form.error
                 },
@@ -40698,9 +40715,9 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "serving",
-                      placeholder: "Serving Size",
-                      label: "Serving",
-                      "default-value": _vm.form.originalData.serving,
+                      placeholder: _vm.foodData.serving.placeholder,
+                      label: _vm.foodData.serving.label,
+                      "default-value": _vm.foodData.serving.defValue,
                       dataValue: _vm.form.data.serving,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/2 w-full"
@@ -40728,7 +40745,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "\n                        Unit\n\n                        "
+                            "\n                        " +
+                              _vm._s(_vm.foodData.unit.label) +
+                              "\n\n                        "
                           ),
                           _vm.form.error.hasError("unit")
                             ? _c(
@@ -40812,9 +40831,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "calories",
-                  placeholder: "Calories",
-                  label: "Calories",
-                  "default-value": _vm.form.originalData.calories,
+                  placeholder: _vm.foodData.calories.placeholder,
+                  label: _vm.foodData.calories.label,
+                  "default-value": _vm.foodData.calories.defValue,
                   dataValue: _vm.form.data.calories,
                   errors: _vm.form.error
                 },
@@ -40835,9 +40854,9 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "fat",
-                      placeholder: "Fat",
-                      label: "Fat",
-                      "default-value": _vm.form.originalData.fat,
+                      placeholder: _vm.foodData.fat.placeholder,
+                      label: _vm.foodData.fat.label,
+                      "default-value": _vm.foodData.fat.defValue,
                       dataValue: _vm.form.data.fat,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/2 w-full"
@@ -40852,9 +40871,9 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "fat_satured",
-                      placeholder: "Satured Fat",
-                      label: "Satured Fat",
-                      "default-value": _vm.form.originalData.fat_satured,
+                      placeholder: _vm.foodData.fat_satured.placeholder,
+                      label: _vm.foodData.fat_satured.label,
+                      "default-value": _vm.foodData.fat_satured.defValue,
                       dataValue: _vm.form.data.fat_satured,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/2 w-full"
@@ -40872,9 +40891,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "cholesterol",
-                  placeholder: "Cholesterol",
-                  label: "Cholesterol",
-                  "default-value": _vm.form.originalData.cholesterol,
+                  placeholder: _vm.foodData.cholesterol.placeholder,
+                  label: _vm.foodData.cholesterol.label,
+                  "default-value": _vm.foodData.cholesterol.defValue,
                   dataValue: _vm.form.data.cholesterol,
                   errors: _vm.form.error
                 },
@@ -40888,9 +40907,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "salt",
-                  placeholder: "Salt",
-                  label: "Salt",
-                  "default-value": _vm.form.originalData.salt,
+                  placeholder: _vm.foodData.salt.placeholder,
+                  label: _vm.foodData.salt.label,
+                  "default-value": _vm.foodData.salt.defValue,
                   dataValue: _vm.form.data.salt,
                   errors: _vm.form.error
                 },
@@ -40911,9 +40930,9 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "carbohydrates",
-                      placeholder: "Carbohydrates",
-                      label: "Carbohydrates",
-                      "default-value": _vm.form.originalData.carbohydrates,
+                      placeholder: _vm.foodData.carbohydrates.placeholder,
+                      label: _vm.foodData.carbohydrates.label,
+                      "default-value": _vm.foodData.carbohydrates.defValue,
                       dataValue: _vm.form.data.carbohydrates,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/3 w-full"
@@ -40928,10 +40947,10 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "carbohydrates_fiber",
-                      placeholder: "Carbohydrates Fiber",
-                      label: "Carbohydrates Fiber",
+                      placeholder: _vm.foodData.carbohydrates_fiber.placeholder,
+                      label: _vm.foodData.carbohydrates_fiber.label,
                       "default-value":
-                        _vm.form.originalData.carbohydrates_fiber,
+                        _vm.foodData.carbohydrates_fiber.defValue,
                       dataValue: _vm.form.data.carbohydrates_fiber,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/3 w-full"
@@ -40946,10 +40965,11 @@ var render = function() {
                   _c("InputTextField", {
                     attrs: {
                       name: "carbohydrates_sugars",
-                      placeholder: "Carbohydrates Sugars",
-                      label: "Carbohydrates Sugars",
+                      placeholder:
+                        _vm.foodData.carbohydrates_sugars.placeholder,
+                      label: _vm.foodData.carbohydrates_sugars.label,
                       "default-value":
-                        _vm.form.originalData.carbohydrates_sugars,
+                        _vm.foodData.carbohydrates_sugars.defValue,
                       dataValue: _vm.form.data.carbohydrates_sugars,
                       errors: _vm.form.error,
                       classes: "sm:w-full lg:w-1/3 w-full"
@@ -40967,9 +40987,9 @@ var render = function() {
               _c("InputTextField", {
                 attrs: {
                   name: "protein",
-                  placeholder: "Protein",
-                  label: "Protein",
-                  "default-value": _vm.form.originalData.protein,
+                  placeholder: _vm.foodData.protein.placeholder,
+                  label: _vm.foodData.protein.label,
+                  "default-value": _vm.foodData.protein.defValue,
                   dataValue: _vm.form.data.protein,
                   errors: _vm.form.error
                 },
@@ -41037,11 +41057,7 @@ var render = function() {
                     staticClass: "text-blue-400 font-bold pl-3",
                     attrs: { for: "public" }
                   },
-                  [
-                    _vm._v(
-                      "Make the food visible for the other\n                    users"
-                    )
-                  ]
+                  [_vm._v(_vm._s(_vm.foodData.public.label))]
                 ),
                 _vm._v(" "),
                 _vm.form.error.hasError("public")
@@ -41185,7 +41201,7 @@ var render = function() {
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _vm._l(this.dataFieldNames, function(item, key) {
+            _vm._l(this.dataFieldsNames, function(item, key) {
               return _c(
                 "div",
                 {
@@ -56402,11 +56418,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
 /* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alerts/AlertCreate */ "./resources/js/classes/Alerts/AlertCreate.js");
-/* harmony import */ var _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alerts/AlertUpdate */ "./resources/js/classes/Alerts/AlertUpdate.js");
-/* harmony import */ var _Alerts_AlertIndex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alerts/AlertIndex */ "./resources/js/classes/Alerts/AlertIndex.js");
-/* harmony import */ var _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Alerts/AlertDelete */ "./resources/js/classes/Alerts/AlertDelete.js");
-/* harmony import */ var _Alerts_AlertShow__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Alerts/AlertShow */ "./resources/js/classes/Alerts/AlertShow.js");
+/* harmony import */ var _Alerts_AlertCreateData__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Alerts/AlertCreateData */ "./resources/js/classes/Alerts/AlertCreateData.js");
+/* harmony import */ var _Alerts_AlertUpdateData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alerts/AlertUpdateData */ "./resources/js/classes/Alerts/AlertUpdateData.js");
+/* harmony import */ var _Alerts_AlertIndexData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alerts/AlertIndexData */ "./resources/js/classes/Alerts/AlertIndexData.js");
+/* harmony import */ var _Alerts_AlertDeleteData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Alerts/AlertDeleteData */ "./resources/js/classes/Alerts/AlertDeleteData.js");
+/* harmony import */ var _Alerts_AlertShowData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Alerts/AlertShowData */ "./resources/js/classes/Alerts/AlertShowData.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -56442,23 +56458,23 @@ function () {
     value: function chooseAlertHandler(status) {
       switch (this.action) {
         case 'create':
-          this.alert = new _Alerts_AlertCreate__WEBPACK_IMPORTED_MODULE_1__["default"](status);
+          this.alert = new _Alerts_AlertCreateData__WEBPACK_IMPORTED_MODULE_1__["default"](status);
           break;
 
         case 'update':
-          this.alert = new _Alerts_AlertUpdate__WEBPACK_IMPORTED_MODULE_2__["default"](status);
+          this.alert = new _Alerts_AlertUpdateData__WEBPACK_IMPORTED_MODULE_2__["default"](status);
           break;
 
         case 'index':
-          this.alert = new _Alerts_AlertIndex__WEBPACK_IMPORTED_MODULE_3__["default"](status);
+          this.alert = new _Alerts_AlertIndexData__WEBPACK_IMPORTED_MODULE_3__["default"](status);
           break;
 
         case 'delete':
-          this.alert = new _Alerts_AlertDelete__WEBPACK_IMPORTED_MODULE_4__["default"](status);
+          this.alert = new _Alerts_AlertDeleteData__WEBPACK_IMPORTED_MODULE_4__["default"](status);
           break;
 
         case 'show':
-          this.alert = new _Alerts_AlertShow__WEBPACK_IMPORTED_MODULE_5__["default"](status);
+          this.alert = new _Alerts_AlertShowData__WEBPACK_IMPORTED_MODULE_5__["default"](status);
       }
     }
   }, {
@@ -56477,10 +56493,10 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertCreate.js":
-/*!****************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertCreate.js ***!
-  \****************************************************/
+/***/ "./resources/js/classes/Alerts/AlertCreateData.js":
+/*!********************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertCreateData.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56492,17 +56508,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertCreate =
+var AlertCreateData =
 /*#__PURE__*/
 function () {
-  function AlertCreate(status) {
-    _classCallCheck(this, AlertCreate);
+  function AlertCreateData(status) {
+    _classCallCheck(this, AlertCreateData);
 
     this.status = status;
     this.data = null;
   }
 
-  _createClass(AlertCreate, [{
+  _createClass(AlertCreateData, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56559,17 +56575,17 @@ function () {
     }
   }]);
 
-  return AlertCreate;
+  return AlertCreateData;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertCreate);
+/* harmony default export */ __webpack_exports__["default"] = (AlertCreateData);
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertDelete.js":
-/*!****************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertDelete.js ***!
-  \****************************************************/
+/***/ "./resources/js/classes/Alerts/AlertDeleteData.js":
+/*!********************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertDeleteData.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56581,17 +56597,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertDelete =
+var AlertDeleteData =
 /*#__PURE__*/
 function () {
-  function AlertDelete(status) {
-    _classCallCheck(this, AlertDelete);
+  function AlertDeleteData(status) {
+    _classCallCheck(this, AlertDeleteData);
 
     this.status = status;
     this.data = null;
   }
 
-  _createClass(AlertDelete, [{
+  _createClass(AlertDeleteData, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56639,17 +56655,17 @@ function () {
     }
   }]);
 
-  return AlertDelete;
+  return AlertDeleteData;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertDelete);
+/* harmony default export */ __webpack_exports__["default"] = (AlertDeleteData);
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertIndex.js":
-/*!***************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertIndex.js ***!
-  \***************************************************/
+/***/ "./resources/js/classes/Alerts/AlertIndexData.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertIndexData.js ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56661,17 +56677,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertIndex =
+var AlertIndexData =
 /*#__PURE__*/
 function () {
-  function AlertIndex(status) {
-    _classCallCheck(this, AlertIndex);
+  function AlertIndexData(status) {
+    _classCallCheck(this, AlertIndexData);
 
     this.status = status;
     this.data = null;
   }
 
-  _createClass(AlertIndex, [{
+  _createClass(AlertIndexData, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56710,17 +56726,17 @@ function () {
     }
   }]);
 
-  return AlertIndex;
+  return AlertIndexData;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertIndex);
+/* harmony default export */ __webpack_exports__["default"] = (AlertIndexData);
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertShow.js":
-/*!**************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertShow.js ***!
-  \**************************************************/
+/***/ "./resources/js/classes/Alerts/AlertShowData.js":
+/*!******************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertShowData.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56732,17 +56748,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertShow =
+var AlertShowData =
 /*#__PURE__*/
 function () {
-  function AlertShow(status) {
-    _classCallCheck(this, AlertShow);
+  function AlertShowData(status) {
+    _classCallCheck(this, AlertShowData);
 
     this.status = status;
     this.data = null;
   }
 
-  _createClass(AlertShow, [{
+  _createClass(AlertShowData, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56781,17 +56797,17 @@ function () {
     }
   }]);
 
-  return AlertShow;
+  return AlertShowData;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertShow);
+/* harmony default export */ __webpack_exports__["default"] = (AlertShowData);
 
 /***/ }),
 
-/***/ "./resources/js/classes/Alerts/AlertUpdate.js":
-/*!****************************************************!*\
-  !*** ./resources/js/classes/Alerts/AlertUpdate.js ***!
-  \****************************************************/
+/***/ "./resources/js/classes/Alerts/AlertUpdateData.js":
+/*!********************************************************!*\
+  !*** ./resources/js/classes/Alerts/AlertUpdateData.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56803,17 +56819,17 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var AlertUpdate =
+var AlertUpdateData =
 /*#__PURE__*/
 function () {
-  function AlertUpdate(status) {
-    _classCallCheck(this, AlertUpdate);
+  function AlertUpdateData(status) {
+    _classCallCheck(this, AlertUpdateData);
 
     this.status = status;
     this.data = null;
   }
 
-  _createClass(AlertUpdate, [{
+  _createClass(AlertUpdateData, [{
     key: "makeData",
     value: function makeData() {
       switch (this.status) {
@@ -56870,75 +56886,10 @@ function () {
     }
   }]);
 
-  return AlertUpdate;
+  return AlertUpdateData;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (AlertUpdate);
-
-/***/ }),
-
-/***/ "./resources/js/classes/Error.js":
-/*!***************************************!*\
-  !*** ./resources/js/classes/Error.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Error =
-/*#__PURE__*/
-function () {
-  function Error(fields) {
-    _classCallCheck(this, Error);
-
-    for (var field in fields) {
-      if (fields.hasOwnProperty(field)) {
-        this[field] = null;
-      }
-    }
-  }
-
-  _createClass(Error, [{
-    key: "setErrors",
-    value: function setErrors(errorFields) {
-      for (var field in errorFields) {
-        if (errorFields.hasOwnProperty(field)) {
-          this[field] = errorFields[field][0];
-        }
-      }
-    }
-  }, {
-    key: "hasError",
-    value: function hasError(fieldName) {
-      return !(!this.hasOwnProperty(fieldName) || this[fieldName] === null);
-    }
-  }, {
-    key: "getError",
-    value: function getError(fieldName) {
-      if (this[fieldName]) {
-        return this[fieldName];
-      }
-    }
-  }, {
-    key: "clearError",
-    value: function clearError(fieldName) {
-      if (this[fieldName]) {
-        this[fieldName] = null;
-      }
-    }
-  }]);
-
-  return Error;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (Error);
+/* harmony default export */ __webpack_exports__["default"] = (AlertUpdateData);
 
 /***/ }),
 
@@ -56951,7 +56902,7 @@ function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Error */ "./resources/js/classes/Error.js");
+/* harmony import */ var _FormError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FormError */ "./resources/js/classes/FormError.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -56968,7 +56919,7 @@ function () {
 
     this.originalData = data;
     this.data = {};
-    this.error = new _Error__WEBPACK_IMPORTED_MODULE_0__["default"](data);
+    this.error = new _FormError__WEBPACK_IMPORTED_MODULE_0__["default"](data);
 
     for (var field in data) {
       if (data.hasOwnProperty(field)) {
@@ -56998,6 +56949,71 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
+
+/***/ }),
+
+/***/ "./resources/js/classes/FormError.js":
+/*!*******************************************!*\
+  !*** ./resources/js/classes/FormError.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var FormError =
+/*#__PURE__*/
+function () {
+  function FormError(fields) {
+    _classCallCheck(this, FormError);
+
+    for (var field in fields) {
+      if (fields.hasOwnProperty(field)) {
+        this[field] = null;
+      }
+    }
+  }
+
+  _createClass(FormError, [{
+    key: "setErrors",
+    value: function setErrors(errorFields) {
+      for (var field in errorFields) {
+        if (errorFields.hasOwnProperty(field)) {
+          this[field] = errorFields[field][0];
+        }
+      }
+    }
+  }, {
+    key: "hasError",
+    value: function hasError(fieldName) {
+      return !(!this.hasOwnProperty(fieldName) || this[fieldName] === null);
+    }
+  }, {
+    key: "getError",
+    value: function getError(fieldName) {
+      if (this[fieldName]) {
+        return this[fieldName];
+      }
+    }
+  }, {
+    key: "clearError",
+    value: function clearError(fieldName) {
+      if (this[fieldName]) {
+        this[fieldName] = null;
+      }
+    }
+  }]);
+
+  return FormError;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (FormError);
 
 /***/ }),
 
@@ -58390,6 +58406,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserFoodsIndex_vue_vue_type_template_id_fc36f358_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserFoodsIndex_vue_vue_type_template_id_fc36f358_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/data/foodResourceData.js":
+/*!***********************************************!*\
+  !*** ./resources/js/data/foodResourceData.js ***!
+  \***********************************************/
+/*! exports provided: foodResourceData, defValues, labels */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "foodResourceData", function() { return data; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defValues", function() { return defValues; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "labels", function() { return labels; });
+var data = {
+  name: {
+    defValue: '',
+    placeholder: 'Food Name',
+    label: 'Name'
+  },
+  brand: {
+    defValue: null,
+    placeholder: 'Brand Name',
+    label: 'Brand'
+  },
+  serving: {
+    defValue: 0,
+    placeholder: 'Serving Size',
+    label: 'Serving'
+  },
+  unit: {
+    defValue: 'gram',
+    placeholder: 'Unit',
+    label: 'Unit'
+  },
+  calories: {
+    defValue: 0,
+    placeholder: 'Calories',
+    label: 'Calories'
+  },
+  fat: {
+    defValue: 0,
+    placeholder: 'Fat',
+    label: 'Fat'
+  },
+  fat_satured: {
+    defValue: 0,
+    placeholder: 'Satured Fat',
+    label: 'Satured Fat'
+  },
+  cholesterol: {
+    defValue: 0,
+    placeholder: 'Cholesterol',
+    label: 'Cholesterol'
+  },
+  salt: {
+    defValue: 0,
+    placeholder: 'Salt',
+    label: 'Salt'
+  },
+  carbohydrates: {
+    defValue: 0,
+    placeholder: 'Carbohydrates',
+    label: 'Carbohydrates'
+  },
+  carbohydrates_fiber: {
+    defValue: 0,
+    placeholder: 'Carbohydrates Fiber',
+    label: 'Carbohydrates Fiber'
+  },
+  carbohydrates_sugars: {
+    defValue: 0,
+    placeholder: 'Carbohydrates Sugars',
+    label: 'Carbohydrates Sugars'
+  },
+  protein: {
+    defValue: 0,
+    placeholder: 'Protein',
+    label: 'Protein'
+  },
+  "public": {
+    defValue: false,
+    placeholder: null,
+    label: 'Public ( can be viewed by all users )'
+  }
+};
+
+var defValues = _.mapValues(data, 'defValue');
+
+var labels = _.mapValues(data, 'label');
 
 
 

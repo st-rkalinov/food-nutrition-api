@@ -1,9 +1,9 @@
 import swal from 'sweetalert';
-import AlertCreate from "./Alerts/AlertCreate";
-import AlertUpdate from "./Alerts/AlertUpdate";
-import AlertIndex from "./Alerts/AlertIndex";
-import AlertDelete from "./Alerts/AlertDelete";
-import AlertShow from "./Alerts/AlertShow";
+import AlertCreateData from "./Alerts/AlertCreateData";
+import AlertUpdate from "./Alerts/AlertUpdateData";
+import AlertIndex from "./Alerts/AlertIndexData";
+import AlertDeleteData from "./Alerts/AlertDeleteData";
+import AlertShow from "./Alerts/AlertShowData";
 
 class Alert {
     constructor(action) {
@@ -22,7 +22,7 @@ class Alert {
     chooseAlertHandler(status) {
         switch (this.action) {
             case 'create':
-                this.alert = new AlertCreate(status);
+                this.alert = new AlertCreateData(status);
                 break;
             case 'update':
                 this.alert = new AlertUpdate(status);
@@ -31,7 +31,7 @@ class Alert {
                 this.alert = new AlertIndex(status);
                 break;
             case 'delete':
-                this.alert = new AlertDelete(status);
+                this.alert = new AlertDeleteData(status);
                 break;
             case 'show':
                 this.alert = new AlertShow(status);

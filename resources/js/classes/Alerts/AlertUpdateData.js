@@ -1,4 +1,4 @@
-class AlertDelete {
+class AlertUpdateData {
     constructor(status) {
         this.status = status;
         this.data = null;
@@ -6,12 +6,20 @@ class AlertDelete {
 
     makeData() {
         switch (this.status) {
-            case 204:
+            case 200:
                 this.data = {
-                    text: 'The food was deleted successfully',
-                    button: true,
+                    text: 'The food was edited successfully',
+                    buttons: [true, 'Go to the food page'],
                     icon: 'success',
                     title: 'Success',
+                };
+                break;
+            case 422:
+                this.data = {
+                    text: 'There is a problem with the data you entered !',
+                    button: true,
+                    icon: 'error',
+                    title: 'Error',
                 };
                 break;
             case 401:
@@ -24,7 +32,7 @@ class AlertDelete {
                 break;
             case 403:
                 this.data = {
-                    text: 'You don\'t have the rights to delete that food !',
+                    text: 'You don\'t have the rights to edit that food !',
                     button: true,
                     icon: 'error',
                     title: 'Error',
@@ -47,4 +55,4 @@ class AlertDelete {
     }
 }
 
-export default AlertDelete;
+export default AlertUpdateData;

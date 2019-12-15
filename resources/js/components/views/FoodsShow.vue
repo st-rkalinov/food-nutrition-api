@@ -13,7 +13,7 @@
                     <a href="#" @click.prevent="del()" class="btn btn-danger">Delete</a>
                 </div>
             </div>
-            <div v-for="(item, key) in this.dataFieldNames"
+            <div v-for="(item, key) in this.dataFieldsNames"
                  class="flex justify-start items-center py-3 border-b border-gray-300">
                 <p class="text-xl text-blue-400 font-bold">{{ item }}: </p>
                 <span class="pl-5 text-xl">{{ castFieldData(data.data[key]) }}</span>
@@ -29,6 +29,7 @@
 <script>
     import ErrorPage from "../ErrorPage";
     import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
+    import {labels} from "../../data/foodResourceData";
 
     export default {
         name: "FoodsShow",
@@ -39,22 +40,7 @@
                 isLoading: true,
                 hasErrors: false,
                 responseHandler: null,
-                dataFieldNames: {
-                    name: 'Name',
-                    brand: 'Brand',
-                    calories: 'Calories',
-                    serving: 'Serving',
-                    unit: 'Unit',
-                    carbohydrates: 'Carbohydrates',
-                    carbohydrates_fiber: 'Fiber',
-                    carbohydrates_sugars: 'Sugars',
-                    cholesterol: 'Cholesterol',
-                    fat: 'Fat',
-                    fat_satured: 'Satured Fat',
-                    protein: 'Protein',
-                    salt: 'Salt',
-                    public: 'Public Food',
-                }
+                dataFieldsNames: labels,
             }
         },
         beforeRouteUpdate (to, from, next) {

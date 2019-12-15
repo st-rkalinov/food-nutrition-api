@@ -1,10 +1,10 @@
-import Error from "./Error";
+import FormError from "./FormError";
 
 class Form {
     constructor(data) {
         this.originalData = data;
         this.data = {};
-        this.error = new Error(data);
+        this.error = new FormError(data);
 
         for (let field in data) {
             if (data.hasOwnProperty(field)) {

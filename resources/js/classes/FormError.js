@@ -1,4 +1,4 @@
-class Error {
+class FormError {
     constructor(fields) {
         for(let field in fields) {
             if(fields.hasOwnProperty(field)) {
@@ -32,4 +32,4 @@ class Error {
     }
 }
 
-export default Error;
+export default FormError;

@@ -1,15 +1,31 @@
-class AlertIndex {
+class AlertCreateData {
     constructor(status) {
         this.status = status;
-        this.data = null;
+        this.data = null
     }
 
     makeData() {
         switch (this.status) {
+            case 201:
+                this.data = {
+                    text: 'The food was added successfully',
+                    buttons: [true, 'Go to the food page'],
+                    icon: 'success',
+                    title: 'Success',
+                };
+                break;
+            case 422:
+                this.data = {
+                    text: 'There is a problem with the data you entered !',
+                    buttons: true,
+                    icon: 'error',
+                    title: 'Error',
+                };
+                break;
             case 401:
                 this.data = {
                     text: 'You are unauthorized !',
-                    button: true,
+                    buttons: true,
                     icon: 'error',
                     title: 'Error',
                 };
@@ -39,4 +55,4 @@ class AlertIndex {
     }
 }
 
-export default AlertIndex;
+export default AlertCreateData;

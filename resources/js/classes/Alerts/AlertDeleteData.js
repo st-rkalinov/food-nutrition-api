@@ -1,4 +1,4 @@
-class AlertShow {
+class AlertDeleteData {
     constructor(status) {
         this.status = status;
         this.data = null;
@@ -6,17 +6,25 @@ class AlertShow {
 
     makeData() {
         switch (this.status) {
+            case 204:
+                this.data = {
+                    text: 'The food was deleted successfully',
+                    button: true,
+                    icon: 'success',
+                    title: 'Success',
+                };
+                break;
             case 401:
                 this.data = {
                     text: 'You are unauthorized !',
-                    button: true,
+                    buttons: true,
                     icon: 'error',
                     title: 'Error',
                 };
                 break;
             case 403:
                 this.data = {
-                    text: 'Access Forbidden',
+                    text: 'You don\'t have the rights to delete that food !',
                     button: true,
                     icon: 'error',
                     title: 'Error',
@@ -39,4 +47,4 @@ class AlertShow {
     }
 }
 
-export default AlertShow
+export default AlertDeleteData;

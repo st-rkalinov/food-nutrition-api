@@ -1,21 +1,27 @@
 <template>
     <div>
         <form class="-mt-8" @submit.prevent="submit">
-            <InputTextField name="name" placeholder="Food Name" label="Name"
-                            :defaultValue="form.originalData.name"
+            <InputTextField name="name"
+                            :placeholder="foodData.name.placeholder"
+                            :label="foodData.name.label"
+                            :defaultValue="foodData.name.defValue"
                             :dataValue="form.data.name"
                             :errors="form.error"
                             @update:field="form.data.name = $event"/>
 
-            <InputTextField name="brand" placeholder="Brand Name" label="Brand"
-                            :default-value="form.originalData.brand"
+            <InputTextField name="brand"
+                            :placeholder="foodData.brand.placeholder"
+                            :label="foodData.brand.label"
+                            :default-value="foodData.brand.defValue"
                             :dataValue="form.data.brand"
                             :errors="form.error"
                             @update:field="form.data.brand = $event"/>
 
             <div class="flex justify-between flex-wrap sm:flex-col lg:flex-row flex-col">
-                <InputTextField name="serving" placeholder="Serving Size" label="Serving"
-                                :default-value="form.originalData.serving"
+                <InputTextField name="serving"
+                                :placeholder="foodData.serving.placeholder"
+                                :label="foodData.serving.label"
+                                :default-value="foodData.serving.defValue"
                                 :dataValue="form.data.serving"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/2 w-full"
@@ -23,7 +29,7 @@
 
                 <div class="border-b border-b-2 relative pt-16 sm:w-full lg:w-1/2 w-full">
                     <label for="unit" class="text-blue-400 font-bold absolute top-1/3">
-                        Unit
+                        {{ foodData.unit.label }}
 
                         <span class="pl-12 text-red-600 text-sm" v-if="form.error.hasError('unit')">
                             {{ form.error.getError('unit') }}
@@ -40,66 +46,83 @@
                 </div>
             </div>
 
-            <InputTextField name="calories" placeholder="Calories" label="Calories"
-                            :default-value="form.originalData.calories"
+            <InputTextField name="calories"
+                            :placeholder="foodData.calories.placeholder"
+                            :label="foodData.calories.label"
+                            :default-value="foodData.calories.defValue"
                             :dataValue="form.data.calories"
                             :errors="form.error"
                             @update:field="form.data.calories = $event"/>
 
             <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
-                <InputTextField name="fat" placeholder="Fat" label="Fat"
-                                :default-value="form.originalData.fat"
+                <InputTextField name="fat"
+                                :placeholder="foodData.fat.placeholder"
+                                :label="foodData.fat.label"
+                                :default-value="foodData.fat.defValue"
                                 :dataValue="form.data.fat"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/2 w-full"
                                 @update:field="form.data.fat = $event"/>
 
-                <InputTextField name="fat_satured" placeholder="Satured Fat" label="Satured Fat"
-                                :default-value="form.originalData.fat_satured"
+                <InputTextField name="fat_satured"
+                                :placeholder="foodData.fat_satured.placeholder"
+                                :label="foodData.fat_satured.label"
+                                :default-value="foodData.fat_satured.defValue"
                                 :dataValue="form.data.fat_satured"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/2 w-full"
                                 @update:field="form.data.fat_satured = $event"/>
             </div>
 
-            <InputTextField name="cholesterol" placeholder="Cholesterol" label="Cholesterol"
-                            :default-value="form.originalData.cholesterol"
+            <InputTextField name="cholesterol"
+                            :placeholder="foodData.cholesterol.placeholder"
+                            :label="foodData.cholesterol.label"
+                            :default-value="foodData.cholesterol.defValue"
                             :dataValue="form.data.cholesterol"
                             :errors="form.error"
                             @update:field="form.data.cholesterol = $event"/>
 
-            <InputTextField name="salt" placeholder="Salt" label="Salt"
-                            :default-value="form.originalData.salt"
+            <InputTextField name="salt"
+                            :placeholder="foodData.salt.placeholder"
+                            :label="foodData.salt.label"
+                            :default-value="foodData.salt.defValue"
                             :dataValue="form.data.salt"
                             :errors="form.error"
                             @update:field="form.data.salt = $event"/>
 
             <div class="flex justify-between sm:flex-col lg:flex-row flex-col">
-                <InputTextField name="carbohydrates" placeholder="Carbohydrates" label="Carbohydrates"
-                                :default-value="form.originalData.carbohydrates"
+                <InputTextField name="carbohydrates"
+                                :placeholder="foodData.carbohydrates.placeholder"
+                                :label="foodData.carbohydrates.label"
+                                :default-value="foodData.carbohydrates.defValue"
                                 :dataValue="form.data.carbohydrates"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates = $event"/>
 
-                <InputTextField name="carbohydrates_fiber" placeholder="Carbohydrates Fiber" label="Carbohydrates Fiber"
-                                :default-value="form.originalData.carbohydrates_fiber"
+                <InputTextField name="carbohydrates_fiber"
+                                :placeholder="foodData.carbohydrates_fiber.placeholder"
+                                :label="foodData.carbohydrates_fiber.label"
+                                :default-value="foodData.carbohydrates_fiber.defValue"
                                 :dataValue="form.data.carbohydrates_fiber"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates_fiber = $event"/>
 
-                <InputTextField name="carbohydrates_sugars" placeholder="Carbohydrates Sugars"
-                                label="Carbohydrates Sugars"
-                                :default-value="form.originalData.carbohydrates_sugars"
+                <InputTextField name="carbohydrates_sugars"
+                                :placeholder="foodData.carbohydrates_sugars.placeholder"
+                                :label="foodData.carbohydrates_sugars.label"
+                                :default-value="foodData.carbohydrates_sugars.defValue"
                                 :dataValue="form.data.carbohydrates_sugars"
                                 :errors="form.error"
                                 classes="sm:w-full lg:w-1/3 w-full"
                                 @update:field="form.data.carbohydrates_sugars = $event"/>
             </div>
 
-            <InputTextField name="protein" placeholder="Protein" label="Protein"
-                            :default-value="form.originalData.protein"
+            <InputTextField name="protein"
+                            :placeholder="foodData.protein.placeholder"
+                            :label="foodData.protein.label"
+                            :default-value="foodData.protein.defValue"
                             :dataValue="form.data.protein"
                             :errors="form.error"
                             @update:field="form.data.protein = $event"/>
@@ -107,8 +130,7 @@
             <div class="pt-8 mt-16 text-right">
                 <input type="checkbox" name="public" id="public" v-model="form.data.public"
                        @change="form.error.clearError('public')">
-                <label for="public" class="text-blue-400 font-bold pl-3">Make the food visible for the other
-                    users</label>
+                <label for="public" class="text-blue-400 font-bold pl-3">{{ foodData.public.label }}</label>
 
                 <span class="text-red-600 text-sm block" v-if="form.error.hasError('public')">
                     {{ form.error.getError('public') }}
@@ -130,8 +152,9 @@
 <script>
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
-    import Alert from "../../classes/Alert";
     import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
+    import {foodResourceData} from "../../data/foodResourceData";
+    import {defValues} from "../../data/foodResourceData";
 
     export default {
         name: "FoodsCreate",
@@ -140,28 +163,14 @@
         },
         data() {
             return {
-                foodFields: {
-                    'name': '',
-                    'brand': null,
-                    'serving': 0,
-                    'unit': 'gram',
-                    'calories': 0,
-                    'fat': 0,
-                    'fat_satured': 0,
-                    'cholesterol': 0,
-                    'salt': 0,
-                    'carbohydrates': 0,
-                    'carbohydrates_fiber': 0,
-                    'carbohydrates_sugars': 0,
-                    'protein': 0,
-                    'public': false,
-                },
+                foodData: foodResourceData,
+                foodDataDefValues: defValues,
                 form: null,
                 responseHandler: new ResponseHandlerStrategy(this.$router, 'create'),
             }
         },
         created() {
-            this.form = new Form(this.foodFields);
+            this.form = new Form(this.foodDataDefValues);
         },
         methods: {
             submit() {
@@ -170,12 +179,12 @@
                         this.responseHandler.handle(response.status, response.data.data.food_id);
                         this.form.reset();
                     })
-                    .catch(error => {
-                        let errors = error.response.data.errors;
-                        this.responseHandler.handle(error.response.status);
+                    .catch((error) => {
+                        let response = error.response;
+                        this.responseHandler.handle(response.status);
 
                         if (error.response.status === 422) {
-                            this.form.error.setErrors(errors);
+                            this.form.error.setErrors(response.data.errors);
                         }
                     })
             }

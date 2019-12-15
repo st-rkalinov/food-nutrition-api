@@ -83,7 +83,7 @@
                 <p class="self-start lg:pt-5 pt-0">Foods</p>
 
                 <div class="flex items-center justify-around pt-8 md:w-1/2 w-full">
-                    <SearchBar/>
+                    <SearchBar class="w-9/12"/>
                     <div class="border border-2 rounded-full p-3 font-bold bg-blue-400">
                         SK
                     </div>

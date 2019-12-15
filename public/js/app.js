@@ -2683,6 +2683,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchBar",
@@ -2719,7 +2723,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.data = response.data;
         _this.hasData = _this.data.data.length !== 0;
       })["catch"](function (error) {
-        console.log(error.response);
+        alert(error.response.message);
       });
     }, 300),
     clearData: function clearData() {
@@ -2727,11 +2731,6 @@ __webpack_require__.r(__webpack_exports__);
       this.hasData = false;
       this.data = null;
       this.showResults = false;
-    },
-    hideResults: function hideResults(e) {
-      if (e.relatedTarget === null || e.relatedTarget.nodeName !== 'A') {
-        this.showResults = false;
-      }
     }
   }
 });
@@ -38980,7 +38979,7 @@ var render = function() {
                   "flex items-center justify-around pt-8 md:w-1/2 w-full"
               },
               [
-                _c("SearchBar"),
+                _c("SearchBar", { staticClass: "w-9/12" }),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -40077,76 +40076,86 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "w-8/12 mr-10 relative" }, [
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.searchTerm,
-          expression: "searchTerm"
-        }
-      ],
-      staticClass:
-        "w-full rounded-full border border-1 py-2 px-5 focus:outline-none",
-      attrs: {
-        type: "text",
-        name: "searchTerm",
-        id: "",
-        placeholder: "Search"
-      },
-      domProps: { value: _vm.searchTerm },
-      on: {
-        input: [
-          function($event) {
-            if ($event.target.composing) {
-              return
+  return _c("div", [
+    _vm.showResults
+      ? _c("div", {
+          staticClass:
+            "bg-black opacity-0 absolute right-0 left-0 top-0 bottom-0 z-10  h-screen",
+          on: {
+            click: function($event) {
+              _vm.showResults = false
             }
-            _vm.searchTerm = $event.target.value
-          },
-          _vm.search
-        ],
-        focusin: function($event) {
-          _vm.showResults = true
-        },
-        blur: function($event) {
-          return _vm.hideResults($event)
-        }
-      }
-    }),
+          }
+        })
+      : _vm._e(),
     _vm._v(" "),
-    _vm.hasData
-      ? _c(
-          "div",
+    _c("div", { staticClass: "relative z-10" }, [
+      _c("input", {
+        directives: [
           {
-            staticClass:
-              "w-full absolute border-3 border rounded-lg bg-gray-100 z-50",
-            class: { hidden: !_vm.showResults }
-          },
-          [
-            _c(
-              "ul",
-              _vm._l(_vm.data.data, function(item, index) {
-                return _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "block p-3 hover:bg-gray-400 rounded-lg",
-                        attrs: { to: "/foods/" + item.data.food_id }
-                      },
-                      [_vm._v(_vm._s(item.data.name))]
-                    )
-                  ],
-                  1
-                )
-              }),
-              0
-            )
-          ]
-        )
-      : _vm._e()
+            name: "model",
+            rawName: "v-model",
+            value: _vm.searchTerm,
+            expression: "searchTerm"
+          }
+        ],
+        staticClass:
+          "w-full rounded-full border border-1 py-2 px-5 focus:outline-none",
+        attrs: {
+          type: "text",
+          name: "searchTerm",
+          id: "",
+          placeholder: "Search"
+        },
+        domProps: { value: _vm.searchTerm },
+        on: {
+          input: [
+            function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchTerm = $event.target.value
+            },
+            _vm.search
+          ],
+          focus: function($event) {
+            _vm.showResults = true
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.hasData && _vm.showResults && _vm.hasMinCharLen
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "w-full absolute border-3 border rounded-lg bg-gray-100 z-20"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.data.data, function(item, index) {
+                  return _c(
+                    "li",
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "block p-3 hover:bg-gray-400 rounded-lg",
+                          attrs: { to: "/foods/" + item.data.food_id }
+                        },
+                        [_vm._v(_vm._s(item.data.name))]
+                      )
+                    ],
+                    1
+                  )
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []

@@ -22,4 +22,5 @@ Route::middleware('auth:api')->group( function () {
     Route::delete('/foods/{food}', 'FoodsController@destroy');
 
     Route::get('/my-foods', 'UserFoodsController');
+    Route::post('/search', 'SearchController@index');
 });

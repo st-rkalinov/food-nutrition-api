@@ -2343,7 +2343,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Paginator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../classes/Paginator */ "./resources/js/classes/Paginator.js");
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/ResponseHandler */ "./resources/js/classes/ResponseHandler.js");
 //
 //
 //
@@ -2439,7 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
       hasData: true,
       defaultPage: 1,
       paginator: null,
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'index')
+      responseHandler: new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'index')
     };
   },
   computed: {
@@ -2746,7 +2746,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../classes/ResponseHandler */ "./resources/js/classes/ResponseHandler.js");
 /* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
 //
 //
@@ -2914,7 +2914,7 @@ __webpack_require__.r(__webpack_exports__);
       foodData: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__["foodResourceData"],
       foodDataDefValues: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_3__["defValues"],
       form: null,
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_2__["default"](this.$router, 'create')
+      responseHandler: new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_2__["default"](this.$router, 'create')
     };
   },
   created: function created() {
@@ -2955,7 +2955,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _classes_Form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../classes/Form */ "./resources/js/classes/Form.js");
 /* harmony import */ var _InputTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../InputTextField */ "./resources/js/components/InputTextField.vue");
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../classes/ResponseHandler */ "./resources/js/classes/ResponseHandler.js");
 /* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
 //
 //
@@ -3132,7 +3132,7 @@ __webpack_require__.r(__webpack_exports__);
       isLoading: true,
       hasErrors: false,
       foodData: _data_foodResourceData__WEBPACK_IMPORTED_MODULE_4__["foodResourceData"],
-      responseHandler: new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'update')
+      responseHandler: new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__["default"](this.$router, 'update')
     };
   },
   methods: {
@@ -3207,7 +3207,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ErrorPage */ "./resources/js/components/ErrorPage.vue");
-/* harmony import */ var _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/ResponseHandlerStrategy */ "./resources/js/classes/ResponseHandlerStrategy.js");
+/* harmony import */ var _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../classes/ResponseHandler */ "./resources/js/classes/ResponseHandler.js");
 /* harmony import */ var _data_foodResourceData__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../data/foodResourceData */ "./resources/js/data/foodResourceData.js");
 //
 //
@@ -3264,7 +3264,7 @@ __webpack_require__.r(__webpack_exports__);
     del: function del() {
       var _this = this;
 
-      this.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](this.$router, 'delete');
+      this.responseHandler = new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_1__["default"](this.$router, 'delete');
       axios["delete"](this.data.links.self).then(function (response) {
         _this.responseHandler.handle(response.status);
       })["catch"](function (error) {
@@ -3280,7 +3280,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.isLoading = false;
       })["catch"](function (error) {
         _this2.hasErrors = true;
-        _this2.responseHandler = new _classes_ResponseHandlerStrategy__WEBPACK_IMPORTED_MODULE_1__["default"](_this2.$router, 'show');
+        _this2.responseHandler = new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_1__["default"](_this2.$router, 'show');
 
         _this2.responseHandler.handle(error.response.status);
       })["finally"](function () {
@@ -57129,103 +57129,10 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/js/classes/ResponseHandlerStrategy.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlerStrategy.js ***!
-  \*********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ResponseHandlers_ResponseCreateHandler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ResponseHandlers/ResponseCreateHandler */ "./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js");
-/* harmony import */ var _ResponseHandlers_ResponseUpdateHandler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ResponseHandlers/ResponseUpdateHandler */ "./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js");
-/* harmony import */ var _ResponseHandlers_ResponseIndexHandler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ResponseHandlers/ResponseIndexHandler */ "./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js");
-/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alert */ "./resources/js/classes/Alert.js");
-/* harmony import */ var _ResponseHandlers_ResponseDeleteHandler__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResponseHandlers/ResponseDeleteHandler */ "./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js");
-/* harmony import */ var _ResponseHandlers_ResponseShowHandler__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ResponseHandlers/ResponseShowHandler */ "./resources/js/classes/ResponseHandlers/ResponseShowHandler.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-
-
-
-
-
-var ResponseHandlerStrategy =
-/*#__PURE__*/
-function () {
-  function ResponseHandlerStrategy(router, action) {
-    _classCallCheck(this, ResponseHandlerStrategy);
-
-    this.router = router;
-    this.action = action;
-    this.handler = null;
-    this.alert = new _Alert__WEBPACK_IMPORTED_MODULE_3__["default"](action);
-  }
-
-  _createClass(ResponseHandlerStrategy, [{
-    key: "chooseHandler",
-    value: function chooseHandler(status, additionalEndpointData) {
-      switch (this.action) {
-        case 'create':
-          this.handler = new _ResponseHandlers_ResponseCreateHandler__WEBPACK_IMPORTED_MODULE_0__["default"](status, additionalEndpointData);
-          break;
-
-        case 'update':
-          this.handler = new _ResponseHandlers_ResponseUpdateHandler__WEBPACK_IMPORTED_MODULE_1__["default"](status, additionalEndpointData);
-          break;
-
-        case 'index':
-          this.handler = new _ResponseHandlers_ResponseIndexHandler__WEBPACK_IMPORTED_MODULE_2__["default"](status, additionalEndpointData);
-          break;
-
-        case 'delete':
-          this.handler = new _ResponseHandlers_ResponseDeleteHandler__WEBPACK_IMPORTED_MODULE_4__["default"](status, additionalEndpointData);
-          break;
-
-        case 'show':
-          this.handler = new _ResponseHandlers_ResponseShowHandler__WEBPACK_IMPORTED_MODULE_5__["default"](status, additionalEndpointData);
-      }
-    }
-  }, {
-    key: "handle",
-    value: function handle(status) {
-      var _this = this;
-
-      var additionalEndpointData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      return this.alert.show(status).then(function (clickedButton) {
-        if (clickedButton) {
-          _this.chooseHandler(status, additionalEndpointData);
-
-          var endpoint = _this.handler.getEndpoint();
-
-          if (endpoint == false) {
-            return;
-          }
-
-          _this.router.push(endpoint);
-        }
-      });
-    }
-  }]);
-
-  return ResponseHandlerStrategy;
-}();
-
-/* harmony default export */ __webpack_exports__["default"] = (ResponseHandlerStrategy);
-
-/***/ }),
-
-/***/ "./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlers/ResponseCreateHandler.js ***!
-  \************************************************************************/
+/***/ "./resources/js/classes/ResponseEndpoints/ResponseCreateEndpoint.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/classes/ResponseEndpoints/ResponseCreateEndpoint.js ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57237,18 +57144,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ResponseCreateHandler =
+var ResponseCreateEndpoint =
 /*#__PURE__*/
 function () {
-  function ResponseCreateHandler(status, additionalEndpointData) {
-    _classCallCheck(this, ResponseCreateHandler);
+  function ResponseCreateEndpoint(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseCreateEndpoint);
 
     this.status = status;
     this.additonalEndpointData = additionalEndpointData;
     this.endpoint = false;
   }
 
-  _createClass(ResponseCreateHandler, [{
+  _createClass(ResponseCreateEndpoint, [{
     key: "chooseEndpoint",
     value: function chooseEndpoint() {
       switch (this.status) {
@@ -57274,17 +57181,17 @@ function () {
     }
   }]);
 
-  return ResponseCreateHandler;
+  return ResponseCreateEndpoint;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ResponseCreateHandler);
+/* harmony default export */ __webpack_exports__["default"] = (ResponseCreateEndpoint);
 
 /***/ }),
 
-/***/ "./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlers/ResponseDeleteHandler.js ***!
-  \************************************************************************/
+/***/ "./resources/js/classes/ResponseEndpoints/ResponseDeleteEndpoint.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/classes/ResponseEndpoints/ResponseDeleteEndpoint.js ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57296,18 +57203,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ResponseDeleteHandler =
+var ResponseDeleteEndpoint =
 /*#__PURE__*/
 function () {
-  function ResponseDeleteHandler(status, additionalEndpointData) {
-    _classCallCheck(this, ResponseDeleteHandler);
+  function ResponseDeleteEndpoint(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseDeleteEndpoint);
 
     this.status = status;
     this.additonalEndpointData = additionalEndpointData;
     this.endpoint = false;
   }
 
-  _createClass(ResponseDeleteHandler, [{
+  _createClass(ResponseDeleteEndpoint, [{
     key: "chooseEndpoint",
     value: function chooseEndpoint() {
       switch (this.status) {
@@ -57330,17 +57237,17 @@ function () {
     }
   }]);
 
-  return ResponseDeleteHandler;
+  return ResponseDeleteEndpoint;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ResponseDeleteHandler);
+/* harmony default export */ __webpack_exports__["default"] = (ResponseDeleteEndpoint);
 
 /***/ }),
 
-/***/ "./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js":
-/*!***********************************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlers/ResponseIndexHandler.js ***!
-  \***********************************************************************/
+/***/ "./resources/js/classes/ResponseEndpoints/ResponseIndexEndpoint.js":
+/*!*************************************************************************!*\
+  !*** ./resources/js/classes/ResponseEndpoints/ResponseIndexEndpoint.js ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57352,18 +57259,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ResponseIndexHandler =
+var ResponseIndexEndpoint =
 /*#__PURE__*/
 function () {
-  function ResponseIndexHandler(status, additionalEndpointData) {
-    _classCallCheck(this, ResponseIndexHandler);
+  function ResponseIndexEndpoint(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseIndexEndpoint);
 
     this.status = status;
     this.additonalEndpointData = additionalEndpointData;
     this.endpoint = false;
   }
 
-  _createClass(ResponseIndexHandler, [{
+  _createClass(ResponseIndexEndpoint, [{
     key: "chooseEndpoint",
     value: function chooseEndpoint() {
       switch (this.status) {
@@ -57389,17 +57296,17 @@ function () {
     }
   }]);
 
-  return ResponseIndexHandler;
+  return ResponseIndexEndpoint;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ResponseIndexHandler);
+/* harmony default export */ __webpack_exports__["default"] = (ResponseIndexEndpoint);
 
 /***/ }),
 
-/***/ "./resources/js/classes/ResponseHandlers/ResponseShowHandler.js":
-/*!**********************************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlers/ResponseShowHandler.js ***!
-  \**********************************************************************/
+/***/ "./resources/js/classes/ResponseEndpoints/ResponseShowEndpoint.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/classes/ResponseEndpoints/ResponseShowEndpoint.js ***!
+  \************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57411,18 +57318,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ResponseShowHandler =
+var ResponseShowEndpoint =
 /*#__PURE__*/
 function () {
-  function ResponseShowHandler(status, additionalEndpointData) {
-    _classCallCheck(this, ResponseShowHandler);
+  function ResponseShowEndpoint(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseShowEndpoint);
 
     this.status = status;
     this.additonalEndpointData = additionalEndpointData;
     this.endpoint = false;
   }
 
-  _createClass(ResponseShowHandler, [{
+  _createClass(ResponseShowEndpoint, [{
     key: "chooseEndpoint",
     value: function chooseEndpoint() {
       switch (this.status) {
@@ -57444,17 +57351,17 @@ function () {
     }
   }]);
 
-  return ResponseShowHandler;
+  return ResponseShowEndpoint;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ResponseShowHandler);
+/* harmony default export */ __webpack_exports__["default"] = (ResponseShowEndpoint);
 
 /***/ }),
 
-/***/ "./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/classes/ResponseHandlers/ResponseUpdateHandler.js ***!
-  \************************************************************************/
+/***/ "./resources/js/classes/ResponseEndpoints/ResponseUpdateEndpoint.js":
+/*!**************************************************************************!*\
+  !*** ./resources/js/classes/ResponseEndpoints/ResponseUpdateEndpoint.js ***!
+  \**************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -57466,18 +57373,18 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ResponseUpdateHandler =
+var ResponseUpdateEndpoint =
 /*#__PURE__*/
 function () {
-  function ResponseUpdateHandler(status, additionalEndpointData) {
-    _classCallCheck(this, ResponseUpdateHandler);
+  function ResponseUpdateEndpoint(status, additionalEndpointData) {
+    _classCallCheck(this, ResponseUpdateEndpoint);
 
     this.status = status;
     this.additonalEndpointData = additionalEndpointData;
     this.endpoint = false;
   }
 
-  _createClass(ResponseUpdateHandler, [{
+  _createClass(ResponseUpdateEndpoint, [{
     key: "chooseEndpoint",
     value: function chooseEndpoint() {
       switch (this.status) {
@@ -57507,10 +57414,103 @@ function () {
     }
   }]);
 
-  return ResponseUpdateHandler;
+  return ResponseUpdateEndpoint;
 }();
 
-/* harmony default export */ __webpack_exports__["default"] = (ResponseUpdateHandler);
+/* harmony default export */ __webpack_exports__["default"] = (ResponseUpdateEndpoint);
+
+/***/ }),
+
+/***/ "./resources/js/classes/ResponseHandler.js":
+/*!*************************************************!*\
+  !*** ./resources/js/classes/ResponseHandler.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ResponseEndpoints_ResponseCreateEndpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ResponseEndpoints/ResponseCreateEndpoint */ "./resources/js/classes/ResponseEndpoints/ResponseCreateEndpoint.js");
+/* harmony import */ var _ResponseEndpoints_ResponseUpdateEndpoint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ResponseEndpoints/ResponseUpdateEndpoint */ "./resources/js/classes/ResponseEndpoints/ResponseUpdateEndpoint.js");
+/* harmony import */ var _ResponseEndpoints_ResponseIndexEndpoint__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ResponseEndpoints/ResponseIndexEndpoint */ "./resources/js/classes/ResponseEndpoints/ResponseIndexEndpoint.js");
+/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Alert */ "./resources/js/classes/Alert.js");
+/* harmony import */ var _ResponseEndpoints_ResponseDeleteEndpoint__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ResponseEndpoints/ResponseDeleteEndpoint */ "./resources/js/classes/ResponseEndpoints/ResponseDeleteEndpoint.js");
+/* harmony import */ var _ResponseEndpoints_ResponseShowEndpoint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ResponseEndpoints/ResponseShowEndpoint */ "./resources/js/classes/ResponseEndpoints/ResponseShowEndpoint.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+
+
+
+var ResponseHandler =
+/*#__PURE__*/
+function () {
+  function ResponseHandler(router, action) {
+    _classCallCheck(this, ResponseHandler);
+
+    this.router = router;
+    this.action = action;
+    this.endpoint = null;
+    this.alert = new _Alert__WEBPACK_IMPORTED_MODULE_3__["default"](action);
+  }
+
+  _createClass(ResponseHandler, [{
+    key: "chooseEndpoint",
+    value: function chooseEndpoint(status, additionalEndpointData) {
+      switch (this.action) {
+        case 'create':
+          this.endpoint = new _ResponseEndpoints_ResponseCreateEndpoint__WEBPACK_IMPORTED_MODULE_0__["default"](status, additionalEndpointData);
+          break;
+
+        case 'update':
+          this.endpoint = new _ResponseEndpoints_ResponseUpdateEndpoint__WEBPACK_IMPORTED_MODULE_1__["default"](status, additionalEndpointData);
+          break;
+
+        case 'index':
+          this.endpoint = new _ResponseEndpoints_ResponseIndexEndpoint__WEBPACK_IMPORTED_MODULE_2__["default"](status, additionalEndpointData);
+          break;
+
+        case 'delete':
+          this.endpoint = new _ResponseEndpoints_ResponseDeleteEndpoint__WEBPACK_IMPORTED_MODULE_4__["default"](status, additionalEndpointData);
+          break;
+
+        case 'show':
+          this.endpoint = new _ResponseEndpoints_ResponseShowEndpoint__WEBPACK_IMPORTED_MODULE_5__["default"](status, additionalEndpointData);
+      }
+    }
+  }, {
+    key: "handle",
+    value: function handle(status) {
+      var _this = this;
+
+      var additionalEndpointData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      return this.alert.show(status).then(function (clickedButton) {
+        if (clickedButton) {
+          _this.chooseEndpoint(status, additionalEndpointData);
+
+          var endpoint = _this.endpoint.getEndpoint();
+
+          if (endpoint == false) {
+            return;
+          }
+
+          _this.router.push(endpoint);
+        }
+      });
+    }
+  }]);
+
+  return ResponseHandler;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (ResponseHandler);
 
 /***/ }),
 

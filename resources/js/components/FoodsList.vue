@@ -79,7 +79,7 @@
     import Paginator from "../classes/Paginator";
     import ErrorPage from "./ErrorPage";
     import Pagination from "./Pagination";
-    import ResponseHandlerStrategy from "../classes/ResponseHandlerStrategy";
+    import ResponseHandler from "../classes/ResponseHandler";
 
     export default {
         name: "FoodsList",
@@ -92,7 +92,7 @@
                 hasData: true,
                 defaultPage: 1,
                 paginator: null,
-                responseHandler: new ResponseHandlerStrategy(this.$router, 'index'),
+                responseHandler: new ResponseHandler(this.$router, 'index'),
             }
         },
         computed: {

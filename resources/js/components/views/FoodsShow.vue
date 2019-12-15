@@ -28,7 +28,7 @@
 
 <script>
     import ErrorPage from "../ErrorPage";
-    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
+    import ResponseHandler from "../../classes/ResponseHandler";
     import {labels} from "../../data/foodResourceData";
 
     export default {
@@ -51,7 +51,7 @@
         },
         methods: {
             del() {
-                this.responseHandler = new ResponseHandlerStrategy(this.$router, 'delete');
+                this.responseHandler = new ResponseHandler(this.$router, 'delete');
 
                 axios.delete(this.data.links.self)
                 .then(response => {
@@ -69,7 +69,7 @@
                 })
                 .catch(error => {
                     this.hasErrors = true;
-                    this.responseHandler = new ResponseHandlerStrategy(this.$router, 'show');
+                    this.responseHandler = new ResponseHandler(this.$router, 'show');
 
                     this.responseHandler.handle(error.response.status)
                 })

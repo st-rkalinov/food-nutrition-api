@@ -1,4 +1,4 @@
-class ResponseDeleteHandler {
+class ResponseDeleteEndpoint {
 
       constructor(status, additionalEndpointData) {
         this.status = status;
@@ -26,4 +26,4 @@ class ResponseDeleteHandler {
     }
 }
 
-export default ResponseDeleteHandler;
+export default ResponseDeleteEndpoint;

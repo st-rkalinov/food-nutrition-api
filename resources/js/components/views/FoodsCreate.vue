@@ -152,7 +152,7 @@
 <script>
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
-    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
+    import ResponseHandler from "../../classes/ResponseHandler";
     import {foodResourceData} from "../../data/foodResourceData";
     import {defValues} from "../../data/foodResourceData";
 
@@ -166,7 +166,7 @@
                 foodData: foodResourceData,
                 foodDataDefValues: defValues,
                 form: null,
-                responseHandler: new ResponseHandlerStrategy(this.$router, 'create'),
+                responseHandler: new ResponseHandler(this.$router, 'create'),
             }
         },
         created() {

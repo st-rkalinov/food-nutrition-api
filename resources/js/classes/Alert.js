@@ -1,9 +1,9 @@
 import swal from 'sweetalert';
 import AlertCreateData from "./Alerts/AlertCreateData";
-import AlertUpdate from "./Alerts/AlertUpdateData";
-import AlertIndex from "./Alerts/AlertIndexData";
+import AlertUpdateData from "./Alerts/AlertUpdateData";
+import AlertIndexData from "./Alerts/AlertIndexData";
 import AlertDeleteData from "./Alerts/AlertDeleteData";
-import AlertShow from "./Alerts/AlertShowData";
+import AlertShowData from "./Alerts/AlertShowData";
 
 class Alert {
     constructor(action) {
@@ -25,16 +25,16 @@ class Alert {
                 this.alert = new AlertCreateData(status);
                 break;
             case 'update':
-                this.alert = new AlertUpdate(status);
+                this.alert = new AlertUpdateData(status);
                 break;
             case 'index':
-                this.alert = new AlertIndex(status);
+                this.alert = new AlertIndexData(status);
                 break;
             case 'delete':
                 this.alert = new AlertDeleteData(status);
                 break;
             case 'show':
-                this.alert = new AlertShow(status);
+                this.alert = new AlertShowData(status);
         }
     }
 

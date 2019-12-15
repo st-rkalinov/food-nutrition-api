@@ -1,5 +1,4 @@
-class ResponseIndexHandler {
-
+class ResponseShowEndpoint {
       constructor(status, additionalEndpointData) {
         this.status = status;
         this.additonalEndpointData = additionalEndpointData;
@@ -8,15 +7,12 @@ class ResponseIndexHandler {
 
     chooseEndpoint() {
         switch (this.status) {
-            case 403:
-            case 404:
-                this.endpoint = '/';
-                break;
-            case 422:
-                this.endpoint = false;
-                break;
             case 401:
                 this.endpoint = '/logout';
+                break;
+            case 403:
+            case 404:
+                this.endpoint = '/foods';
                 break;
         }
     }
@@ -28,4 +24,4 @@ class ResponseIndexHandler {
     }
 }
 
-export default ResponseIndexHandler;
+export default ResponseShowEndpoint

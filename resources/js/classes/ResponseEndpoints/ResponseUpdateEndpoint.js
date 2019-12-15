@@ -1,4 +1,5 @@
-class ResponseCreateHandler {
+class ResponseUpdateEndpoint {
+
     constructor(status, additionalEndpointData) {
         this.status = status;
         this.additonalEndpointData = additionalEndpointData;
@@ -7,9 +8,12 @@ class ResponseCreateHandler {
 
     chooseEndpoint() {
         switch (this.status) {
-            case 201:
-            case 403:
+            case 200:
                 this.endpoint = '/foods/';
+                break;
+            case 403:
+            case 404:
+                this.endpoint = '/foods';
                 break;
             case 422:
                 this.endpoint = false;
@@ -27,4 +31,5 @@ class ResponseCreateHandler {
     }
 }
 
-export default ResponseCreateHandler;
+
+export default ResponseUpdateEndpoint;

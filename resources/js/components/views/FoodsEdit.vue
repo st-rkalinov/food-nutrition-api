@@ -160,7 +160,7 @@
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
     import ErrorPage from "../ErrorPage";
-    import ResponseHandlerStrategy from "../../classes/ResponseHandlerStrategy";
+    import ResponseHandler from "../../classes/ResponseHandler";
     import {foodResourceData} from "../../data/foodResourceData";
 
     export default {
@@ -174,7 +174,7 @@
                 isLoading: true,
                 hasErrors: false,
                 foodData: foodResourceData,
-                responseHandler: new ResponseHandlerStrategy(this.$router, 'update'),
+                responseHandler: new ResponseHandler(this.$router, 'update'),
             }
         },
         methods: {

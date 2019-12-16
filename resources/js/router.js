@@ -13,25 +13,25 @@ Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
-            path: '/', component: ExampleComponent,
+            path: '/', name: 'home', component: ExampleComponent,
         },
         {
-            path: '/foods/create', component: FoodsCreate
+            path: '/foods/create', name: 'create', component: FoodsCreate
         },
         {
-            path: '/foods/:id/edit', component: FoodsEdit,
+            path: '/foods/:id/edit', name: 'edit', component: FoodsEdit,
         },
         {
-            path: '/foods', component: FoodsIndex,
+            path: '/foods', name: 'foods', component: FoodsIndex,
         },
         {
-            path: '/my-foods', component: UserFoodsIndex,
+            path: '/my-foods', name: 'user-foods', component: UserFoodsIndex,
         },
         {
-            path: '/foods/:id', component: FoodsShow,
+            path: '/foods/:id', name: 'food', component: FoodsShow,
         },
         {
-            path: '/logout', component: Logout,
+            path: '/logout', name: 'logout', component: Logout,
         }
     ],
     mode: 'history'

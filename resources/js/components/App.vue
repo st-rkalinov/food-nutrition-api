@@ -1,7 +1,7 @@
 <template>
     <div class="flex h-screen lg:flex-row sm:flex-col flex-col">
         <nav class="h-screen border border-r-2 p-10 bg-blue-100">
-            <router-link to="/">
+            <router-link :to="{ name: 'home' }">
                 <h1 class="font-bold text-lg text-blue-900 border-b-2 border-transparent hover:border-b-2 hover:border-blue-400">
                     Food Nutrition</h1>
             </router-link>
@@ -9,7 +9,7 @@
             <div class="pt-24">
                 <div>
                     <p class="text-gray-600">CREATE</p>
-                    <router-link to="/foods/create"
+                    <router-link :to="{ name: 'create' }"
                                  :class="{ 'active': isActive('/foods/create') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
@@ -22,7 +22,7 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">GENERAL</p>
-                    <router-link to="/foods"
+                    <router-link :to="{ name: 'foods' }"
                                   :class="{ 'active': isActive('/foods') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 48 48" class="w-6 h-6 fill-current text-blue-600"
@@ -35,7 +35,7 @@
                         </svg>
                         <div class="pl-3">Foods</div>
                     </router-link>
-                    <router-link to="/my-foods"
+                    <router-link :to="{ name: 'user-foods' }"
                                   :class="{ 'active': isActive('/my-foods') }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg version="1.1" id="Layer_1" class="w-6 h-6 fill-current text-blue-600"
@@ -66,7 +66,7 @@
 
                 <div class="pt-12">
                     <p class="text-gray-600">SETTINGS</p>
-                    <router-link to="/logout"
+                    <router-link :to="{ name: 'logout' }"
                                  class="flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2">
                         <svg viewBox="0 0 24 24" class="fill-current text-blue-600 w-6 h-6">
                             <path

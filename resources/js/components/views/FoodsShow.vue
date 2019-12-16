@@ -7,7 +7,7 @@
         <div v-else-if="!isLoading && !hasErrors">
             <div class="pb-10">
                 <div v-if="this.$parent.user.id === data.data.owner_id" class="flex flex-end pt-4 justify-end">
-                    <router-link :to="'/foods/' + data.data.food_id + '/edit'" class="btn btn-success mr-5">
+                    <router-link :to="{ name: 'edit', params: { id: data.data.food_id }}" class="btn btn-success mr-5">
                         Edit
                     </router-link>
                     <a href="#" @click.prevent="del()" class="btn btn-danger">Delete</a>

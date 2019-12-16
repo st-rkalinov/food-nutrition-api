@@ -38802,7 +38802,7 @@ var render = function() {
         "nav",
         { staticClass: "h-screen border border-r-2 p-10 bg-blue-100" },
         [
-          _c("router-link", { attrs: { to: "/" } }, [
+          _c("router-link", { attrs: { to: { name: "home" } } }, [
             _c(
               "h1",
               {
@@ -38825,7 +38825,7 @@ var render = function() {
                     staticClass:
                       "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     class: { active: _vm.isActive("/foods/create") },
-                    attrs: { to: "/foods/create" }
+                    attrs: { to: { name: "create" } }
                   },
                   [
                     _c(
@@ -38863,7 +38863,7 @@ var render = function() {
                     staticClass:
                       "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     class: { active: _vm.isActive("/foods") },
-                    attrs: { to: "/foods" }
+                    attrs: { to: { name: "foods" } }
                   },
                   [
                     _c(
@@ -38903,7 +38903,7 @@ var render = function() {
                     staticClass:
                       "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
                     class: { active: _vm.isActive("/my-foods") },
-                    attrs: { to: "/my-foods" }
+                    attrs: { to: { name: "user-foods" } }
                   },
                   [
                     _c(
@@ -38979,7 +38979,7 @@ var render = function() {
                   {
                     staticClass:
                       "flex items-center pt-5 hover:font-bold hover:text-blue-400 sm:border-b-2 lg:border-0 border-b-2 sm:pb-2 lg:pb-0 pb-2",
-                    attrs: { to: "/logout" }
+                    attrs: { to: { name: "logout" } }
                   },
                   [
                     _c(
@@ -39643,7 +39643,10 @@ var render = function() {
                                 {
                                   staticClass: "w-1/3 hover:shadow",
                                   attrs: {
-                                    to: "/foods/" + item.data.food_id,
+                                    to: {
+                                      name: "food",
+                                      params: { id: item.data.food_id }
+                                    },
                                     title: "See"
                                   }
                                 },
@@ -39724,10 +39727,10 @@ var render = function() {
                                     {
                                       staticClass: "w-1/3 hover:shadow",
                                       attrs: {
-                                        to:
-                                          "/foods/" +
-                                          item.data.food_id +
-                                          "/edit",
+                                        to: {
+                                          name: "edit",
+                                          params: { id: item.data.food_id }
+                                        },
                                         title: "Edit"
                                       }
                                     },
@@ -41270,7 +41273,10 @@ var render = function() {
                         {
                           staticClass: "btn btn-success mr-5",
                           attrs: {
-                            to: "/foods/" + _vm.data.data.food_id + "/edit"
+                            to: {
+                              name: "edit",
+                              params: { id: _vm.data.data.food_id }
+                            }
                           }
                         },
                         [_vm._v("\n                    Edit\n                ")]
@@ -58632,24 +58638,31 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: [{
     path: '/',
+    name: 'home',
     component: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/foods/create',
+    name: 'create',
     component: _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/foods/:id/edit',
+    name: 'edit',
     component: _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/foods',
+    name: 'foods',
     component: _components_views_FoodsIndex__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/my-foods',
+    name: 'user-foods',
     component: _components_views_UserFoodsIndex__WEBPACK_IMPORTED_MODULE_8__["default"]
   }, {
     path: '/foods/:id',
+    name: 'food',
     component: _components_views_FoodsShow__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/logout',
+    name: 'logout',
     component: _components_Actions_Logout__WEBPACK_IMPORTED_MODULE_6__["default"]
   }],
   mode: 'history'

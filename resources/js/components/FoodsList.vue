@@ -27,7 +27,7 @@
                         <td class="py-2 border-l hidden sm:table-cell">{{ item.data.serving }}</td>
                         <td class="py-2 border-l hidden sm:table-cell">{{ item.data.unit }}</td>
                         <td class="py-2 flex justify-between items-center border-l">
-                            <router-link :to="'/foods/' + item.data.food_id" class="w-1/3 hover:shadow" title="See">
+                            <router-link :to="{ name: 'food', params: { id: item.data.food_id }}" class="w-1/3 hover:shadow" title="See">
                                 <svg class="mx-auto" width="20px" height="30px" viewBox="0 0 100 100" version="1.1"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
@@ -44,7 +44,7 @@
                                     </g>
                                 </svg>
                             </router-link>
-                            <router-link :to="'/foods/' + item.data.food_id + '/edit'" title="Edit"
+                            <router-link :to="{ name: 'edit', params: { id: item.data.food_id }}" title="Edit"
                                          v-if="item.data.owner_id === user_id" class="w-1/3 hover:shadow">
                                 <svg class="mx-auto" width="20px" height="30px" viewBox="0 0 100 100" version="1.1"
                                      xmlns="http://www.w3.org/2000/svg">

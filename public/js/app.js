@@ -2436,6 +2436,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchBar",
@@ -2445,7 +2453,8 @@ __webpack_require__.r(__webpack_exports__);
       minLength: 2,
       data: null,
       hasData: false,
-      showResults: false
+      showResults: false,
+      loading: true
     };
   },
   watch: {
@@ -2462,6 +2471,8 @@ __webpack_require__.r(__webpack_exports__);
     search: lodash__WEBPACK_IMPORTED_MODULE_0___default.a.debounce(function () {
       var _this = this;
 
+      this.loading = true;
+
       if (!this.hasMinCharLen) {
         return;
       }
@@ -2473,6 +2484,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.hasData = _this.data.data.length !== 0;
       })["catch"](function (error) {
         alert(error.response.message);
+      })["finally"](function () {
+        _this.loading = false;
       });
     }, 300),
     clearData: function clearData() {
@@ -39566,7 +39579,7 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm.hasData && _vm.showResults && _vm.hasMinCharLen
+      _vm.hasMinCharLen && _vm.showResults
         ? _c(
             "div",
             {
@@ -39574,27 +39587,52 @@ var render = function() {
                 "w-full absolute border-3 border rounded-lg bg-gray-100 z-20"
             },
             [
-              _c(
-                "ul",
-                _vm._l(_vm.data.data, function(item, index) {
-                  return _c(
-                    "li",
-                    { key: item.data.food_id },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "block p-3 hover:bg-gray-400 rounded-lg",
-                          attrs: { to: "/foods/" + item.data.food_id }
-                        },
-                        [_vm._v(_vm._s(item.data.name))]
-                      )
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
+              _vm.loading
+                ? _c("div", [
+                    _c(
+                      "p",
+                      { staticClass: "block p-3 hover:bg-gray-400 rounded-lg" },
+                      [_vm._v("Loading...")]
+                    )
+                  ])
+                : _c("div", [
+                    !_vm.hasData
+                      ? _c("div", [
+                          _c("p", { staticClass: "p-3 rounded-lg" }, [
+                            _vm._v(
+                              "There are no records matching '" +
+                                _vm._s(_vm.searchTerm) +
+                                "'"
+                            )
+                          ])
+                        ])
+                      : _c("div", [
+                          _c(
+                            "ul",
+                            _vm._l(_vm.data.data, function(item, index) {
+                              return _c(
+                                "li",
+                                { key: item.data.food_id },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass:
+                                        "block p-3 hover:bg-gray-400 rounded-lg",
+                                      attrs: {
+                                        to: "/foods/" + item.data.food_id
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(item.data.name))]
+                                  )
+                                ],
+                                1
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                  ])
             ]
           )
         : _vm._e()

@@ -1980,6 +1980,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return path === this.$route.path;
     }
   },
+  computed: {
+    userInitials: function userInitials() {
+      return this.user.name.match(/[A-Z]/g).slice(0, 2).join('');
+    }
+  },
   created: function created() {
     var _this = this;
 
@@ -39036,7 +39041,13 @@ var render = function() {
                     staticClass:
                       "border border-2 rounded-full p-3 font-bold bg-blue-400"
                   },
-                  [_vm._v("\n                    SK\n                ")]
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.userInitials) +
+                        "\n                "
+                    )
+                  ]
                 )
               ],
               1

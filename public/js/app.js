@@ -39583,7 +39583,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "w-full absolute border-3 border rounded-lg bg-gray-100 z-20"
+                "w-full h-128 absolute border-3 border rounded-lg bg-gray-100 z-20 overflow-y-scroll"
             },
             [
               _vm.loading

@@ -5,7 +5,7 @@
         <div class="relative z-10">
             <input type="text" class="w-full rounded-full border border-1 py-2 px-5 focus:outline-none"
                    name="searchTerm" id="" placeholder="Search" v-model="searchTerm" @input="search" @focus="showResults = true">
-            <div v-if="hasMinCharLen && showResults" class="w-full absolute border-3 border rounded-lg bg-gray-100 z-20">
+            <div v-if="hasMinCharLen && showResults" class="w-full h-128 absolute border-3 border rounded-lg bg-gray-100 z-20 overflow-y-scroll">
                 <div v-if="loading"><p class="block p-3 hover:bg-gray-400 rounded-lg">Loading...</p></div>
                 <div v-else>
                     <div v-if="!hasData" >

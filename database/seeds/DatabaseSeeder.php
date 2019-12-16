@@ -1,5 +1,7 @@
 <?php
 
+use App\Food;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,6 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(User::class)->create(['name' => 'Stoyan Kalinov', 'email' => 'skalinov@gmail.com', 'password' => bcrypt('1234')]);
+        factory(User::class, 5)->create();
+        factory(Food::class, 300)->create(['user_id' => function() {
+            return User::inRandomOrder()->first();
+        }]);
     }
 }

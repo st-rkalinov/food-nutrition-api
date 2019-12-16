@@ -153,8 +153,7 @@
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
     import ResponseHandler from "../../classes/ResponseHandler";
-    import {foodResourceData} from "../../data/foodResourceData";
-    import {defValues} from "../../data/foodResourceData";
+    import {foodResourceData, defValues} from "../../data/foodResourceData";
 
     export default {
         name: "FoodsCreate",

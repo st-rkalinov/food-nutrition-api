@@ -1975,9 +1975,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     SearchBar: _SearchBar__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  data: function data() {
+    return {
+      title: ''
+    };
+  },
   methods: {
     isActive: function isActive(path) {
       return path === this.$route.path;
+    }
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.title = to.meta.title;
+      document.title = this.title + ' | FN SPA App';
+    },
+    title: function title() {
+      document.title = this.title + ' | FN SPA App';
     }
   },
   computed: {
@@ -1988,6 +2002,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
+    this.title = this.$route.meta.title;
     axios.interceptors.request.use(function (config) {
       if (config.method === 'get') {
         config.url = config.url + '?api_token=' + _this.user.api_token;
@@ -39023,7 +39038,7 @@ var render = function() {
           },
           [
             _c("p", { staticClass: "self-start lg:pt-5 pt-0" }, [
-              _vm._v("Foods")
+              _vm._v(_vm._s(_vm.title))
             ]),
             _vm._v(" "),
             _c(
@@ -58650,27 +58665,45 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   routes: [{
     path: '/',
     name: 'home',
-    component: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _components_ExampleComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+    meta: {
+      title: 'Welcome'
+    }
   }, {
     path: '/foods/create',
     name: 'create',
-    component: _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_views_FoodsCreate__WEBPACK_IMPORTED_MODULE_3__["default"],
+    meta: {
+      title: 'Add New Food'
+    }
   }, {
     path: '/foods/:id/edit',
     name: 'edit',
-    component: _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_views_FoodsEdit__WEBPACK_IMPORTED_MODULE_4__["default"],
+    meta: {
+      title: 'Edit Food'
+    }
   }, {
     path: '/foods',
     name: 'foods',
-    component: _components_views_FoodsIndex__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_views_FoodsIndex__WEBPACK_IMPORTED_MODULE_5__["default"],
+    meta: {
+      title: 'Foods'
+    }
   }, {
     path: '/my-foods',
     name: 'user-foods',
-    component: _components_views_UserFoodsIndex__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_views_UserFoodsIndex__WEBPACK_IMPORTED_MODULE_8__["default"],
+    meta: {
+      title: 'User Foods'
+    }
   }, {
     path: '/foods/:id',
     name: 'food',
-    component: _components_views_FoodsShow__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _components_views_FoodsShow__WEBPACK_IMPORTED_MODULE_7__["default"],
+    meta: {
+      title: 'Food Details'
+    }
   }, {
     path: '/logout',
     name: 'logout',

@@ -13,22 +13,22 @@ Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
-            path: '/', name: 'home', component: ExampleComponent,
+            path: '/', name: 'home', component: ExampleComponent, meta: { title: 'Welcome' }
         },
         {
-            path: '/foods/create', name: 'create', component: FoodsCreate
+            path: '/foods/create', name: 'create', component: FoodsCreate, meta: { title: 'Add New Food'}
         },
         {
-            path: '/foods/:id/edit', name: 'edit', component: FoodsEdit,
+            path: '/foods/:id/edit', name: 'edit', component: FoodsEdit, meta: { title: 'Edit Food'}
         },
         {
-            path: '/foods', name: 'foods', component: FoodsIndex,
+            path: '/foods', name: 'foods', component: FoodsIndex, meta: { title: 'Foods'}
         },
         {
-            path: '/my-foods', name: 'user-foods', component: UserFoodsIndex,
+            path: '/my-foods', name: 'user-foods', component: UserFoodsIndex, meta: { title: 'User Foods'}
         },
         {
-            path: '/foods/:id', name: 'food', component: FoodsShow,
+            path: '/foods/:id', name: 'food', component: FoodsShow, meta: { title: 'Food Details'}
         },
         {
             path: '/logout', name: 'logout', component: Logout,

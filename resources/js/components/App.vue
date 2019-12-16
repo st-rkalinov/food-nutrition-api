@@ -80,7 +80,7 @@
 
         <div class="flex flex-col flex-1">
             <div class="flex justify-between flex-col items-center p-6 border-b-2">
-                <p class="self-start lg:pt-5 pt-0">Foods</p>
+                <p class="self-start lg:pt-5 pt-0">{{ title }}</p>
 
                 <div class="flex items-center justify-around pt-8 md:w-1/2 w-full">
                     <SearchBar class="w-9/12"/>
@@ -104,9 +104,23 @@
         name: "App",
         props: ['user'],
         components: { SearchBar },
+        data() {
+            return {
+                title: '',
+            }
+        },
         methods: {
             isActive(path) {
                 return path === this.$route.path;
+            }
+        },
+        watch: {
+            $route(to, from) {
+                this.title = to.meta.title;
+                document.title = this.title + ' | FN SPA App';
+            },
+            title() {
+                document.title = this.title + ' | FN SPA App';
             }
         },
         computed: {
@@ -115,6 +129,8 @@
             }
         },
         created() {
+            this.title = this.$route.meta.title;
+
             axios.interceptors.request.use(config => {
                 if (config.method === 'get') {
                      config.url = config.url + '?api_token=' + this.user.api_token;

@@ -13,7 +13,7 @@
                     <a href="#" @click.prevent="del()" class="btn btn-danger">Delete</a>
                 </div>
             </div>
-            <div v-for="(item, key) in this.dataFieldsNames"
+            <div v-for="(item, key) in this.dataFieldsNames" :key="item.name"
                  class="flex justify-start items-center py-3 border-b border-gray-300">
                 <p class="text-xl text-blue-400 font-bold">{{ item }}: </p>
                 <span class="pl-5 text-xl">{{ castFieldData(data.data[key]) }}</span>

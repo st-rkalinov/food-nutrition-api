@@ -39564,7 +39564,10 @@ var render = function() {
                     _vm._l(_vm.data.data, function(item, key) {
                       return _c(
                         "tr",
-                        { staticClass: "text-center  hover:bg-gray-100" },
+                        {
+                          key: item.data.id,
+                          staticClass: "text-center  hover:bg-gray-100"
+                        },
                         [
                           _c(
                             "td",
@@ -40154,6 +40157,7 @@ var render = function() {
                 _vm._l(_vm.data.data, function(item, index) {
                   return _c(
                     "li",
+                    { key: item.data.food_id },
                     [
                       _c(
                         "router-link",
@@ -41205,6 +41209,7 @@ var render = function() {
               return _c(
                 "div",
                 {
+                  key: item.name,
                   staticClass:
                     "flex justify-start items-center py-3 border-b border-gray-300"
                 },

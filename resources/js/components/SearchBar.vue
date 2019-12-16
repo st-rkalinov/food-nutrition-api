@@ -7,7 +7,7 @@
                    name="searchTerm" id="" placeholder="Search" v-model="searchTerm" @input="search" @focus="showResults = true">
             <div v-if="hasData && showResults && hasMinCharLen" class="w-full absolute border-3 border rounded-lg bg-gray-100 z-20">
                 <ul>
-                    <li v-for="(item, index) in data.data">
+                    <li v-for="(item, index) in data.data" :key="item.data.food_id">
                         <router-link :to="'/foods/' + item.data.food_id" class="block p-3 hover:bg-gray-400 rounded-lg">{{ item.data.name }}</router-link>
                     </li>
                 </ul>

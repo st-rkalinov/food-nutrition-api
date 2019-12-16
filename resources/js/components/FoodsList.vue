@@ -20,7 +20,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(item, key) in data.data" class="text-center  hover:bg-gray-100">
+                    <tr v-for="(item, key) in data.data" :key="item.data.id" class="text-center  hover:bg-gray-100">
                         <td class="py-2 hidden sm:table-cell">{{ itemNumber(key) }}</td>
                         <td class="py-2 border-l">{{ item.data.name }}</td>
                         <td class="py-2 border-l">{{ item.data.calories }}</td>

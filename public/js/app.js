@@ -2344,6 +2344,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ErrorPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ErrorPage */ "./resources/js/components/ErrorPage.vue");
 /* harmony import */ var _Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination */ "./resources/js/components/Pagination.vue");
 /* harmony import */ var _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../classes/ResponseHandler */ "./resources/js/classes/ResponseHandler.js");
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_4__);
 //
 //
 //
@@ -2421,6 +2423,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -2450,12 +2460,12 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     $route: function $route(to, from) {
       if (Object.keys(to.query).length === 0) {
-        this.submit(this.defaultPage, true);
+        this.goToPage(this.defaultPage, true);
       }
     }
   },
   methods: {
-    submit: function submit(page) {
+    goToPage: function goToPage(page) {
       var _this = this;
 
       var firstRequest = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -2507,15 +2517,37 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
+    del: function del(endPoint) {
+      var _this2 = this;
+
+      sweetalert__WEBPACK_IMPORTED_MODULE_4___default()({
+        title: 'Are you sure ?',
+        text: 'Once deleted, the item can\'t be restored !',
+        buttons: [true, 'Yes'],
+        icon: 'warning',
+        dangerMode: true
+      }).then(function (clickedButton) {
+        if (!clickedButton) {
+          return;
+        }
+
+        var responseHandler = new _classes_ResponseHandler__WEBPACK_IMPORTED_MODULE_3__["default"](_this2.$router, 'delete');
+        axios["delete"](endPoint).then(function (response) {
+          responseHandler.handle(response.status);
+        })["catch"](function (error) {
+          responseHandler.handle(error.response.status);
+        });
+      });
+    },
     itemNumber: function itemNumber(key) {
       return (this.paginator.getCurrent() - 1) * this.paginator.perPage() + key + 1;
     }
   },
   mounted: function mounted() {
     if (this.$route.query.page) {
-      this.submit(this.$route.query.page, true);
+      this.goToPage(this.$route.query.page, true);
     } else {
-      this.submit(this.defaultPage, true);
+      this.goToPage(this.defaultPage, true);
     }
   }
 });
@@ -39609,8 +39641,11 @@ var render = function() {
                               _c(
                                 "router-link",
                                 {
-                                  staticClass: "w-2/5",
-                                  attrs: { to: "/foods/" + item.data.food_id }
+                                  staticClass: "w-1/3 hover:shadow",
+                                  attrs: {
+                                    to: "/foods/" + item.data.food_id,
+                                    title: "See"
+                                  }
                                 },
                                 [
                                   _c(
@@ -39619,15 +39654,13 @@ var render = function() {
                                       staticClass: "mx-auto",
                                       attrs: {
                                         width: "20px",
-                                        height: "29px",
+                                        height: "30px",
                                         viewBox: "0 0 100 100",
                                         version: "1.1",
                                         xmlns: "http://www.w3.org/2000/svg"
                                       }
                                     },
                                     [
-                                      _c("title", [_vm._v("See")]),
-                                      _vm._v(" "),
                                       _c(
                                         "g",
                                         {
@@ -39689,12 +39722,13 @@ var render = function() {
                                 ? _c(
                                     "router-link",
                                     {
-                                      staticClass: "w-2/5",
+                                      staticClass: "w-1/3 hover:shadow",
                                       attrs: {
                                         to:
                                           "/foods/" +
                                           item.data.food_id +
-                                          "/edit"
+                                          "/edit",
+                                        title: "Edit"
                                       }
                                     },
                                     [
@@ -39704,15 +39738,13 @@ var render = function() {
                                           staticClass: "mx-auto",
                                           attrs: {
                                             width: "20px",
-                                            height: "20px",
+                                            height: "30px",
                                             viewBox: "0 0 100 100",
                                             version: "1.1",
                                             xmlns: "http://www.w3.org/2000/svg"
                                           }
                                         },
                                         [
-                                          _c("title", [_vm._v("Edit")]),
-                                          _vm._v(" "),
                                           _c(
                                             "g",
                                             {
@@ -39761,6 +39793,65 @@ var render = function() {
                                       )
                                     ]
                                   )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              item.data.owner_id === _vm.user_id
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass: "w-1/3 hover:shadow",
+                                      attrs: { href: "#", title: "Delete" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.del(item.links.self)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "svg",
+                                        {
+                                          staticClass: "mx-auto",
+                                          attrs: {
+                                            width: "20px",
+                                            height: "30px",
+                                            viewBox: "1 1 511.99999 511.99999",
+                                            xmlns: "http://www.w3.org/2000/svg"
+                                          }
+                                        },
+                                        [
+                                          _c("path", {
+                                            attrs: {
+                                              d:
+                                                "m496 256c0 132.546875-107.453125 240-240 240s-240-107.453125-240-240 107.453125-240 240-240 240 107.453125 240 240zm0 0",
+                                              fill: "#bddbff"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "g",
+                                            { attrs: { fill: "#3d9ae2" } },
+                                            [
+                                              _c("path", {
+                                                attrs: {
+                                                  d:
+                                                    "m256 0c-141.382812 0-256 114.617188-256 256s114.617188 256 256 256 256-114.617188 256-256c-.167969-141.316406-114.683594-255.832031-256-256zm0 480c-123.710938 0-224-100.289062-224-224s100.289062-224 224-224 224 100.289062 224 224c-.132812 123.65625-100.34375 223.867188-224 224zm0 0"
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("path", {
+                                                attrs: {
+                                                  d:
+                                                    "m380.449219 131.550781c-6.25-6.246093-16.378907-6.246093-22.625 0l-101.824219 101.824219-101.824219-101.824219c-6.136719-6.355469-16.269531-6.53125-22.625-.390625-6.355469 6.136719-6.53125 16.265625-.394531 22.621094.128906.132812.261719.265625.394531.394531l101.824219 101.824219-101.824219 101.824219c-6.355469 6.136719-6.53125 16.269531-.390625 22.625 6.136719 6.355469 16.265625 6.53125 22.621094.394531.132812-.128906.265625-.261719.394531-.394531l101.824219-101.824219 101.824219 101.824219c6.355469 6.136719 16.484375 5.960937 22.625-.394531 5.988281-6.199219 5.988281-16.03125 0-22.230469l-101.824219-101.824219 101.824219-101.824219c6.246093-6.246093 6.246093-16.375 0-22.625zm0 0"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
                                 : _vm._e()
                             ],
                             1
@@ -39778,7 +39869,7 @@ var render = function() {
               attrs: { paginator: this.paginator },
               on: {
                 "change:page": function($event) {
-                  return _vm.submit($event)
+                  return _vm.goToPage($event)
                 }
               }
             })

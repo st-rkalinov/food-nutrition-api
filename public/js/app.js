@@ -2043,10 +2043,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ErrorPage",
   props: ['text']
@@ -39129,22 +39125,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.$router.back()
-            }
-          }
-        },
-        [_vm._v("\n            Go to previous page\n        ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "p-3 rounded-full border-2 border-blue-400 text-blue-400 hover:text-white hover:bg-blue-400 hover:font-bold",
-          on: {
-            click: function($event) {
-              $event.preventDefault()
-              return _vm.$router.push("/api/foods/")
+              return _vm.$router.push({ name: "home" })
             }
           }
         },

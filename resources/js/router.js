@@ -1,19 +1,19 @@
 import VueRouter from "vue-router";
 import Vue from 'vue';
-import ExampleComponent from "./components/ExampleComponent";
 import FoodsCreate from "./components/views/FoodsCreate";
 import FoodsEdit from "./components/views/FoodsEdit";
 import FoodsIndex from "./components/views/FoodsIndex";
 import Logout from "./components/Actions/Logout";
 import FoodsShow from "./components/views/FoodsShow";
 import UserFoodsIndex from "./components/views/UserFoodsIndex";
+import Home from "./components/views/Home";
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
         {
-            path: '/', name: 'home', component: ExampleComponent, meta: { title: 'Welcome' }
+            path: '/', name: 'home', component: Home, meta: { title: 'Welcome' }
         },
         {
             path: '/foods/create', name: 'create', component: FoodsCreate, meta: { title: 'Add New Food'}

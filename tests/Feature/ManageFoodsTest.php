@@ -49,6 +49,63 @@ class ManageFoodsTest extends TestCase
     /**
     * @test
     */
+    public function on_search_user_cannot_retrieve_non_public_foods_he_doesnt_own()
+    {
+        $mike = factory(User::class)->create();
+
+        /**
+        * @var Food $food
+        */
+        $food = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false, 'name' => 'Apple']);
+
+        $response = $this->post('/api/search', ['searchTerm' => 'Apple', 'api_token' => $this->user->api_token]);
+        $response->assertJson(['data' => []]);
+    }
+
+    /**
+    * @test
+    */
+    public function on_search_user_can_retrieve_all_his_foods()
+    {
+        $food1 = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create(['public' => true, 'name' => 'Applee']);
+        $food2 = $this->foodFactory
+            ->ownedBy($this->user)
+            ->create(['public' => false, 'name' => 'Applee']);
+
+        $response = $this->post('/api/search', ['api_token' => $this->user->api_token, 'searchTerm' => 'Appleee']);
+
+        $this->assertCount(2, Food::all());
+        $response->assertJson($this->jsonDataCollection([$food1, $food2]));
+    }
+
+    /**
+    * @test
+    */
+    public function on_search_user_can_retrieve_public_foods_he_doesnt_own()
+    {
+        $mike = factory(User::class)->create();
+
+        /**
+        * @var Food $food
+        */
+        $food1 = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => true, 'name' => 'Applee']);
+        $food2 = $this->foodFactory
+            ->ownedBy($mike)
+            ->create(['public' => false, 'name' => 'Applee']);
+
+        $response = $this->post('/api/search', ['searchTerm' => 'Appleee', 'api_token' => $this->user->api_token]);
+        $response->assertJson($this->jsonDataCollection([$food1]));
+    }
+
+    /**
+    * @test
+    */
     public function user_can_retrieve_a_public_food()
     {
         $mike = factory(User::class)->create();

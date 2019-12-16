@@ -5,12 +5,19 @@
 - **Vue 2.0**
 
 ## Installation
+<p>Make ".env" file and config it. Also check that you have the <b>sqlite3</b> extension enabled in the <b>php.ini</b> file</p><br>
+<p>Run the commands</p>
+
 - **composer install**
 - **npm install**
 - **php artisan migrate**
 - **php artisan db:seed**
+- **php artisan key:generate**
 
 ## Login Credentials
+<p>Run <b>php artisan serve</b></p>
+<p>Login</p>
+
 - **email** - skalinov@gmail.com
 - **password** - 1234
 

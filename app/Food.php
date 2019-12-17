@@ -60,11 +60,21 @@ class Food extends Model
         'public' => 'boolean'
     ];
 
+    /**
+     * Add which fields should be allowed to be 'searchable' when the user perform search request
+     *
+     * @return array
+     */
     public function toSearchableArray()
     {
         return $this->only('name', 'id');
     }
 
+    /**
+     * Return the relative path for the current model
+     *
+     * @return string
+     */
     public function path()
     {
         return '/api/foods/' . $this->id;

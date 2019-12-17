@@ -159,14 +159,13 @@
 <script>
     import Form from "../../classes/Form";
     import InputTextField from "../InputTextField";
-    import ErrorPage from "../ErrorPage";
     import ResponseHandler from "../../classes/ResponseHandler";
     import {foodResourceData} from "../../data/foodResourceData";
 
     export default {
         name: "FoodsEdit",
         components: {
-            InputTextField, ErrorPage
+            InputTextField
         },
         data() {
             return {

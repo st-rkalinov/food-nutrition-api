@@ -1,4 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/chunks/create.js": "/js/chunks/create.js",
+    "/js/chunks/create~edit~index~show~user-index.js": "/js/chunks/create~edit~index~show~user-index.js",
+    "/js/chunks/edit.js": "/js/chunks/edit.js",
+    "/js/chunks/error-page.js": "/js/chunks/error-page.js",
+    "/js/chunks/index.js": "/js/chunks/index.js",
+    "/js/chunks/index~user-index.js": "/js/chunks/index~user-index.js",
+    "/js/chunks/show.js": "/js/chunks/show.js",
+    "/js/chunks/user-index.js": "/js/chunks/user-index.js"
 }

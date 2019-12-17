@@ -84,7 +84,6 @@
 
 <script>
     import Paginator from "../classes/Paginator";
-    import ErrorPage from "./ErrorPage";
     import Pagination from "./Pagination";
     import ResponseHandler from "../classes/ResponseHandler";
     import swal from "sweetalert";
@@ -92,7 +91,10 @@
     export default {
         name: "FoodsList",
         props: ['endpoint', 'user_id'],
-        components: {ErrorPage, Pagination},
+        components: {
+            ErrorPage: () => import(/*webpackChunkName: "error-page"*/ './ErrorPage'),
+            Pagination
+        },
         data() {
             return {
                 data: null,
